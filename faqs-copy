@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Ginkgo Active</title>
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration for Ginkgo Brand Colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              emerald: {
+                50: '#f4f8f1',
+                100: '#e5f0dd',
+                200: '#cbe0bb',
+                300: '#a6c990',
+                400: '#81ad66',
+                500: '#649646',
+                600: '#5F9C32', /* Your custom primary green */
+                700: '#4A7A27', /* Darker shade for hover states */
+                800: '#385C1D', /* Darker shade for borders */
+                900: '#263E14', /* Darkest shade for contrasting text */
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-stone-50 font-sans text-stone-800">
+    <div class="min-h-screen flex flex-col">
+      
+        <!-- Navigation -->
+        <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full border-b border-stone-100 mb-8 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+          <a href="index.html" class="flex items-center">
+            <img src="Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto">
+          </a>
+          <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
+            <a href="index.html#why" class="hover:text-emerald-600 transition-colors">Why Ginkgo?</a>
+            <a href="index.html#concept" class="hover:text-emerald-600 transition-colors">How it Works</a>
+            <a href="index.html#science" class="hover:text-emerald-600 transition-colors">The Science</a>
+          </div>
+          <div class="flex gap-4">
+            <a href="https://link.ginkgo.health/i" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm">
+                Request a Demo
+            </a>
+          </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-grow max-w-4xl mx-auto px-6 py-4 lg:py-12 w-full">
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-stone-100 border border-stone-100">
+                <div class="text-center mb-12">
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-4 tracking-tight">Frequently Asked Questions</h1>
+                    <p class="text-stone-500 text-lg">Find answers to common questions about using Ginkgo Active.</p>
+                </div>
+                
+                <div class="space-y-12">
+                    <!-- SECTION 1: How to Use -->
+                    <section>
+                        <div class="flex items-center gap-3 mb-6 pb-2 border-b border-stone-100">
+                            <i data-lucide="help-circle" class="w-6 h-6 text-emerald-600"></i>
+                            <h2 class="text-2xl font-bold text-stone-900">How to Use</h2>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: How can I share my thoughts and comments?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>We’d love to hear from you! You can submit feedback to <a href="mailto:support@ginkgo.health" class="text-emerald-600 hover:underline">support@ginkgo.health</a>.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: The app is frozen or isn't functioning properly, what should I do?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>Make sure your internet is working and the app is up to date. If it’s still not working, try restarting your device. If you need more help, you can reach out to our support team at <a href="mailto:support@ginkgo.health" class="text-emerald-600 hover:underline">support@ginkgo.health</a>.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: The fonts and buttons are too small, how can I make them larger?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-4">It is recommended to use bigger screens like iPad, Mac or TV projection. iPad is the best device for Ginkgo Active, as it is big enough, portable, and easy to be placed at the best spot to your exercises.</p>
+                                    <p class="text-stone-800 font-medium mb-3">If you want to project your screen onto the TV:</p>
+                                    <div class="space-y-4 bg-white p-6 rounded-2xl border border-stone-100">
+                                        <div>
+                                            <p class="text-stone-800 font-semibold mb-2">1. AirPlay (For Apple TV or AirPlay-compatible devices):</p>
+                                            <ul class="list-disc pl-5 text-stone-600 space-y-1">
+                                                <li>Make sure your iPhone and the TV are connected to the same Wi-Fi network.</li>
+                                                <li>Open Control Center.</li>
+                                                <li>Tap Screen Mirroring and select your TV from the list.</li>
+                                                <li>The screen of your device will be displayed on the TV.</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <p class="text-stone-800 font-semibold mb-2">2. HDMI Adapter (For non-AirPlay TVs/Monitors):</p>
+                                            <ul class="list-disc pl-5 text-stone-600 space-y-1">
+                                                <li>Use a Lightning to HDMI adapter such as Apple's Lightning Digital AV Adapter.</li>
+                                                <li>Connect one end of an HDMI cable to the adapter and the other to your TV or monitor.</li>
+                                                <li>Switch your TV input to the correct HDMI source, and the screen of your device will appear.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: Can I still use Ginkgo Active while travelling?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-3">Of course! Ginkgo Active is developed with the goal of exercising anywhere, anytime. Professor Ginkgo will adjust your training session based on what's available to you during the trip, so you can always get the most effectiveness out of your exercises.</p>
+                                    <ol class="list-decimal pl-5 text-stone-600 space-y-1">
+                                        <li>In Ginkgo Active, press the "Navigation Menu" button.</li>
+                                        <li>Go to "My Gym" under the "Private Island" location.</li>
+                                        <li>Press the "Pencil" icon inside the box for "Today's Equipment".</li>
+                                        <li>Remove any equipment that you cannot currently access.</li>
+                                    </ol>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: What if my health condition changes during my exercise prescription?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-3">Simply contact Professor Ginkgo anytime by going to his office, and he will be more than happy to adjust the rest of your current exercise prescription accordingly.</p>
+                                    <ol class="list-decimal pl-5 text-stone-600 space-y-1">
+                                        <li>In Ginkgo Active, press the "Navigation Menu" button at the top left of your screen.</li>
+                                        <li>Go to "Professor Ginkgo's Office" under the "Ginkgo Center" location.</li>
+                                        <li>Press the health category that you wish to make adjustments to.</li>
+                                        <li>Enter the adjustments for your health profile.</li>
+                                        <li>Press the "Save" button.</li>
+                                    </ol>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: I just bought new exercise equipment that I want to incorporate into my exercises with Ginkgo Active.</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-3">Your virtual gym in Ginkgo Active can be upgraded as you upgrade your home gym! Professor Ginkgo will expand the list of exercises that you can access when you add new equipment.</p>
+                                    <ol class="list-decimal pl-5 text-stone-600 space-y-1">
+                                        <li>In Ginkgo Active, press the "Navigation Menu" button at the top left of your screen.</li>
+                                        <li>Go to "My Gym" under the "Private Island" location.</li>
+                                        <li>Press the "Equipments" icon on the left side of your screen.</li>
+                                        <li>Add any new equipment that you own.</li>
+                                        <li>Press the "Save" button.</li>
+                                    </ol>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: There's no sound when I use Ginkgo Active, even when I turned up the volume both in app and on my device.</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>This may happen when Silent Mode is turned on, or when the volume inside the app is muted. Try increasing the volume in the "Settings" panel in Ginkgo Active, or turning off Silent Mode on your device.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: I feel like my training sessions do not perfectly match my current fitness level.</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-6">Our bodies and how we feel can change frequently due to many factors in our daily lives. No need to worry though, as Professor Ginkgo will make the respective adjustments to your training sessions on the spot based on the information you share with him.</p>
+                                    
+                                    <div class="space-y-6">
+                                        <div class="bg-white p-5 rounded-xl border border-stone-100">
+                                            <p class="text-stone-800 font-semibold mb-2">A. When an exercise is misaligned with your fitness level:</p>
+                                            <ol class="list-decimal pl-5 text-stone-600 space-y-1 mb-3">
+                                                <li>On the "Exercising" screen, press the "Too Easy" or the "Too Hard" button based on your concern with the exercise.</li>
+                                                <li>Let Professor Ginkgo know the reason of your concern with the exercise.</li>
+                                                <li>Press the "Continue" button at the bottom right of the window.</li>
+                                            </ol>
+                                            <p class="text-stone-600 italic">Professor Gingko will swap out the exercise of concern on the spot and replace it with another exercise better aligning with how you feel.</p>
+                                        </div>
+                                        <div class="bg-white p-5 rounded-xl border border-stone-100">
+                                            <p class="text-stone-800 font-semibold mb-2">B. When the training session is misaligned with your fitness level:</p>
+                                            <p class="text-stone-600">Based on your RPE records at the end of your training sessions, Professor Ginkgo may decide adjust the intensity of the rest of your exercise prescription. The adjustment will happen when your RPE records break certain thresholds for at least two training sessions. Make sure to record your RPE as accurately as you feel, so your exercise prescription can be better fitted to your needs and goals!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 2: My Experience -->
+                    <section>
+                        <div class="flex items-center gap-3 mb-6 pb-2 border-b border-stone-100 mt-12">
+                            <i data-lucide="star" class="w-6 h-6 text-emerald-600"></i>
+                            <h2 class="text-2xl font-bold text-stone-900">My Experience</h2>
+                        </div>
+
+                        <div class="space-y-4">
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: Why do I need to provide personal information?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>We require information such as your gender, age, weight, fitness habits, and any existing injuries or medical conditions to design a personalized workout plan tailored to your needs, ensuring both safety and optimal results.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: Is my personal information secure?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>Absolutely! Your privacy is our top priority, and we strictly comply with PIPEDA regulations to protect your personal information. For more details, please visit our <a href="/privacy-policy" class="text-emerald-600 hover:underline">Privacy Policy</a>.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: Can I re-do the performance measure to improve my score?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-2">Redoing the assessment within the initial 28 days is not supported, as your results are essential for creating your personalized 28-day prescription.</p>
+                                    <p>After 28 days, you'll be able to conduct a reassessment to update your fitness levels and ensure your next prescription aligns with your progress.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: Can I use Ginkgo Active offline?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>No, because Ginkgo Active adjusts your prescription based on your feedback to the exercises in real time and so needs to stay connected via wifi at all times.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: What types of workouts are included?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>We offer a range of workouts, including balance, strength, cardio, and functional training. You can browse the exercise list every time before you start a workout session.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: Is Ginkgo Active suitable for beginners?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>Absolutely! Prof Ginkgo will generate prescriptions based on your profile and assessment results. Users of all levels, from beginner to advanced, are welcome to Ginkgo world.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: Can I use Ginkgo Active if I have an injury or a medical condition?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>We recommend consulting with your healthcare provider before starting any exercise program, especially if you have an injury or a medical condition. Please report any injuries and/or medical conditions to Prof Ginkgo during the assessment process. As the result, your prescription should include gentle exercises that may be more suitable for those with physical restrictions.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: I found a specific exercise is very helpful. Should I do that exercise few more times?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>There is no need to do the exercise more times than prescribed because you will have opportunity to practice that exercise (or something similar) again later.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 3: My Account -->
+                    <section>
+                        <div class="flex items-center gap-3 mb-6 pb-2 border-b border-stone-100 mt-12">
+                            <i data-lucide="user" class="w-6 h-6 text-emerald-600"></i>
+                            <h2 class="text-2xl font-bold text-stone-900">My Account</h2>
+                        </div>
+
+                        <div class="space-y-4">
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: I received a subscription code to the membership subscription through promotions. How do I use it?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-3">Invitation codes provides special offers to Ginkgo Active subscriptions like discounted pricing or free subscription periods.</p>
+                                    <p class="mb-3">If you are a new user, you can enter your invitation code on the payment screen by clicking the "Enter a subscription or family code" button.</p>
+                                    <p>If you are already subscribed to Ginkgo Active, you go to your account settings and press the "Change payment plan" button to enter your code.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: I received a family code to enroll in the family plan that my family member subscribed to. How do I use it?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-3">Great to hear that you're starting to exercise alongside your family members! You can enrol in the same family plan with your family code.</p>
+                                    <p class="mb-3">If you are a new user, you can enter your family code on the payment screen by clicking the "Enter a subscription or family code" button.</p>
+                                    <p>If you are already subscribed to Ginkgo Active through either an individual plan or a family plan, you will first need to cancel your subscription first in the settings of your device. Once you have cancelled your current Ginkgo Active subscription, go to your account settings in app and press the "Change payment plan" button to enter your code.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: How do I cancel my subscription?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-3">It's sad to see you leave the Ginkgo World :( Remember, your private island and Professor Ginkgo will always be waiting for your return so we can serve you again.</p>
+                                    <p class="text-stone-800 font-medium mb-2">To cancel your subscription:</p>
+                                    <ol class="list-decimal pl-5 space-y-1">
+                                        <li>Go to "Settings" on your device.</li>
+                                        <li>Select "Apple ID" then "Media & Purchases" then "Subscriptions".</li>
+                                        <li>Select Ginkgo Active.</li>
+                                        <li>Press the "Cancel Subscription" button.</li>
+                                    </ol>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: Can my family members share the same iPad with me to use Ginkgo Active?</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p>Of course! You can log out from your account in the app to allow other members to sign in. Their data will be automatically loaded.</p>
+                                </div>
+                            </details>
+
+                            <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
+                                    <span class="text-lg pr-4">Q: I subscribed to a family plan and want to invite my family members to Ginkgo Active.</span>
+                                    <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
+                                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                    </span>
+                                </summary>
+                                <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
+                                    <p class="mb-3">You will be able to invite two family members onto your family plan:</p>
+                                    <ol class="list-decimal pl-5 space-y-1 mb-4">
+                                        <li>In Ginkgo Active, press the "Navigation Menu" button.</li>
+                                        <li>Press the "Settings” button at the bottom of the Navigation Menu.</li>
+                                        <li>Press the "Account" tab.</li>
+                                        <li>Under the "Family Member" box, press the "Add Member" button.</li>
+                                        <li>Select your relationship with this family member.</li>
+                                        <li>A family code will be generated, share this code with your family member.</li>
+                                        <li>The member will be added to your family plan once they enter the family code by pressing the "Enter a subscription or family code" button.</li>
+                                    </ol>
+                                    <p class="italic text-sm">For more information, please see FAQ: I received a family code to enrol in the family plan.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Contact Us Section -->
+                <div class="mt-16 pt-10 border-t border-stone-200 text-center bg-stone-50 rounded-2xl p-8">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="mail" class="w-6 h-6 text-emerald-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-stone-900 mb-3">Contact Us</h2>
+                    <p class="text-stone-600 max-w-lg mx-auto">
+                        Didn’t see your question or didn’t find the answers? Send us an email at 
+                        <a href="mailto:support@ginkgo.health" class="text-emerald-600 font-semibold hover:underline">support@ginkgo.health</a> 
+                        and our team will get back to you as soon as possible!
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-stone-950 py-8 text-center text-stone-500 text-sm mt-12">
+          <p>© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</p>
+          <div class="mt-4 flex justify-center gap-4 flex-wrap px-6">
+            <a href="/terms-and-conditions" class="hover:text-stone-300 transition-colors">Terms & Conditions</a>
+            <span class="text-stone-700">|</span>
+            <a href="/privacy-policy" class="hover:text-stone-300 transition-colors">Privacy Policy</a>
+            <span class="text-stone-700">|</span>
+            <a href="/faqs-copy" class="hover:text-stone-300 transition-colors">FAQ</a>
+          </div>
+        </footer>
+    </div>
+
+    <!-- Initialize the Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
