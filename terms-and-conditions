@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - Ginkgo Active</title>
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration for Ginkgo Brand Colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              emerald: {
+                50: '#f4f8f1',
+                100: '#e5f0dd',
+                200: '#cbe0bb',
+                300: '#a6c990',
+                400: '#81ad66',
+                500: '#649646',
+                600: '#5F9C32', /* Your custom primary green */
+                700: '#4A7A27', /* Darker shade for hover states */
+                800: '#385C1D', /* Darker shade for borders */
+                900: '#263E14', /* Darkest shade for contrasting text */
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-stone-50 font-sans text-stone-800">
+    <div class="min-h-screen flex flex-col">
+      
+        <!-- Navigation -->
+        <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full border-b border-stone-100 mb-8 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+          <a href="/" class="flex items-center">
+            <img src="Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto">
+          </a>
+          <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
+            <a href="/#why" class="hover:text-emerald-600 transition-colors">Why Ginkgo?</a>
+            <a href="/#concept" class="hover:text-emerald-600 transition-colors">How it Works</a>
+            <a href="/#science" class="hover:text-emerald-600 transition-colors">The Science</a>
+          </div>
+          <div class="flex gap-4">
+            <a href="https://link.ginkgo.health/i" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm">
+                Request a Demo
+            </a>
+          </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-grow max-w-4xl mx-auto px-6 py-4 lg:py-12 w-full">
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-stone-100 border border-stone-100">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-6 tracking-tight">Terms and Conditions</h1>
+                <p class="text-stone-500 mb-8 text-sm font-medium">Last Updated: March 2026</p>
+                
+                <div class="space-y-8 text-stone-600 leading-relaxed">
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">1. Introduction</h2>
+                        <p class="mb-4">Ginkgo Health Inc. (“Ginkgo Health”, “Ginkgo” “we”, “us” or “our”) provides digital healthcare content, functionality and other products and services to you when you visit ginkgo.health (the “Website”) or use the Ginkgo mobile application (the “App”) (collectively, the “Service”). Please read these terms and conditions carefully before using the Service. If you are accepting these terms and conditions for another person, such as an incapacitated adult, you agree to these terms and conditions on behalf of that person, and all references to “You” refer to that person.</p>
+                        <p>By accessing or using the Service, you agree to be bound by these Terms and Conditions (this “Agreement”). Ginkgo Health has the right to accept or reject any applicant for the Service, in its sole and complete discretion.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">2. Authorized User</h2>
+                        <p class="mb-4">An Authorized User refers to a family member that you invited to hold secondary accounts within your Family Account where you are the Family Account Owner. Except for the term of Subscription Payment, any account of an Authorized User is entitled to receive the same Service as your Family Account. You can invite up to three Authorized Users into your Family Account, and all Authorized Users receive the same Service as you through their secondary accounts. As the Family Account Holder, you have the right to add or remove an Authorized User, with or without the knowledge of other Authorized Users on your Family Account.</p>
+                        <p>By accessing or using the Service through his or her secondary account, an Authorized User agrees to be bound by all the terms of this Agreement in the same manner as you.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">3. Scope of Service</h2>
+                        <p class="mb-4">The Service provides a variety of content, products, and services, which may include, as applicable, health assessments, personal exercise recommendations, training sessions, activity logging, health education, and gamified in-app incentives.</p>
+                        <p class="mb-4">The Service does not provide medical services, advice, diagnosis or treatment, and is not a substitute for any professional medical services, advice, diagnosis or treatment. You should always consult with your doctor or other qualified healthcare professional if you have any questions about a medical condition, or before taking any drug, changing your diet, or commencing or discontinuing any course of treatment. Do not ignore or delay obtaining professional medical advice because of information accessed through the Service. If you have or think you may have any serious health conditions, do not use the Service and contact your doctor right away for further medical evaluation. Call 911 or your doctor for all medical emergencies.</p>
+                        <p>As a condition to use of the Service, you agree that you will not use the Service in a manner inconsistent with (i) this Agreement, or (ii) any and all applicable laws and regulations.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">4. Your Ginkgo Account and Your Use of the Service</h2>
+                        <p class="mb-4">It is your responsibility to provide Ginkgo Health with true, accurate, and complete information related to your account, including email address and contact information, and to maintain and promptly update any changes to this information. It is your responsibility to maintain the confidentiality and security of your account credentials, and you are fully responsible for all activities that occur under your account. You agree to immediately notify Ginkgo Health of any unauthorized use of your account. Ginkgo Health cannot and will not be liable for any loss or damage arising from your failure to comply with the above requirements.</p>
+                        <p class="mb-4">The following actions are expressly prohibited in relation to your account used to obtain the Service:</p>
+                        <ul class="space-y-2 mb-4 pl-4">
+                            <li>a) Sharing, disclosing, permitting access to, or otherwise facilitating the use by any person of your account or accessing, copying, or storing any part of the Service for non-personal use;</li>
+                            <li>b) Using your account to cache the Service in such a manner as to be accessible by persons who have not properly registered with Ginkgo Health;</li>
+                            <li>c) Using your account to permit multiple persons access to the Service through a local or wide area network;</li>
+                            <li>d) Disassembling, decompiling, reverse engineering or otherwise attempting to discover the source code of, modifying or creating derivative works of the Service or any element thereof (including, but not limited to, any software that is an element of the Service);</li>
+                            <li>e) Transmitting any viruses, malware, or other malicious code;</li>
+                            <li>f) Copying or reproducing the Service or any element thereof in any form or by any means;</li>
+                            <li>g) Selling, renting, lending, leasing, distributing, transferring, licensing, sublicensing or otherwise making available any part of the Service to any third party.</li>
+                        </ul>
+                        <p class="mb-4">Your use of the Service and any content accessed through the Service must comply with all applicable laws, regulations, and ordinances, including any laws regarding the export of data or software. You must be at least 18 years old to register and use the Service. You may not interfere with or disrupt the proper operation of the Service.</p>
+                        <p>Ginkgo Health reserves the right to revoke access to the Service for any reason, including any violation of this Agreement.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">5. Intellectual Property</h2>
+                        <p class="mb-4">The Service is owned by Ginkgo Health. We grant to you, for your personal purposes only, a non-exclusive, limited and revocable right to access and use the Service during the term of this Agreement, so long as you comply with the terms of this Agreement. You agree not to use the Service for any other purpose, including commercial purposes, such as co-branding, framing, linking, or reselling any portion of the Service without prior written consent from Ginkgo.</p>
+                        <p class="mb-4">Any unauthorized use of the words or images from the Service may violate copyright laws, trademark laws, the laws of privacy and publicity, and civil and criminal statutes. The Service includes material that is derived in whole or in part from materials that are copyrighted, including the content, format and layout of the Service. The copyrights are owned by Ginkgo Health, or for licensed content, the content providers.</p>
+                        <p class="mb-4">None of the names, trademarks, service marks and logos of Ginkgo Health appearing on the Service may be used in any advertising or publicity, or otherwise to indicate Ginkgo Health’s sponsorship of or affiliation with any product or service without express written permission of Ginkgo Health. Nothing contained within the Service should be construed as granting, by implication, estoppel, waiver, or otherwise, any license or right of use to any trademark displayed on or through the Service without the written permission of Ginkgo Health or the third-party owner of the trademark, if any. The Service may contain other proprietary notices and copyright information, the terms of which must be observed and followed by you.</p>
+                        <p>You also understand and agree that any and all comments, suggestions, ideas or feedback (collectively, “Feedback”) you provide to Ginkgo Health about the Service or any Ginkgo Health products or offerings, including how to improve them, is or becomes the exclusive property of Ginkgo Health, including any associated rights to such Feedback. Ginkgo Health may freely use, copy, make, sell, reproduce or modify Feedback in any manner without consent, obligation or compensation to you.</p>
+                    </section>
+                    
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">6. The Right to Update the Terms</h2>
+                        <p>Ginkgo Health reserves the right to update and amend this Agreement in its sole discretion. Any amendments to this Agreement will be effective immediately upon posting of the amended Terms and Conditions on the Service or the Website. You agree to review this Agreement periodically, and you will remain bound by the terms and conditions of this Agreement so long as you continue to access and use the Service.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">7. Subscription Payment</h2>
+                        <ul class="space-y-4">
+                            <li><strong class="text-stone-800">Non-refundable:</strong> Your subscription will be non-refundable once the payment has been made, and your subscription cancellation will be in effect starting on the next billing interval.</li>
+                            <li><strong class="text-stone-800">Monthly Subscription:</strong> Ginkgo Active is a subscription service, and you are required to pay Ginkgo Active’s subscription fee in effect on an interval basis depending on your subscription type for your continued access to its functionalities.</li>
+                            <li><strong class="text-stone-800">Auto-payment:</strong> Your subscription will be automatically charged at the end of your subscription interval by Ginkgo’s third-party payment processor through the payment method of your choice.</li>
+                            <li><strong class="text-stone-800">Payment Information:</strong> You are responsible for providing and updating Ginkgo with valid payment information details for timely payment of subscription fees. Ginkgo itself does not collect or store any payment information from subscribers.</li>
+                            <li><strong class="text-stone-800">Account Restriction:</strong> The access to your Ginkgo account will be revoked when Ginkgo’s third party payment processor is unable to charge the subscription fee due from your payment method.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">8. Disclaimer of Warranty, Limitation of Liability</h2>
+                        <p class="mb-4">By using the Service, you agree and represent to Ginkgo Health that you have the power and legal authority to accept and agree to these Terms and Conditions on behalf of yourself or as a legal guardian of someone else, and that you own all of the legal rights to the information you provide and grant the rights and licenses granted herein; and all information that you provide to Ginkgo Health or its employees and/or affiliates is accurate, complete, and true when provided.</p>
+                        <p class="mb-4 uppercase text-sm font-semibold tracking-wide text-stone-700">YOU ACKNOWLEDGE AND AGREE TO THAT, TO THE MAXIMUM EXTENT NOT PROHIBITED BY LOCAL LAW, THE SERVICE IS PROVIDED “AS IS” AND “AS AVAILABLE” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. GINKGO HEALTH DISCLAIM ALL EXPRESS AND IMPLIED WARRANTIES WITH REGARD TO THE INFORMATION, SERVICES AND MATERIALS CONTAINED ON THE SERVICE, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND/OR NON-INFRINGEMENT. YOUR USE OF THE SERVICE IS AT YOUR OWN RISK. ACCESS TO THE SERVICE MAY BE INTERRUPTED AND INFORMATION, SERVICES AND MATERIALS MAY NOT BE ERROR-FREE.</p>
+                        <p class="uppercase text-sm font-semibold tracking-wide text-stone-700">YOU ACKNOWLEDGE AND AGREE TO THAT, TO THE MAXIMUM EXTENT NOT PROHIBITED BY LOCAL LAW, NONE OF GINKGO HEALTH OR ANYONE ELSE INVOLVED IN CREATING, PRODUCING, OR DELIVERING THE SERVICE OR THE INFORMATION, SERVICES, AND MATERIALS CONTAINED THEREIN ASSUMES ANY LIABILITY OR RESPONSIBILITY FOR THE ACCURACY, COMPLETENESS, OR USEFULNESS OF ANY INFORMATION, SERVICES, AND MATERIALS PROVIDED ON THE SERVICE. THEY ALSO SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF YOUR USE OF, OR INABILITY TO USE, THE SERVICE FOR ANY REASON. THE LIMITATIONS SET FORTH ABOVE ARE FUNDAMENTAL ELEMENTS OF THIS AGREEMENT AND THE SERVICE WOULD NOT BE PROVIDED TO YOU ABSENT SUCH LIMITATIONS.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">9. Indemnification</h2>
+                        <p>You agree to indemnify, defend, and hold harmless of Ginkgo Health and its suppliers and their respective affiliates, employees, officers, directors, agents, and representatives of each from any third-party liability, loss, claim, suit, damage, and expense (including reasonable attorneys' fees and expenses), arising out of or relating to or in any way connected with (i) your access to or use of the Service, including any and all features, functionality, tools, content and promotions available on and through the Service, (ii) any interactions with any other person as a result of your use of the Service, (iii) your breach of the Terms or the documents incorporated therein, including any violation of national, federal, state or local or other applicable laws, rules or regulations or any infringement or misappropriation of the rights of any third party, and (iv) your gross negligence or willful misconduct.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">10. Governing Law</h2>
+                        <p>The Terms and Conditions shall be governed by and interpreted in accordance with the laws of the province of British Columbia, Canada, without regard to conflict of law principles.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">11. Miscellaneous</h2>
+                        <p>If you have not signed a separate written agreement with Ginkgo Health related to the Service, this Agreement, along with the Privacy Policy posted on the Website, is the entire agreement between you and Ginkgo Health related to the Service, replacing any prior agreements. If there is any conflict between this Agreement and a signed written agreement between you and Ginkgo Health related to the Service, this Agreement will control. If any provision of this Agreement is determined to be invalid, illegal, or unenforceable, the remaining provisions of the Agreement remain in full force, provided that the essential terms and conditions of this Agreement remain valid, binding and enforceable and the economic and legal substance of the transactions contemplated by the Agreement are materially preserved. You may not assign, transfer, or delegate any of your rights or obligations under these Terms and Conditions, without Ginkgo’s prior written consent. Ginkgo Health may assign, transfer, or delegate Our rights and obligations under these Terms and Conditions, in whole or in part, at Our sole discretion.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">12. Contact Information</h2>
+                        <p class="mb-4">Ginkgo Health is headquartered in Vancouver, British Columbia in Canada. You can contact our office at:</p>
+                        <p class="mb-2"><strong class="text-stone-800">Address:</strong> Unit 501 - 1111 West Hastings Street, Vancouver BC V6E 2J3</p>
+                        <p class="mb-4"><strong class="text-stone-800">Email:</strong> <a href="mailto:hello@ginkgo.health" class="text-emerald-600 hover:underline">hello@ginkgo.health</a></p>
+                        <p>We make an effort to respond to all emails within 5 business days, though We cannot guarantee to respond to every email.</p>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-stone-950 py-8 text-center text-stone-500 text-sm mt-12">
+          <p>© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</p>
+          <div class="mt-4 flex justify-center gap-4 flex-wrap px-6">
+            <a href="/terms-and-conditions" class="hover:text-stone-300 transition-colors">Terms & Conditions</a>
+            <span class="text-stone-700">|</span>
+            <a href="/privacy-policy" class="hover:text-stone-300 transition-colors">Privacy Policy</a>
+            <span class="text-stone-700">|</span>
+            <a href="/faqs-copy" class="hover:text-stone-300 transition-colors">FAQ</a>
+          </div>
+        </footer>
+    </div>
+
+    <!-- Initialize the Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
