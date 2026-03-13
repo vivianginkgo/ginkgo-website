@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Ginkgo Active</title>
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration for Ginkgo Brand Colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              emerald: {
+                50: '#f4f8f1',
+                100: '#e5f0dd',
+                200: '#cbe0bb',
+                300: '#a6c990',
+                400: '#81ad66',
+                500: '#649646',
+                600: '#5F9C32', /* Your custom primary green */
+                700: '#4A7A27', /* Darker shade for hover states */
+                800: '#385C1D', /* Darker shade for borders */
+                900: '#263E14', /* Darkest shade for contrasting text */
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-stone-50 font-sans text-stone-800">
+    <div class="min-h-screen flex flex-col">
+      
+        <!-- Navigation -->
+        <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full border-b border-stone-100 mb-8 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+          <a href="index.html" class="flex items-center">
+            <img src="Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto">
+          </a>
+          <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
+            <a href="index.html#why" class="hover:text-emerald-600 transition-colors">Why Ginkgo?</a>
+            <a href="index.html#concept" class="hover:text-emerald-600 transition-colors">How it Works</a>
+            <a href="index.html#science" class="hover:text-emerald-600 transition-colors">The Science</a>
+          </div>
+          <div class="flex gap-4">
+            <a href="https://link.ginkgo.health/i" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm">
+                Request a Demo
+            </a>
+          </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-grow max-w-4xl mx-auto px-6 py-4 lg:py-12 w-full">
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-stone-100 border border-stone-100">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-6 tracking-tight">Privacy Policy</h1>
+                <p class="text-stone-500 mb-8 text-sm font-medium">Last Updated: March 2026</p>
+                
+                <div class="space-y-8 text-stone-600 leading-relaxed">
+                    <section>
+                        <p class="mb-4">Ginkgo Health Inc. (“Ginkgo Health”, “Ginkgo” “we”, “us” or “our”) provides digital healthcare content, functionality and other products and services to you when you visit <a href="http://www.ginkgo.health" class="text-emerald-600 hover:underline">www.ginkgo.health</a> (the “Website”) or use the Ginkgo mobile application (the “App”) (collectively, the “Service”).</p>
+                        <p>Ginkgo is committed to protecting and respecting your privacy through our compliance with PIPEDA. This Privacy Policy describes how we collect, use, protect and share information about you, as an individual, that we obtain when you access and use the Service.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-4">How do we collect information?</h2>
+                        
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">Information You Provide to Us</h3>
+                        <p class="mb-6">We collect and store information that you provide directly to us for the purpose of improving the Service that we provide to you, including when you register for the App, create a profile, submit information and updates about your health condition, respond to a survey, contact us with questions or comments, or provide other feedback.</p>
+                        
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">Technical Information from Your Use of the Service</h3>
+                        <p class="mb-3">We also collect and store certain technical information when you access, browse and use the Service. This technical information helps us operate the Service and provide access to you, and includes standard information about visits and system capabilities, such as:</p>
+                        <ul class="list-disc pl-5 space-y-2 mb-4 text-stone-700">
+                            <li>information about the device(s) you use to access the Service, including MAC address, IP address, browser type and version, location, time zone setting, browser plug-in types and versions, operating system and platform, device type, and device identifiers;</li>
+                            <li>information about your visits to the Service, including the full URL clickstream to, through, and from the Services (including date and time);</li>
+                            <li>information we need and use to facilitate your use of the Service (including to provide access to third-party websites and services), such as URL requests, destination IP addresses, or device configuration details;</li>
+                            <li>pages you view, content you select to view, length of time viewing content; and</li>
+                            <li>page response times, download errors, length of visits to certain pages, page interaction information (such as scrolling, clicks, and mouse-overs), your engagement with certain variable/dynamic elements of a page and methods used to browse away from the page.</li>
+                        </ul>
+                        <p class="mb-6">Information collected may include personal information, including your email address and health conditions.</p>
+
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">Cookies and Beacons</h3>
+                        <p>We may use cookies, beacons and similar technologies, now or in the future, to support the functionality of the Service and to identify you when you visit or access the Service. This provides a better experience when you visit our App or Website and allows us to improve the Service. Ginkgo or third parties may use cookies and similar technologies to identify you across different websites or apps and to better market Ginkgo or third-party products or services to you, in compliance with applicable law.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-4">How do we use the collected information?</h2>
+                        <p class="mb-3">We may use the information we collect to:</p>
+                        <ul class="list-disc pl-5 space-y-2 text-stone-700">
+                            <li>allow us to operate the Service, including payment processing, administration, internal operations, troubleshooting, data analysis, testing, research, statistical and survey purposes;</li>
+                            <li>manage your access to the Service;</li>
+                            <li>send you information that enables you to use the Service or notify you of changes to the Services;</li>
+                            <li>contact you directly about activity on your account;</li>
+                            <li>create reports for our affiliates, licensors, service providers and users or prospective users that may include aggregate information about the use of various aspects of the Service;</li>
+                            <li>comply with laws and regulations;</li>
+                            <li>carry out our obligations and enforce our rights arising from any contracts entered into between you and us, including billing and collection;</li>
+                            <li>protect the integrity and maintain the security of the Service;</li>
+                            <li>conduct marketing and promotion with aggregate user information in an anonymous manner; and</li>
+                            <li>for any other purpose for which you may provide consent.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-4">How may the information be shared?</h2>
+                        <p class="mb-4">We will not sell your information or share your information with any third parties without your expressed consent. We may share information with our licensors, service providers and agents to the extent reasonably necessary to operate and provide the Service to you.</p>
+                        
+                        <p class="mb-3">We may share any information with:</p>
+                        <ul class="list-disc pl-5 space-y-2 mb-6 text-stone-700">
+                            <li>our subsidiaries and affiliates;</li>
+                            <li>our service providers and subcontractors to the extent reasonably necessary to enable us to operate and provide the Service to you;</li>
+                            <li>a buyer or other successor in the event of a merger, divestiture, restructuring, reorganization, dissolution or other sale or transfer of some or all of our assets, whether as a going concern or as part of bankruptcy, liquidation or similar proceeding, in which information held by us about our users is among the assets transferred;</li>
+                            <li>you, upon your written request; or</li>
+                            <li>other third parties with your express consent.</li>
+                        </ul>
+
+                        <p class="mb-3">We may also disclose your information:</p>
+                        <ul class="list-disc pl-5 space-y-2 mb-4 text-stone-700">
+                            <li>to comply with any court order, law or legal process, including to respond to any government or regulatory request;</li>
+                            <li>to investigate potential unauthorized access or misuse of the Service or otherwise enforce our Terms and Conditions or other agreements;</li>
+                            <li>to protect our assets or rights, including for billing and collection purposes;</li>
+                            <li>if we believe disclosure is necessary or appropriate to protect the rights, property, or safety of Ginkgo, our users or others; or</li>
+                            <li>for any other purpose disclosed by us when you provide the information.</li>
+                        </ul>
+                        <p>In the event that we receive a request from a governmental entity to provide it with your information, we will make reasonable attempts to notify you of such request, to the extent reasonably possible and legally permissible.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">How is the information protected?</h2>
+                        <p>The security of your information is important to Ginkgo, and we have established reasonable administrative, technical, and physical safeguards designed to protect your information against loss, alteration, unauthorized access, theft, misuse or disclosure. Unfortunately, no system can guarantee complete security of your information. As a result, Ginkgo cannot ensure or warrant your information is completely secure from unauthorized third parties. Thus, your use of the Services and communication with us about them is at your own risk. As a result, you are responsible for protecting your account and for the security of information that you transmit to us over the internet.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">Control over your information</h2>
+                        <p class="mb-4">You may access your personal information in your account settings. You may also request a copy of personal information collected through use of the Service, and may correct it where it is inaccurate or incomplete.</p>
+                        <p class="mb-4">We may retain your personal information as long as you continue to use the Service, have an account with us, or for as long as is necessary to fulfill the purposes outlined in this Policy. We will delete your personal information on your request. We may, however, retain personal information for an additional period as is permitted or required under applicable laws, for legal, tax, or regulatory reasons, or for legitimate and lawful business purposes.</p>
+                        <p>If you have a privacy concern, complaint, or question, please contact our privacy officer at <a href="mailto:hello@ginkgo.health" class="text-emerald-600 hover:underline">hello@ginkgo.health</a>.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">Changes to Privacy Policy</h2>
+                        <p>We may change this Privacy Policy from time to time to align with changes to our business practices and/or changes to our legal requirements. We will post the updated Privacy Policy on this page: <a href="http://ginkgo.health" class="text-emerald-600 hover:underline">ginkgo.health</a>, and will indicate that the updates have been made by changing the effective date first written above. We urge you to check back periodically to check whether there have been updates to our Privacy Policy.</p>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-stone-950 py-8 text-center text-stone-500 text-sm mt-12">
+          <p>© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</p>
+          <div class="mt-4 flex justify-center gap-4 flex-wrap px-6">
+            <a href="/terms-and-conditions" class="hover:text-stone-300 transition-colors">Terms & Conditions</a>
+            <span class="text-stone-700">|</span>
+            <a href="/privacy-policy" class="hover:text-stone-300 transition-colors">Privacy Policy</a>
+            <span class="text-stone-700">|</span>
+            <a href="/faqs-copy" class="hover:text-stone-300 transition-colors">FAQ</a>
+          </div>
+        </footer>
+    </div>
+
+    <!-- Initialize the Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
