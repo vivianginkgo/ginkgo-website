@@ -31,124 +31,286 @@
       }
     </script>
 
+    <!-- Language Toggle Styles -->
+    <style>
+        body.lang-zh .en { display: none !important; }
+        body.lang-en .zh { display: none !important; }
+        body:not(.lang-zh):not(.lang-en) .zh { display: none !important; } /* Fallback */
+    </style>
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-stone-50 font-sans text-stone-800">
+<body class="bg-stone-50 font-sans text-stone-800 lang-en relative">
+
+    <!-- Top Right Floating Language Button -->
+    <div class="absolute top-6 right-6 lg:top-10 lg:right-10 z-50">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 bg-white border border-stone-200 px-4 py-2 rounded-full text-stone-600 hover:text-emerald-600 hover:border-emerald-200 shadow-sm transition-all text-sm font-bold" title="Change Language">
+            <i data-lucide="globe" class="w-4 h-4"></i>
+            <span class="en">中文</span>
+            <span class="zh">EN</span>
+        </button>
+    </div>
+
     <div class="min-h-screen flex flex-col">
-      
-        <!-- Navigation -->
-        <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full border-b border-stone-100 mb-8 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
-          <a href="/" class="flex items-center">
-            <img src="Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto">
-          </a>
-          <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
-            <a href="/#why" class="hover:text-emerald-600 transition-colors">Why Ginkgo?</a>
-            <a href="/#concept" class="hover:text-emerald-600 transition-colors">How it Works</a>
-            <a href="/#science" class="hover:text-emerald-600 transition-colors">The Science</a>
-          </div>
-          <div class="flex gap-4">
-            <a href="https://forms.gle/udpqMUY27ww23kPB9" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm">
-                Request a Demo
-            </a>
-          </div>
-        </nav>
 
         <!-- Main Content -->
-        <main class="flex-grow max-w-4xl mx-auto px-6 py-4 lg:py-12 w-full">
+        <main class="flex-grow max-w-4xl mx-auto px-6 pt-20 pb-12 w-full">
             <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-stone-100 border border-stone-100">
-                <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-6 tracking-tight">Terms and Conditions</h1>
-                <p class="text-stone-500 mb-8 text-sm font-medium">Last Updated: March 2026</p>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-6 tracking-tight">
+                    <span class="en">Terms and Conditions</span>
+                    <span class="zh">条款与条件</span>
+                </h1>
+                <p class="text-stone-500 mb-8 text-sm font-medium">
+                    <span class="en">Last Updated: March 2026</span>
+                    <span class="zh">最后更新：2026年3月</span>
+                </p>
                 
                 <div class="space-y-8 text-stone-600 leading-relaxed">
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">1. Introduction</h2>
-                        <p class="mb-4">Ginkgo Health Inc. (“Ginkgo Health”, “Ginkgo” “we”, “us” or “our”) provides digital healthcare content, functionality and other products and services to you when you visit ginkgo.health (the “Website”) or use the Ginkgo mobile application (the “App”) (collectively, the “Service”). Please read these terms and conditions carefully before using the Service. If you are accepting these terms and conditions for another person, such as an incapacitated adult, you agree to these terms and conditions on behalf of that person, and all references to “You” refer to that person.</p>
-                        <p>By accessing or using the Service, you agree to be bound by these Terms and Conditions (this “Agreement”). Ginkgo Health has the right to accept or reject any applicant for the Service, in its sole and complete discretion.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">1. Introduction</span>
+                            <span class="zh">1. 简介</span>
+                        </h2>
+                        <p class="mb-4">
+                            <span class="en">Ginkgo Health Inc. (“Ginkgo Health”, “Ginkgo” “we”, “us” or “our”) provides digital healthcare content, functionality and other products and services to you when you visit ginkgo.health (the “Website”) or use the Ginkgo mobile application (the “App”) (collectively, the “Service”). Please read these terms and conditions carefully before using the Service. If you are accepting these terms and conditions for another person, such as an incapacitated adult, you agree to these terms and conditions on behalf of that person, and all references to “You” refer to that person.</span>
+                            <span class="zh">Ginkgo Health Inc.（以下简称“Ginkgo Health”、“Ginkgo”、“我们”或“我们的”）在您访问 ginkgo.health（“网站”）或使用 Ginkgo 移动应用程序（“应用”）（统称为“服务”）时，为您提供数字医疗保健内容、功能以及其他产品和服务。请在使用服务前仔细阅读这些条款与条件。如果您代表其他人（如无行为能力的成年人）接受这些条款与条件，您即代表该人同意这些条款与条件，且所有对“您”的引用均指代该人。</span>
+                        </p>
+                        <p>
+                            <span class="en">By accessing or using the Service, you agree to be bound by these Terms and Conditions (this “Agreement”). Ginkgo Health has the right to accept or reject any applicant for the Service, in its sole and complete discretion.</span>
+                            <span class="zh">通过访问或使用服务，您即同意受本条款与条件（本“协议”）的约束。Ginkgo Health 有权自行完全决定接受或拒绝任何服务的申请人。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">2. Authorized User</h2>
-                        <p class="mb-4">An Authorized User refers to a family member that you invited to hold secondary accounts within your Family Account where you are the Family Account Owner. Except for the term of Subscription Payment, any account of an Authorized User is entitled to receive the same Service as your Family Account. You can invite up to three Authorized Users into your Family Account, and all Authorized Users receive the same Service as you through their secondary accounts. As the Family Account Holder, you have the right to add or remove an Authorized User, with or without the knowledge of other Authorized Users on your Family Account.</p>
-                        <p>By accessing or using the Service through his or her secondary account, an Authorized User agrees to be bound by all the terms of this Agreement in the same manner as you.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">2. Authorized User</span>
+                            <span class="zh">2. 授权用户</span>
+                        </h2>
+                        <p class="mb-4">
+                            <span class="en">An Authorized User refers to a family member that you invited to hold secondary accounts within your Family Account where you are the Family Account Owner. Except for the term of Subscription Payment, any account of an Authorized User is entitled to receive the same Service as your Family Account. You can invite up to three Authorized Users into your Family Account, and all Authorized Users receive the same Service as you through their secondary accounts. As the Family Account Holder, you have the right to add or remove an Authorized User, with or without the knowledge of other Authorized Users on your Family Account.</span>
+                            <span class="zh">授权用户是指您邀请在您的家庭账户中持有附属账户的家庭成员，您是该家庭账户的所有者。除订阅付款的条款外，授权用户的任何账户均有权获得与您的家庭账户相同的服务。您最多可以邀请三名授权用户加入您的家庭账户，所有授权用户通过其附属账户获得与您相同的服务。作为家庭账户所有者，您有权添加或移除授权用户，无论您的家庭账户上的其他授权用户是否知情。</span>
+                        </p>
+                        <p>
+                            <span class="en">By accessing or using the Service through his or her secondary account, an Authorized User agrees to be bound by all the terms of this Agreement in the same manner as you.</span>
+                            <span class="zh">授权用户通过其附属账户访问或使用服务，即表示同意以与您相同的方式受本协议所有条款的约束。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">3. Scope of Service</h2>
-                        <p class="mb-4">The Service provides a variety of content, products, and services, which may include, as applicable, health assessments, personal exercise recommendations, training sessions, activity logging, health education, and gamified in-app incentives.</p>
-                        <p class="mb-4">The Service does not provide medical services, advice, diagnosis or treatment, and is not a substitute for any professional medical services, advice, diagnosis or treatment. You should always consult with your doctor or other qualified healthcare professional if you have any questions about a medical condition, or before taking any drug, changing your diet, or commencing or discontinuing any course of treatment. Do not ignore or delay obtaining professional medical advice because of information accessed through the Service. If you have or think you may have any serious health conditions, do not use the Service and contact your doctor right away for further medical evaluation. Call 911 or your doctor for all medical emergencies.</p>
-                        <p>As a condition to use of the Service, you agree that you will not use the Service in a manner inconsistent with (i) this Agreement, or (ii) any and all applicable laws and regulations.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">3. Scope of Service</span>
+                            <span class="zh">3. 服务范围</span>
+                        </h2>
+                        <p class="mb-4">
+                            <span class="en">The Service provides a variety of content, products, and services, which may include, as applicable, health assessments, personal exercise recommendations, training sessions, activity logging, health education, and gamified in-app incentives.</span>
+                            <span class="zh">服务提供各种内容、产品和服务，可能包括（如适用）健康评估、个人运动建议、训练课程、活动记录、健康教育以及应用程序内的游戏化激励。</span>
+                        </p>
+                        <p class="mb-4">
+                            <span class="en">The Service does not provide medical services, advice, diagnosis or treatment, and is not a substitute for any professional medical services, advice, diagnosis or treatment. You should always consult with your doctor or other qualified healthcare professional if you have any questions about a medical condition, or before taking any drug, changing your diet, or commencing or discontinuing any course of treatment. Do not ignore or delay obtaining professional medical advice because of information accessed through the Service. If you have or think you may have any serious health conditions, do not use the Service and contact your doctor right away for further medical evaluation. Call 911 or your doctor for all medical emergencies.</span>
+                            <span class="zh">本服务不提供医疗服务、建议、诊断或治疗，也不能替代任何专业的医疗服务、建议、诊断或治疗。如果您对健康状况有任何疑问，或在服用任何药物、改变饮食或开始/停止任何疗程之前，应始终咨询您的医生或其他合格的医疗保健专业人员。请勿因为通过本服务获取的信息而忽视或延迟获取专业的医疗建议。如果您患有或认为自己可能患有任何严重的健康状况，请勿使用本服务并立即联系您的医生进行进一步的医疗评估。如遇任何医疗紧急情况，请拨打 911 或联系您的医生。</span>
+                        </p>
+                        <p>
+                            <span class="en">As a condition to use of the Service, you agree that you will not use the Service in a manner inconsistent with (i) this Agreement, or (ii) any and all applicable laws and regulations.</span>
+                            <span class="zh">作为使用服务的条件，您同意不会以不符合以下规定的方式使用服务：(i) 本协议，或 (ii) 任何及所有适用的法律和法规。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">4. Your Ginkgo Account and Your Use of the Service</h2>
-                        <p class="mb-4">It is your responsibility to provide Ginkgo Health with true, accurate, and complete information related to your account, including email address and contact information, and to maintain and promptly update any changes to this information. It is your responsibility to maintain the confidentiality and security of your account credentials, and you are fully responsible for all activities that occur under your account. You agree to immediately notify Ginkgo Health of any unauthorized use of your account. Ginkgo Health cannot and will not be liable for any loss or damage arising from your failure to comply with the above requirements.</p>
-                        <p class="mb-4">The following actions are expressly prohibited in relation to your account used to obtain the Service:</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">4. Your Ginkgo Account and Your Use of the Service</span>
+                            <span class="zh">4. 您的 Ginkgo 账户及服务使用</span>
+                        </h2>
+                        <p class="mb-4">
+                            <span class="en">It is your responsibility to provide Ginkgo Health with true, accurate, and complete information related to your account, including email address and contact information, and to maintain and promptly update any changes to this information. It is your responsibility to maintain the confidentiality and security of your account credentials, and you are fully responsible for all activities that occur under your account. You agree to immediately notify Ginkgo Health of any unauthorized use of your account. Ginkgo Health cannot and will not be liable for any loss or damage arising from your failure to comply with the above requirements.</span>
+                            <span class="zh">您有责任向 Ginkgo Health 提供真实、准确、完整的账户相关信息（包括电子邮件地址和联系信息），并维护并及时更新这些信息的任何变更。您有责任维护您账户凭证的机密性和安全性，并对您的账户下发生的所有活动负全责。您同意在发现任何未经授权使用您账户的情况时立即通知 Ginkgo Health。Ginkgo Health 对因您未能遵守上述要求而导致的任何损失或损害不承担且不会承担任何责任。</span>
+                        </p>
+                        <p class="mb-4">
+                            <span class="en">The following actions are expressly prohibited in relation to your account used to obtain the Service:</span>
+                            <span class="zh">严禁就获取服务的账户采取以下行为：</span>
+                        </p>
                         <ul class="space-y-2 mb-4 pl-4">
-                            <li>a) Sharing, disclosing, permitting access to, or otherwise facilitating the use by any person of your account or accessing, copying, or storing any part of the Service for non-personal use;</li>
-                            <li>b) Using your account to cache the Service in such a manner as to be accessible by persons who have not properly registered with Ginkgo Health;</li>
-                            <li>c) Using your account to permit multiple persons access to the Service through a local or wide area network;</li>
-                            <li>d) Disassembling, decompiling, reverse engineering or otherwise attempting to discover the source code of, modifying or creating derivative works of the Service or any element thereof (including, but not limited to, any software that is an element of the Service);</li>
-                            <li>e) Transmitting any viruses, malware, or other malicious code;</li>
-                            <li>f) Copying or reproducing the Service or any element thereof in any form or by any means;</li>
-                            <li>g) Selling, renting, lending, leasing, distributing, transferring, licensing, sublicensing or otherwise making available any part of the Service to any third party.</li>
+                            <li>
+                                <span class="en">a) Sharing, disclosing, permitting access to, or otherwise facilitating the use by any person of your account or accessing, copying, or storing any part of the Service for non-personal use;</span>
+                                <span class="zh">a) 共享、披露、允许访问或以其他方式为任何人使用您的账户提供便利，或出于非个人用途访问、复制或存储服务的任何部分；</span>
+                            </li>
+                            <li>
+                                <span class="en">b) Using your account to cache the Service in such a manner as to be accessible by persons who have not properly registered with Ginkgo Health;</span>
+                                <span class="zh">b) 使用您的账户缓存服务，以使未在 Ginkgo Health 正确注册的人员能够访问；</span>
+                            </li>
+                            <li>
+                                <span class="en">c) Using your account to permit multiple persons access to the Service through a local or wide area network;</span>
+                                <span class="zh">c) 使用您的账户允许多人通过局域网或广域网访问服务；</span>
+                            </li>
+                            <li>
+                                <span class="en">d) Disassembling, decompiling, reverse engineering or otherwise attempting to discover the source code of, modifying or creating derivative works of the Service or any element thereof (including, but not limited to, any software that is an element of the Service);</span>
+                                <span class="zh">d) 对服务或其任何元素（包括但不限于作为服务一部分的任何软件）进行反汇编、反编译、逆向工程或试图发现其源代码、修改或创建其衍生作品；</span>
+                            </li>
+                            <li>
+                                <span class="en">e) Transmitting any viruses, malware, or other malicious code;</span>
+                                <span class="zh">e) 传输任何病毒、恶意软件或其他恶意代码；</span>
+                            </li>
+                            <li>
+                                <span class="en">f) Copying or reproducing the Service or any element thereof in any form or by any means;</span>
+                                <span class="zh">f) 以任何形式或任何方式复制或再现服务或其任何元素；</span>
+                            </li>
+                            <li>
+                                <span class="en">g) Selling, renting, lending, leasing, distributing, transferring, licensing, sublicensing or otherwise making available any part of the Service to any third party.</span>
+                                <span class="zh">g) 向任何第三方出售、出租、出借、租赁、分发、转让、许可、再许可或以其他方式提供服务的任何部分。</span>
+                            </li>
                         </ul>
-                        <p class="mb-4">Your use of the Service and any content accessed through the Service must comply with all applicable laws, regulations, and ordinances, including any laws regarding the export of data or software. You must be at least 18 years old to register and use the Service. You may not interfere with or disrupt the proper operation of the Service.</p>
-                        <p>Ginkgo Health reserves the right to revoke access to the Service for any reason, including any violation of this Agreement.</p>
+                        <p class="mb-4">
+                            <span class="en">Your use of the Service and any content accessed through the Service must comply with all applicable laws, regulations, and ordinances, including any laws regarding the export of data or software. You must be at least 18 years old to register and use the Service. You may not interfere with or disrupt the proper operation of the Service.</span>
+                            <span class="zh">您对服务及通过服务访问的任何内容的使用必须遵守所有适用的法律、法规和条例，包括任何有关数据或软件出口的法律。您必须年满 18 岁才能注册和使用服务。您不得干扰或破坏服务的正常运行。</span>
+                        </p>
+                        <p>
+                            <span class="en">Ginkgo Health reserves the right to revoke access to the Service for any reason, including any violation of this Agreement.</span>
+                            <span class="zh">Ginkgo Health 保留出于任何原因（包括任何违反本协议的行为）撤销对服务的访问权限的权利。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">5. Intellectual Property</h2>
-                        <p class="mb-4">The Service is owned by Ginkgo Health. We grant to you, for your personal purposes only, a non-exclusive, limited and revocable right to access and use the Service during the term of this Agreement, so long as you comply with the terms of this Agreement. You agree not to use the Service for any other purpose, including commercial purposes, such as co-branding, framing, linking, or reselling any portion of the Service without prior written consent from Ginkgo.</p>
-                        <p class="mb-4">Any unauthorized use of the words or images from the Service may violate copyright laws, trademark laws, the laws of privacy and publicity, and civil and criminal statutes. The Service includes material that is derived in whole or in part from materials that are copyrighted, including the content, format and layout of the Service. The copyrights are owned by Ginkgo Health, or for licensed content, the content providers.</p>
-                        <p class="mb-4">None of the names, trademarks, service marks and logos of Ginkgo Health appearing on the Service may be used in any advertising or publicity, or otherwise to indicate Ginkgo Health’s sponsorship of or affiliation with any product or service without express written permission of Ginkgo Health. Nothing contained within the Service should be construed as granting, by implication, estoppel, waiver, or otherwise, any license or right of use to any trademark displayed on or through the Service without the written permission of Ginkgo Health or the third-party owner of the trademark, if any. The Service may contain other proprietary notices and copyright information, the terms of which must be observed and followed by you.</p>
-                        <p>You also understand and agree that any and all comments, suggestions, ideas or feedback (collectively, “Feedback”) you provide to Ginkgo Health about the Service or any Ginkgo Health products or offerings, including how to improve them, is or becomes the exclusive property of Ginkgo Health, including any associated rights to such Feedback. Ginkgo Health may freely use, copy, make, sell, reproduce or modify Feedback in any manner without consent, obligation or compensation to you.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">5. Intellectual Property</span>
+                            <span class="zh">5. 知识产权</span>
+                        </h2>
+                        <p class="mb-4">
+                            <span class="en">The Service is owned by Ginkgo Health. We grant to you, for your personal purposes only, a non-exclusive, limited and revocable right to access and use the Service during the term of this Agreement, so long as you comply with the terms of this Agreement. You agree not to use the Service for any other purpose, including commercial purposes, such as co-branding, framing, linking, or reselling any portion of the Service without prior written consent from Ginkgo.</span>
+                            <span class="zh">服务归 Ginkgo Health 所有。我们授予您（仅限个人用途）非排他性、有限且可撤销的权利，在您遵守本协议条款的前提下，于本协议期限内访问和使用服务。您同意不将服务用于任何其他目的，包括商业目的，例如未经 Ginkgo 事先书面同意进行品牌联合、框架嵌套、链接或转售服务的任何部分。</span>
+                        </p>
+                        <p class="mb-4">
+                            <span class="en">Any unauthorized use of the words or images from the Service may violate copyright laws, trademark laws, the laws of privacy and publicity, and civil and criminal statutes. The Service includes material that is derived in whole or in part from materials that are copyrighted, including the content, format and layout of the Service. The copyrights are owned by Ginkgo Health, or for licensed content, the content providers.</span>
+                            <span class="zh">任何未经授权使用服务中文字或图像的行为均可能违反版权法、商标法、隐私和宣传法以及民事和刑事法规。服务包含的材料全部或部分源自受版权保护的材料，包括服务的内容、格式和布局。版权归 Ginkgo Health 所有，或（对于许可内容）归内容提供商所有。</span>
+                        </p>
+                        <p class="mb-4">
+                            <span class="en">None of the names, trademarks, service marks and logos of Ginkgo Health appearing on the Service may be used in any advertising or publicity, or otherwise to indicate Ginkgo Health’s sponsorship of or affiliation with any product or service without express written permission of Ginkgo Health. Nothing contained within the Service should be construed as granting, by implication, estoppel, waiver, or otherwise, any license or right of use to any trademark displayed on or through the Service without the written permission of Ginkgo Health or the third-party owner of the trademark, if any. The Service may contain other proprietary notices and copyright information, the terms of which must be observed and followed by you.</span>
+                            <span class="zh">未经 Ginkgo Health 明确书面许可，不得在任何广告或宣传中使用 Ginkgo Health 显示在服务上的任何名称、商标、服务标记和徽标，或以其他方式表明 Ginkgo Health 对任何产品或服务的赞助或隶属关系。服务中包含的任何内容均不应被解释为（通过暗示、禁止反言、弃权或其他方式）未经 Ginkgo Health 或商标的第三方所有者（如果有）书面许可而授予任何许可或使用权。服务可能包含其他专有声明和版权信息，您必须遵守和执行相关条款。</span>
+                        </p>
+                        <p>
+                            <span class="en">You also understand and agree that any and all comments, suggestions, ideas or feedback (collectively, “Feedback”) you provide to Ginkgo Health about the Service or any Ginkgo Health products or offerings, including how to improve them, is or becomes the exclusive property of Ginkgo Health, including any associated rights to such Feedback. Ginkgo Health may freely use, copy, make, sell, reproduce or modify Feedback in any manner without consent, obligation or compensation to you.</span>
+                            <span class="zh">您还理解并同意，您就服务或任何 Ginkgo Health 产品或产品（包括如何改进它们）向 Ginkgo Health 提供的任何及所有评论、建议、想法或反馈（统称“反馈”）均属于或将成为 Ginkgo Health 的专属财产，包括与此类反馈相关的所有权利。Ginkgo Health 可以以任何方式自由使用、复制、制作、出售、再现或修改反馈，而无需征得您的同意、向您承担义务或向您提供补偿。</span>
+                        </p>
                     </section>
                     
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">6. The Right to Update the Terms</h2>
-                        <p>Ginkgo Health reserves the right to update and amend this Agreement in its sole discretion. Any amendments to this Agreement will be effective immediately upon posting of the amended Terms and Conditions on the Service or the Website. You agree to review this Agreement periodically, and you will remain bound by the terms and conditions of this Agreement so long as you continue to access and use the Service.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">6. The Right to Update the Terms</span>
+                            <span class="zh">6. 更新条款的权利</span>
+                        </h2>
+                        <p>
+                            <span class="en">Ginkgo Health reserves the right to update and amend this Agreement in its sole discretion. Any amendments to this Agreement will be effective immediately upon posting of the amended Terms and Conditions on the Service or the Website. You agree to review this Agreement periodically, and you will remain bound by the terms and conditions of this Agreement so long as you continue to access and use the Service.</span>
+                            <span class="zh">Ginkgo Health 保留自行决定更新和修改本协议的权利。对本协议的任何修改将在服务或网站上发布修改后的条款与条件后立即生效。您同意定期查看本协议，并且只要您继续访问和使用服务，您将继续受本协议条款与条件的约束。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">7. Subscription Payment</h2>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">7. Subscription Payment</span>
+                            <span class="zh">7. 订阅付款</span>
+                        </h2>
                         <ul class="space-y-4">
-                            <li><strong class="text-stone-800">Non-refundable:</strong> Your subscription will be non-refundable once the payment has been made, and your subscription cancellation will be in effect starting on the next billing interval.</li>
-                            <li><strong class="text-stone-800">Monthly Subscription:</strong> Ginkgo Active is a subscription service, and you are required to pay Ginkgo Active’s subscription fee in effect on an interval basis depending on your subscription type for your continued access to its functionalities.</li>
-                            <li><strong class="text-stone-800">Auto-payment:</strong> Your subscription will be automatically charged at the end of your subscription interval by Ginkgo’s third-party payment processor through the payment method of your choice.</li>
-                            <li><strong class="text-stone-800">Payment Information:</strong> You are responsible for providing and updating Ginkgo with valid payment information details for timely payment of subscription fees. Ginkgo itself does not collect or store any payment information from subscribers.</li>
-                            <li><strong class="text-stone-800">Account Restriction:</strong> The access to your Ginkgo account will be revoked when Ginkgo’s third party payment processor is unable to charge the subscription fee due from your payment method.</li>
+                            <li>
+                                <strong class="text-stone-800"><span class="en">Non-refundable:</span><span class="zh">不可退款：</span></strong> 
+                                <span class="en">Your subscription will be non-refundable once the payment has been made, and your subscription cancellation will be in effect starting on the next billing interval.</span>
+                                <span class="zh">您的订阅在付款后将不可退款，您的订阅取消将从下一个计费周期开始生效。</span>
+                            </li>
+                            <li>
+                                <strong class="text-stone-800"><span class="en">Monthly Subscription:</span><span class="zh">月度订阅：</span></strong> 
+                                <span class="en">Ginkgo Active is a subscription service, and you are required to pay Ginkgo Active’s subscription fee in effect on an interval basis depending on your subscription type for your continued access to its functionalities.</span>
+                                <span class="zh">Ginkgo Active 是一项订阅服务，您需要根据您的订阅类型按周期支付生效的 Ginkgo Active 订阅费，以持续访问其功能。</span>
+                            </li>
+                            <li>
+                                <strong class="text-stone-800"><span class="en">Auto-payment:</span><span class="zh">自动付款：</span></strong> 
+                                <span class="en">Your subscription will be automatically charged at the end of your subscription interval by Ginkgo’s third-party payment processor through the payment method of your choice.</span>
+                                <span class="zh">您的订阅将在订阅周期结束时，由 Ginkgo 的第三方支付处理器通过您选择的付款方式自动扣费。</span>
+                            </li>
+                            <li>
+                                <strong class="text-stone-800"><span class="en">Payment Information:</span><span class="zh">付款信息：</span></strong> 
+                                <span class="en">You are responsible for providing and updating Ginkgo with valid payment information details for timely payment of subscription fees. Ginkgo itself does not collect or store any payment information from subscribers.</span>
+                                <span class="zh">您有责任提供并向 Ginkgo 更新有效的付款信息详情，以便及时支付订阅费用。Ginkgo 本身不收集或存储订户的任何付款信息。</span>
+                            </li>
+                            <li>
+                                <strong class="text-stone-800"><span class="en">Account Restriction:</span><span class="zh">账户限制：</span></strong> 
+                                <span class="en">The access to your Ginkgo account will be revoked when Ginkgo’s third party payment processor is unable to charge the subscription fee due from your payment method.</span>
+                                <span class="zh">当 Ginkgo 的第三方支付处理器无法从您的付款方式中扣除应付的订阅费时，您的 Ginkgo 账户访问权限将被撤销。</span>
+                            </li>
                         </ul>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">8. Disclaimer of Warranty, Limitation of Liability</h2>
-                        <p class="mb-4">By using the Service, you agree and represent to Ginkgo Health that you have the power and legal authority to accept and agree to these Terms and Conditions on behalf of yourself or as a legal guardian of someone else, and that you own all of the legal rights to the information you provide and grant the rights and licenses granted herein; and all information that you provide to Ginkgo Health or its employees and/or affiliates is accurate, complete, and true when provided.</p>
-                        <p class="mb-4 uppercase text-sm font-semibold tracking-wide text-stone-700">YOU ACKNOWLEDGE AND AGREE TO THAT, TO THE MAXIMUM EXTENT NOT PROHIBITED BY LOCAL LAW, THE SERVICE IS PROVIDED “AS IS” AND “AS AVAILABLE” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. GINKGO HEALTH DISCLAIM ALL EXPRESS AND IMPLIED WARRANTIES WITH REGARD TO THE INFORMATION, SERVICES AND MATERIALS CONTAINED ON THE SERVICE, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND/OR NON-INFRINGEMENT. YOUR USE OF THE SERVICE IS AT YOUR OWN RISK. ACCESS TO THE SERVICE MAY BE INTERRUPTED AND INFORMATION, SERVICES AND MATERIALS MAY NOT BE ERROR-FREE.</p>
-                        <p class="uppercase text-sm font-semibold tracking-wide text-stone-700">YOU ACKNOWLEDGE AND AGREE TO THAT, TO THE MAXIMUM EXTENT NOT PROHIBITED BY LOCAL LAW, NONE OF GINKGO HEALTH OR ANYONE ELSE INVOLVED IN CREATING, PRODUCING, OR DELIVERING THE SERVICE OR THE INFORMATION, SERVICES, AND MATERIALS CONTAINED THEREIN ASSUMES ANY LIABILITY OR RESPONSIBILITY FOR THE ACCURACY, COMPLETENESS, OR USEFULNESS OF ANY INFORMATION, SERVICES, AND MATERIALS PROVIDED ON THE SERVICE. THEY ALSO SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF YOUR USE OF, OR INABILITY TO USE, THE SERVICE FOR ANY REASON. THE LIMITATIONS SET FORTH ABOVE ARE FUNDAMENTAL ELEMENTS OF THIS AGREEMENT AND THE SERVICE WOULD NOT BE PROVIDED TO YOU ABSENT SUCH LIMITATIONS.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">8. Disclaimer of Warranty, Limitation of Liability</span>
+                            <span class="zh">8. 免责声明与责任限制</span>
+                        </h2>
+                        <p class="mb-4">
+                            <span class="en">By using the Service, you agree and represent to Ginkgo Health that you have the power and legal authority to accept and agree to these Terms and Conditions on behalf of yourself or as a legal guardian of someone else, and that you own all of the legal rights to the information you provide and grant the rights and licenses granted herein; and all information that you provide to Ginkgo Health or its employees and/or affiliates is accurate, complete, and true when provided.</span>
+                            <span class="zh">使用本服务，即表示您向 Ginkgo Health 声明并保证，您有权并具有代表您本人或作为他人的法定监护人接受并同意本条款与条件的法定权限，且您拥有您所提供信息的所有合法权利，并授予本文中授予的权利和许可；并且您向 Ginkgo Health 或其员工和/或附属机构提供的所有信息在提供时均准确、完整且真实。</span>
+                        </p>
+                        <p class="mb-4 uppercase text-sm font-semibold tracking-wide text-stone-700">
+                            <span class="en">YOU ACKNOWLEDGE AND AGREE TO THAT, TO THE MAXIMUM EXTENT NOT PROHIBITED BY LOCAL LAW, THE SERVICE IS PROVIDED “AS IS” AND “AS AVAILABLE” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. GINKGO HEALTH DISCLAIM ALL EXPRESS AND IMPLIED WARRANTIES WITH REGARD TO THE INFORMATION, SERVICES AND MATERIALS CONTAINED ON THE SERVICE, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND/OR NON-INFRINGEMENT. YOUR USE OF THE SERVICE IS AT YOUR OWN RISK. ACCESS TO THE SERVICE MAY BE INTERRUPTED AND INFORMATION, SERVICES AND MATERIALS MAY NOT BE ERROR-FREE.</span>
+                            <span class="zh">您承认并同意，在当地法律未禁止的最大范围内，本服务按“原样”和“现有”提供，不提供任何明示或暗示的保证。GINKGO HEALTH 拒绝提供有关服务中包含的信息、服务和材料的所有明示和暗示保证，包括但不限于针对适销性、特定用途的适用性和/或不侵权的任何暗示保证。您对服务的使用由您自行承担风险。对服务的访问可能会中断，信息、服务和材料可能并非没有错误。</span>
+                        </p>
+                        <p class="uppercase text-sm font-semibold tracking-wide text-stone-700">
+                            <span class="en">YOU ACKNOWLEDGE AND AGREE TO THAT, TO THE MAXIMUM EXTENT NOT PROHIBITED BY LOCAL LAW, NONE OF GINKGO HEALTH OR ANYONE ELSE INVOLVED IN CREATING, PRODUCING, OR DELIVERING THE SERVICE OR THE INFORMATION, SERVICES, AND MATERIALS CONTAINED THEREIN ASSUMES ANY LIABILITY OR RESPONSIBILITY FOR THE ACCURACY, COMPLETENESS, OR USEFULNESS OF ANY INFORMATION, SERVICES, AND MATERIALS PROVIDED ON THE SERVICE. THEY ALSO SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF YOUR USE OF, OR INABILITY TO USE, THE SERVICE FOR ANY REASON. THE LIMITATIONS SET FORTH ABOVE ARE FUNDAMENTAL ELEMENTS OF THIS AGREEMENT AND THE SERVICE WOULD NOT BE PROVIDED TO YOU ABSENT SUCH LIMITATIONS.</span>
+                            <span class="zh">您承认并同意，在当地法律未禁止的最大范围内，GINKGO HEALTH 及其参与创建、制作或交付服务或其中包含的信息、服务和材料的任何其他方，对于服务上提供的信息、服务和材料的准确性、完整性或有用性不承担任何责任或义务。对于因您使用或无法使用服务（无论出于何种原因）而引起的任何直接、间接、附带、特殊、惩戒性、后果性或惩罚性损害，他们也不承担任何责任。上述限制是本协议的基本要素，如果没有此类限制，将不会向您提供本服务。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">9. Indemnification</h2>
-                        <p>You agree to indemnify, defend, and hold harmless of Ginkgo Health and its suppliers and their respective affiliates, employees, officers, directors, agents, and representatives of each from any third-party liability, loss, claim, suit, damage, and expense (including reasonable attorneys' fees and expenses), arising out of or relating to or in any way connected with (i) your access to or use of the Service, including any and all features, functionality, tools, content and promotions available on and through the Service, (ii) any interactions with any other person as a result of your use of the Service, (iii) your breach of the Terms or the documents incorporated therein, including any violation of national, federal, state or local or other applicable laws, rules or regulations or any infringement or misappropriation of the rights of any third party, and (iv) your gross negligence or willful misconduct.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">9. Indemnification</span>
+                            <span class="zh">9. 赔偿</span>
+                        </h2>
+                        <p>
+                            <span class="en">You agree to indemnify, defend, and hold harmless of Ginkgo Health and its suppliers and their respective affiliates, employees, officers, directors, agents, and representatives of each from any third-party liability, loss, claim, suit, damage, and expense (including reasonable attorneys' fees and expenses), arising out of or relating to or in any way connected with (i) your access to or use of the Service, including any and all features, functionality, tools, content and promotions available on and through the Service, (ii) any interactions with any other person as a result of your use of the Service, (iii) your breach of the Terms or the documents incorporated therein, including any violation of national, federal, state or local or other applicable laws, rules or regulations or any infringement or misappropriation of the rights of any third party, and (iv) your gross negligence or willful misconduct.</span>
+                            <span class="zh">您同意对 Ginkgo Health 及其供应商及其各自的附属机构、员工、高级职员、董事、代理人和代表进行赔偿、辩护，并使其免受因以下情况引起或与之相关或以任何方式相关的任何第三方责任、损失、索赔、诉讼、损害和费用（包括合理的律师费和费用）：(i) 您访问或使用服务的行为，包括在服务上及通过服务可用的任何及所有特性、功能、工具、内容和促销活动；(ii) 因您使用服务而与任何其他人的任何互动；(iii) 您违反本条款或其中纳入的文档，包括任何违反国家、联邦、州或地方或其他适用法律、规则或法规的行为，或对任何第三方权利的任何侵犯或挪用；以及 (iv) 您的重大过失或故意不当行为。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">10. Governing Law</h2>
-                        <p>The Terms and Conditions shall be governed by and interpreted in accordance with the laws of the province of British Columbia, Canada, without regard to conflict of law principles.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">10. Governing Law</span>
+                            <span class="zh">10. 适用法律</span>
+                        </h2>
+                        <p>
+                            <span class="en">The Terms and Conditions shall be governed by and interpreted in accordance with the laws of the province of British Columbia, Canada, without regard to conflict of law principles.</span>
+                            <span class="zh">本条款与条件应受加拿大不列颠哥伦比亚省法律的管辖并据其解释，但不适用其冲突法原则。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">11. Miscellaneous</h2>
-                        <p>If you have not signed a separate written agreement with Ginkgo Health related to the Service, this Agreement, along with the Privacy Policy posted on the Website, is the entire agreement between you and Ginkgo Health related to the Service, replacing any prior agreements. If there is any conflict between this Agreement and a signed written agreement between you and Ginkgo Health related to the Service, this Agreement will control. If any provision of this Agreement is determined to be invalid, illegal, or unenforceable, the remaining provisions of the Agreement remain in full force, provided that the essential terms and conditions of this Agreement remain valid, binding and enforceable and the economic and legal substance of the transactions contemplated by the Agreement are materially preserved. You may not assign, transfer, or delegate any of your rights or obligations under these Terms and Conditions, without Ginkgo’s prior written consent. Ginkgo Health may assign, transfer, or delegate Our rights and obligations under these Terms and Conditions, in whole or in part, at Our sole discretion.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">11. Miscellaneous</span>
+                            <span class="zh">11. 杂项</span>
+                        </h2>
+                        <p>
+                            <span class="en">If you have not signed a separate written agreement with Ginkgo Health related to the Service, this Agreement, along with the Privacy Policy posted on the Website, is the entire agreement between you and Ginkgo Health related to the Service, replacing any prior agreements. If there is any conflict between this Agreement and a signed written agreement between you and Ginkgo Health related to the Service, this Agreement will control. If any provision of this Agreement is determined to be invalid, illegal, or unenforceable, the remaining provisions of the Agreement remain in full force, provided that the essential terms and conditions of this Agreement remain valid, binding and enforceable and the economic and legal substance of the transactions contemplated by the Agreement are materially preserved. You may not assign, transfer, or delegate any of your rights or obligations under these Terms and Conditions, without Ginkgo’s prior written consent. Ginkgo Health may assign, transfer, or delegate Our rights and obligations under these Terms and Conditions, in whole or in part, at Our sole discretion.</span>
+                            <span class="zh">如果您尚未与 Ginkgo Health 签署与本服务相关的单独书面协议，则本协议以及网站上发布的隐私政策将构成您与 Ginkgo Health 之间关于本服务的完整协议，并取代任何先前的协议。如果本协议与您和 Ginkgo Health 之间关于服务的已签署书面协议之间存在任何冲突，则以本协议为准。如果本协议的任何条款被确定为无效、非法或不可执行，则协议的其余条款将继续完全有效，前提是本协议的基本条款与条件仍然有效、具有约束力且可执行，并且协议预期交易的经济和法律实质得到实质性保留。未经 Ginkgo 事先书面同意，您不得转让、转移或委托您在本条款与条件下的任何权利或义务。Ginkgo Health 可以完全自行决定转让、转移或委托我们根据本条款与条件享有的全部或部分权利和义务。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">12. Contact Information</h2>
-                        <p class="mb-4">Ginkgo Health is headquartered in Vancouver, British Columbia in Canada. You can contact our office at:</p>
-                        <p class="mb-2"><strong class="text-stone-800">Address:</strong> Unit 501 - 1111 West Hastings Street, Vancouver BC V6E 2J3</p>
-                        <p class="mb-4"><strong class="text-stone-800">Email:</strong> <a href="mailto:hello@ginkgo.health" class="text-emerald-600 hover:underline">hello@ginkgo.health</a></p>
-                        <p>We make an effort to respond to all emails within 5 business days, though We cannot guarantee to respond to every email.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">12. Contact Information</span>
+                            <span class="zh">12. 联系信息</span>
+                        </h2>
+                        <p class="mb-4">
+                            <span class="en">Ginkgo Health is headquartered in Vancouver, British Columbia in Canada. You can contact our office at:</span>
+                            <span class="zh">Ginkgo Health 总部位于加拿大不列颠哥伦比亚省温哥华。您可以通过以下方式联系我们的办公室：</span>
+                        </p>
+                        <p class="mb-2">
+                            <strong class="text-stone-800"><span class="en">Address:</span><span class="zh">地址：</span></strong> 
+                            <span class="en">Unit 501 - 1111 West Hastings Street, Vancouver BC V6E 2J3</span>
+                            <span class="zh">Unit 501 - 1111 West Hastings Street, Vancouver BC V6E 2J3</span>
+                        </p>
+                        <p class="mb-4">
+                            <strong class="text-stone-800"><span class="en">Email:</span><span class="zh">电子邮件：</span></strong> 
+                            <a href="mailto:hello@ginkgo.health" class="text-emerald-600 hover:underline">hello@ginkgo.health</a>
+                        </p>
+                        <p>
+                            <span class="en">We make an effort to respond to all emails within 5 business days, though We cannot guarantee to respond to every email.</span>
+                            <span class="zh">我们努力在 5 个工作日内回复所有电子邮件，但我们无法保证回复每一封电子邮件。</span>
+                        </p>
                     </section>
                 </div>
             </div>
@@ -156,20 +318,54 @@
 
         <!-- Footer -->
         <footer class="bg-stone-950 py-8 text-center text-stone-500 text-sm mt-12">
-          <p>© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</p>
+          <p>
+              <span class="en">© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</span>
+              <span class="zh">© 2026 Ginkgo Active. 保留所有权利。您的健康 GPS。</span>
+          </p>
           <div class="mt-4 flex justify-center gap-4 flex-wrap px-6">
-            <a href="/terms-and-conditions" class="hover:text-stone-300 transition-colors">Terms & Conditions</a>
+            <a href="/terms-and-conditions.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">Terms & Conditions</span>
+                <span class="zh">条款与条件</span>
+            </a>
             <span class="text-stone-700">|</span>
-            <a href="/privacy-policy" class="hover:text-stone-300 transition-colors">Privacy Policy</a>
+            <a href="/privacy-policy.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">Privacy Policy</span>
+                <span class="zh">隐私政策</span>
+            </a>
             <span class="text-stone-700">|</span>
-            <a href="/faqs-copy" class="hover:text-stone-300 transition-colors">FAQ</a>
+            <a href="/faqs-copy.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">FAQ</span>
+                <span class="zh">常见问题解答</span>
+            </a>
           </div>
         </footer>
     </div>
 
-    <!-- Initialize the Icons -->
+    <!-- Scripts -->
     <script>
+        // Initialize Icons
         lucide.createIcons();
+
+        // Language Switcher Logic
+        function toggleLanguage() {
+            const body = document.body;
+            if (body.classList.contains('lang-en')) {
+                body.classList.remove('lang-en');
+                body.classList.add('lang-zh');
+                localStorage.setItem('ginkgo-lang', 'zh');
+            } else {
+                body.classList.remove('lang-zh');
+                body.classList.add('lang-en');
+                localStorage.setItem('ginkgo-lang', 'en');
+            }
+        }
+
+        // Apply saved language preference on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('ginkgo-lang') || 'en';
+            document.body.classList.remove('lang-en', 'lang-zh');
+            document.body.classList.add('lang-' + savedLang);
+        });
     </script>
 </body>
 </html>
