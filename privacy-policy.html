@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Ginkgo Active</title>
-    <!-- Tailwind CSS for Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Custom Tailwind Configuration for Ginkgo Brand Colors -->
     <script>
       tailwind.config = {
         theme: {
@@ -31,139 +29,322 @@
       }
     </script>
 
-    <!-- Lucide Icons -->
+    <style>
+        body.lang-zh .en { display: none !important; }
+        body.lang-en .zh { display: none !important; }
+        body:not(.lang-zh):not(.lang-en) .zh { display: none !important; } /* Fallback */
+    </style>
+
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-stone-50 font-sans text-stone-800">
-    <div class="min-h-screen flex flex-col">
-      
-        <!-- Navigation -->
-        <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full border-b border-stone-100 mb-8 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
-          <a href="index.html" class="flex items-center">
-            <img src="Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto">
-          </a>
-          <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
-            <a href="index.html#why" class="hover:text-emerald-600 transition-colors">Why Ginkgo?</a>
-            <a href="index.html#concept" class="hover:text-emerald-600 transition-colors">How it Works</a>
-            <a href="index.html#science" class="hover:text-emerald-600 transition-colors">The Science</a>
-          </div>
-          <div class="flex gap-4">
-            <a href="https://forms.gle/udpqMUY27ww23kPB9" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm">
-                Request a Demo
-            </a>
-          </div>
-        </nav>
+<body class="bg-stone-50 font-sans text-stone-800 lang-en relative">
 
-        <!-- Main Content -->
-        <main class="flex-grow max-w-4xl mx-auto px-6 py-4 lg:py-12 w-full">
+    <div class="absolute top-6 right-6 lg:top-10 lg:right-10 z-50">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 bg-white border border-stone-200 px-4 py-2 rounded-full text-stone-600 hover:text-emerald-600 hover:border-emerald-200 shadow-sm transition-all text-sm font-bold" title="Change Language">
+            <i data-lucide="globe" class="w-4 h-4"></i>
+            <span class="en">中文</span>
+            <span class="zh">EN</span>
+        </button>
+    </div>
+
+    <div class="min-h-screen flex flex-col">
+        <main class="flex-grow max-w-4xl mx-auto px-6 pt-20 pb-12 w-full">
             <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-stone-100 border border-stone-100">
-                <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-6 tracking-tight">Privacy Policy</h1>
-                <p class="text-stone-500 mb-8 text-sm font-medium">Last Updated: March 2026</p>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-6 tracking-tight">
+                    <span class="en">Privacy Policy</span>
+                    <span class="zh">隐私政策</span>
+                </h1>
+                <p class="text-stone-500 mb-8 text-sm font-medium">
+                    <span class="en">Last Updated: March 2026</span>
+                    <span class="zh">最后更新：2026年3月</span>
+                </p>
                 
                 <div class="space-y-8 text-stone-600 leading-relaxed">
                     <section>
-                        <p class="mb-4">Ginkgo Health Inc. (“Ginkgo Health”, “Ginkgo” “we”, “us” or “our”) provides digital healthcare content, functionality and other products and services to you when you visit <a href="http://www.ginkgo.health" class="text-emerald-600 hover:underline">www.ginkgo.health</a> (the “Website”) or use the Ginkgo mobile application (the “App”) (collectively, the “Service”).</p>
-                        <p>Ginkgo is committed to protecting and respecting your privacy through our compliance with PIPEDA. This Privacy Policy describes how we collect, use, protect and share information about you, as an individual, that we obtain when you access and use the Service.</p>
+                        <p class="mb-4">
+                            <span class="en">Ginkgo Health Inc. (“Ginkgo Health”, “Ginkgo” “we”, “us” or “our”) provides digital healthcare content, functionality and other products and services to you when you visit <a href="http://www.ginkgo.health" class="text-emerald-600 hover:underline">www.ginkgo.health</a> (the “Website”) or use the Ginkgo mobile application (the “App”) (collectively, the “Service”).</span>
+                            <span class="zh">Ginkgo Health Inc.（以下简称“Ginkgo Health”、“Ginkgo”、“我们”或“我们的”）在您访问 <a href="http://www.ginkgo.health" class="text-emerald-600 hover:underline">www.ginkgo.health</a>（“网站”）或使用 Ginkgo 移动应用程序（“应用”）（统称为“服务”）时，为您提供数字医疗保健内容、功能以及其他产品和服务。</span>
+                        </p>
+                        <p>
+                            <span class="en">Ginkgo is committed to protecting and respecting your privacy through our compliance with PIPEDA. This Privacy Policy describes how we collect, use, protect and share information about you, as an individual, that we obtain when you access and use the Service.</span>
+                            <span class="zh">Ginkgo 致力于通过遵守《个人信息保护和电子文件法》(PIPEDA) 来保护和尊重您的隐私。本隐私政策描述了当您访问和使用服务时，我们如何收集、使用、保护和共享有关您个人的信息。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-4">How do we collect information?</h2>
+                        <h2 class="text-xl font-bold text-stone-900 mb-4">
+                            <span class="en">How do we collect information?</span>
+                            <span class="zh">我们如何收集信息？</span>
+                        </h2>
                         
-                        <h3 class="text-lg font-bold text-stone-800 mb-2">Information You Provide to Us</h3>
-                        <p class="mb-6">We collect and store information that you provide directly to us for the purpose of improving the Service that we provide to you, including when you register for the App, create a profile, submit information and updates about your health condition, respond to a survey, contact us with questions or comments, or provide other feedback.</p>
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">
+                            <span class="en">Information You Provide to Us</span>
+                            <span class="zh">您提供给我们的信息</span>
+                        </h3>
+                        <p class="mb-6">
+                            <span class="en">We collect and store information that you provide directly to us for the purpose of improving the Service that we provide to you, including when you register for the App, create a profile, submit information and updates about your health condition, respond to a survey, contact us with questions or comments, or provide other feedback.</span>
+                            <span class="zh">我们收集并存储您直接提供给我们的信息，目的是改善我们为您提供的服务。这包括当您注册应用、创建个人资料、提交有关您健康状况的信息和更新、回复调查问卷、向我们提出问题或意见，或提供其他反馈时。</span>
+                        </p>
                         
-                        <h3 class="text-lg font-bold text-stone-800 mb-2">Technical Information from Your Use of the Service</h3>
-                        <p class="mb-3">We also collect and store certain technical information when you access, browse and use the Service. This technical information helps us operate the Service and provide access to you, and includes standard information about visits and system capabilities, such as:</p>
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">
+                            <span class="en">Technical Information from Your Use of the Service</span>
+                            <span class="zh">您使用服务时产生的技术信息</span>
+                        </h3>
+                        <p class="mb-3">
+                            <span class="en">We also collect and store certain technical information when you access, browse and use the Service. This technical information helps us operate the Service and provide access to you, and includes standard information about visits and system capabilities, such as:</span>
+                            <span class="zh">当您访问、浏览和使用服务时，我们还会收集并存储某些技术信息。这些技术信息有助于我们运营服务并为您提供访问权限，包括有关访问和系统功能的标准信息，例如：</span>
+                        </p>
                         <ul class="list-disc pl-5 space-y-2 mb-4 text-stone-700">
-                            <li>information about the device(s) you use to access the Service, including MAC address, IP address, browser type and version, location, time zone setting, browser plug-in types and versions, operating system and platform, device type, and device identifiers;</li>
-                            <li>information about your visits to the Service, including the full URL clickstream to, through, and from the Services (including date and time);</li>
-                            <li>information we need and use to facilitate your use of the Service (including to provide access to third-party websites and services), such as URL requests, destination IP addresses, or device configuration details;</li>
-                            <li>pages you view, content you select to view, length of time viewing content; and</li>
-                            <li>page response times, download errors, length of visits to certain pages, page interaction information (such as scrolling, clicks, and mouse-overs), your engagement with certain variable/dynamic elements of a page and methods used to browse away from the page.</li>
+                            <li>
+                                <span class="en">information about the device(s) you use to access the Service, including MAC address, IP address, browser type and version, location, time zone setting, browser plug-in types and versions, operating system and platform, device type, and device identifiers;</span>
+                                <span class="zh">有关您用于访问服务的设备的信息，包括 MAC 地址、IP 地址、浏览器类型和版本、位置、时区设置、浏览器插件类型和版本、操作系统和平台、设备类型以及设备标识符；</span>
+                            </li>
+                            <li>
+                                <span class="en">information about your visits to the Service, including the full URL clickstream to, through, and from the Services (including date and time);</span>
+                                <span class="zh">有关您访问服务的信息，包括前往、经过和离开服务的完整 URL 点击流（包括日期和时间）；</span>
+                            </li>
+                            <li>
+                                <span class="en">information we need and use to facilitate your use of the Service (including to provide access to third-party websites and services), such as URL requests, destination IP addresses, or device configuration details;</span>
+                                <span class="zh">我们为促进您使用服务而需要和使用的信息（包括提供对第三方网站和服务的访问），例如 URL 请求、目标 IP 地址或设备配置详情；</span>
+                            </li>
+                            <li>
+                                <span class="en">pages you view, content you select to view, length of time viewing content; and</span>
+                                <span class="zh">您查看的页面、您选择查看的内容、查看内容的时长；以及</span>
+                            </li>
+                            <li>
+                                <span class="en">page response times, download errors, length of visits to certain pages, page interaction information (such as scrolling, clicks, and mouse-overs), your engagement with certain variable/dynamic elements of a page and methods used to browse away from the page.</span>
+                                <span class="zh">页面响应时间、下载错误、访问特定页面的时长、页面交互信息（如滚动、点击和鼠标悬停）、您对页面某些可变/动态元素的参与度，以及离开该页面时使用的方法。</span>
+                            </li>
                         </ul>
-                        <p class="mb-6">Information collected may include personal information, including your email address and health conditions.</p>
+                        <p class="mb-6">
+                            <span class="en">Information collected may include personal information, including your email address and health conditions.</span>
+                            <span class="zh">收集的信息可能包含个人信息，包括您的电子邮件地址和健康状况。</span>
+                        </p>
 
-                        <h3 class="text-lg font-bold text-stone-800 mb-2">Cookies and Beacons</h3>
-                        <p>We may use cookies, beacons and similar technologies, now or in the future, to support the functionality of the Service and to identify you when you visit or access the Service. This provides a better experience when you visit our App or Website and allows us to improve the Service. Ginkgo or third parties may use cookies and similar technologies to identify you across different websites or apps and to better market Ginkgo or third-party products or services to you, in compliance with applicable law.</p>
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">
+                            <span class="en">Cookies and Beacons</span>
+                            <span class="zh">Cookie 和信标</span>
+                        </h3>
+                        <p>
+                            <span class="en">We may use cookies, beacons and similar technologies, now or in the future, to support the functionality of the Service and to identify you when you visit or access the Service. This provides a better experience when you visit our App or Website and allows us to improve the Service. Ginkgo or third parties may use cookies and similar technologies to identify you across different websites or apps and to better market Ginkgo or third-party products or services to you, in compliance with applicable law.</span>
+                            <span class="zh">我们现在或将来可能会使用 cookie、信标和类似技术来支持服务的功能，并在您访问或使用服务时识别您的身份。这可以在您访问我们的应用或网站时提供更好的体验，并使我们能够改进服务。Ginkgo 或第三方可能会使用 cookie 和类似技术在不同的网站或应用上识别您，并在遵守适用法律的前提下向您更好地推广 Ginkgo 或第三方产品或服务。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-4">How do we use the collected information?</h2>
-                        <p class="mb-3">We may use the information we collect to:</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-4">
+                            <span class="en">How do we use the collected information?</span>
+                            <span class="zh">我们如何使用收集到的信息？</span>
+                        </h2>
+                        <p class="mb-3">
+                            <span class="en">We may use the information we collect to:</span>
+                            <span class="zh">我们可能会将收集到的信息用于以下目的：</span>
+                        </p>
                         <ul class="list-disc pl-5 space-y-2 text-stone-700">
-                            <li>allow us to operate the Service, including payment processing, administration, internal operations, troubleshooting, data analysis, testing, research, statistical and survey purposes;</li>
-                            <li>manage your access to the Service;</li>
-                            <li>send you information that enables you to use the Service or notify you of changes to the Services;</li>
-                            <li>contact you directly about activity on your account;</li>
-                            <li>create reports for our affiliates, licensors, service providers and users or prospective users that may include aggregate information about the use of various aspects of the Service;</li>
-                            <li>comply with laws and regulations;</li>
-                            <li>carry out our obligations and enforce our rights arising from any contracts entered into between you and us, including billing and collection;</li>
-                            <li>protect the integrity and maintain the security of the Service;</li>
-                            <li>conduct marketing and promotion with aggregate user information in an anonymous manner; and</li>
-                            <li>for any other purpose for which you may provide consent.</li>
+                            <li>
+                                <span class="en">allow us to operate the Service, including payment processing, administration, internal operations, troubleshooting, data analysis, testing, research, statistical and survey purposes;</span>
+                                <span class="zh">使我们能够运营服务，包括支付处理、管理、内部运营、故障排除、数据分析、测试、研究、统计和调查目的；</span>
+                            </li>
+                            <li>
+                                <span class="en">manage your access to the Service;</span>
+                                <span class="zh">管理您对服务的访问权限；</span>
+                            </li>
+                            <li>
+                                <span class="en">send you information that enables you to use the Service or notify you of changes to the Services;</span>
+                                <span class="zh">向您发送使您能够使用服务的信息，或通知您服务的更改；</span>
+                            </li>
+                            <li>
+                                <span class="en">contact you directly about activity on your account;</span>
+                                <span class="zh">就您账户中的活动直接与您联系；</span>
+                            </li>
+                            <li>
+                                <span class="en">create reports for our affiliates, licensors, service providers and users or prospective users that may include aggregate information about the use of various aspects of the Service;</span>
+                                <span class="zh">为我们的附属机构、许可方、服务提供商以及用户或潜在用户创建报告，其中可能包含有关服务各个方面使用情况的汇总信息；</span>
+                            </li>
+                            <li>
+                                <span class="en">comply with laws and regulations;</span>
+                                <span class="zh">遵守法律和法规要求；</span>
+                            </li>
+                            <li>
+                                <span class="en">carry out our obligations and enforce our rights arising from any contracts entered into between you and us, including billing and collection;</span>
+                                <span class="zh">履行我们之间的任何合同所规定的义务并执行我们的权利，包括计费和收款；</span>
+                            </li>
+                            <li>
+                                <span class="en">protect the integrity and maintain the security of the Service;</span>
+                                <span class="zh">保护服务的完整性并维护其安全；</span>
+                            </li>
+                            <li>
+                                <span class="en">conduct marketing and promotion with aggregate user information in an anonymous manner; and</span>
+                                <span class="zh">以匿名方式使用汇总的用户信息进行营销和推广；以及</span>
+                            </li>
+                            <li>
+                                <span class="en">for any other purpose for which you may provide consent.</span>
+                                <span class="zh">您同意的其他任何目的。</span>
+                            </li>
                         </ul>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-4">How may the information be shared?</h2>
-                        <p class="mb-4">We will not sell your information or share your information with any third parties without your expressed consent. We may share information with our licensors, service providers and agents to the extent reasonably necessary to operate and provide the Service to you.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-4">
+                            <span class="en">How may the information be shared?</span>
+                            <span class="zh">信息可能如何被共享？</span>
+                        </h2>
+                        <p class="mb-4">
+                            <span class="en">We will not sell your information or share your information with any third parties without your expressed consent. We may share information with our licensors, service providers and agents to the extent reasonably necessary to operate and provide the Service to you.</span>
+                            <span class="zh">未经您的明确同意，我们绝不会出售您的信息或与任何第三方共享。在运营并为您提供服务合理必要的范围内，我们可能会与我们的许可方、服务提供商和代理商共享信息。</span>
+                        </p>
                         
-                        <p class="mb-3">We may share any information with:</p>
+                        <p class="mb-3">
+                            <span class="en">We may share any information with:</span>
+                            <span class="zh">我们可能与以下各方共享任何信息：</span>
+                        </p>
                         <ul class="list-disc pl-5 space-y-2 mb-6 text-stone-700">
-                            <li>our subsidiaries and affiliates;</li>
-                            <li>our service providers and subcontractors to the extent reasonably necessary to enable us to operate and provide the Service to you;</li>
-                            <li>a buyer or other successor in the event of a merger, divestiture, restructuring, reorganization, dissolution or other sale or transfer of some or all of our assets, whether as a going concern or as part of bankruptcy, liquidation or similar proceeding, in which information held by us about our users is among the assets transferred;</li>
-                            <li>you, upon your written request; or</li>
-                            <li>other third parties with your express consent.</li>
+                            <li>
+                                <span class="en">our subsidiaries and affiliates;</span>
+                                <span class="zh">我们的子公司和附属机构；</span>
+                            </li>
+                            <li>
+                                <span class="en">our service providers and subcontractors to the extent reasonably necessary to enable us to operate and provide the Service to you;</span>
+                                <span class="zh">我们的服务提供商和分包商，以合理必要的程度，使我们能够运营并为您提供服务；</span>
+                            </li>
+                            <li>
+                                <span class="en">a buyer or other successor in the event of a merger, divestiture, restructuring, reorganization, dissolution or other sale or transfer of some or all of our assets, whether as a going concern or as part of bankruptcy, liquidation or similar proceeding, in which information held by us about our users is among the assets transferred;</span>
+                                <span class="zh">发生合并、剥离、重组、改组、解散或以其他方式出售或转让部分或全部资产时的买方或其他继任者（无论是作为持续经营，还是作为破产、清算或类似程序的一部分），其中我们所持有的关于用户的信息属于转移资产的一部分；</span>
+                            </li>
+                            <li>
+                                <span class="en">you, upon your written request; or</span>
+                                <span class="zh">应您的书面请求，与您共享；或</span>
+                            </li>
+                            <li>
+                                <span class="en">other third parties with your express consent.</span>
+                                <span class="zh">经过您明确同意的其他第三方。</span>
+                            </li>
                         </ul>
 
-                        <p class="mb-3">We may also disclose your information:</p>
+                        <p class="mb-3">
+                            <span class="en">We may also disclose your information:</span>
+                            <span class="zh">我们还可能在以下情况下披露您的信息：</span>
+                        </p>
                         <ul class="list-disc pl-5 space-y-2 mb-4 text-stone-700">
-                            <li>to comply with any court order, law or legal process, including to respond to any government or regulatory request;</li>
-                            <li>to investigate potential unauthorized access or misuse of the Service or otherwise enforce our Terms and Conditions or other agreements;</li>
-                            <li>to protect our assets or rights, including for billing and collection purposes;</li>
-                            <li>if we believe disclosure is necessary or appropriate to protect the rights, property, or safety of Ginkgo, our users or others; or</li>
-                            <li>for any other purpose disclosed by us when you provide the information.</li>
+                            <li>
+                                <span class="en">to comply with any court order, law or legal process, including to respond to any government or regulatory request;</span>
+                                <span class="zh">为了遵守任何法院命令、法律或法律程序，包括响应任何政府或监管请求；</span>
+                            </li>
+                            <li>
+                                <span class="en">to investigate potential unauthorized access or misuse of the Service or otherwise enforce our Terms and Conditions or other agreements;</span>
+                                <span class="zh">为了调查潜在的未经授权访问或滥用服务的情况，或以其他方式执行我们的条款与条件或其他协议；</span>
+                            </li>
+                            <li>
+                                <span class="en">to protect our assets or rights, including for billing and collection purposes;</span>
+                                <span class="zh">为了保护我们的资产或权利，包括出于计费和收款目的；</span>
+                            </li>
+                            <li>
+                                <span class="en">if we believe disclosure is necessary or appropriate to protect the rights, property, or safety of Ginkgo, our users or others; or</span>
+                                <span class="zh">如果我们认为为了保护 Ginkgo、我们的用户或其他人的权利、财产或安全，披露信息是必要或适当的；或</span>
+                            </li>
+                            <li>
+                                <span class="en">for any other purpose disclosed by us when you provide the information.</span>
+                                <span class="zh">我们在您提供信息时披露的任何其他目的。</span>
+                            </li>
                         </ul>
-                        <p>In the event that we receive a request from a governmental entity to provide it with your information, we will make reasonable attempts to notify you of such request, to the extent reasonably possible and legally permissible.</p>
+                        <p>
+                            <span class="en">In the event that we receive a request from a governmental entity to provide it with your information, we will make reasonable attempts to notify you of such request, to the extent reasonably possible and legally permissible.</span>
+                            <span class="zh">如果我们收到政府实体要求提供您的信息的请求，在合理可能和法律允许的范围内，我们将尽合理尝试通知您该请求。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">How is the information protected?</h2>
-                        <p>The security of your information is important to Ginkgo, and we have established reasonable administrative, technical, and physical safeguards designed to protect your information against loss, alteration, unauthorized access, theft, misuse or disclosure. Unfortunately, no system can guarantee complete security of your information. As a result, Ginkgo cannot ensure or warrant your information is completely secure from unauthorized third parties. Thus, your use of the Services and communication with us about them is at your own risk. As a result, you are responsible for protecting your account and for the security of information that you transmit to us over the internet.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">How is the information protected?</span>
+                            <span class="zh">信息如何受到保护？</span>
+                        </h2>
+                        <p>
+                            <span class="en">The security of your information is important to Ginkgo, and we have established reasonable administrative, technical, and physical safeguards designed to protect your information against loss, alteration, unauthorized access, theft, misuse or disclosure. Unfortunately, no system can guarantee complete security of your information. As a result, Ginkgo cannot ensure or warrant your information is completely secure from unauthorized third parties. Thus, your use of the Services and communication with us about them is at your own risk. As a result, you are responsible for protecting your account and for the security of information that you transmit to us over the internet.</span>
+                            <span class="zh">您的信息安全对 Ginkgo 至关重要。我们已经建立了合理的管理、技术和物理安全防护措施，旨在保护您的信息免遭丢失、更改、未经授权的访问、盗窃、滥用或披露。不幸的是，没有任何系统可以保证您的信息绝对安全。因此，Ginkgo 不能保证或担保您的信息完全免受未经授权的第三方侵害。因此，您使用服务以及就此与我们进行沟通的风险由您自行承担。您有责任保护您的账户并确保您通过互联网传输给我们的信息安全。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">Control over your information</h2>
-                        <p class="mb-4">You may access your personal information in your account settings. You may also request a copy of personal information collected through use of the Service, and may correct it where it is inaccurate or incomplete.</p>
-                        <p class="mb-4">We may retain your personal information as long as you continue to use the Service, have an account with us, or for as long as is necessary to fulfill the purposes outlined in this Policy. We will delete your personal information on your request. We may, however, retain personal information for an additional period as is permitted or required under applicable laws, for legal, tax, or regulatory reasons, or for legitimate and lawful business purposes.</p>
-                        <p>If you have a privacy concern, complaint, or question, please contact our privacy officer at <a href="mailto:hello@ginkgo.health" class="text-emerald-600 hover:underline">hello@ginkgo.health</a>.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">Control over your information</span>
+                            <span class="zh">控制您的信息</span>
+                        </h2>
+                        <p class="mb-4">
+                            <span class="en">You may access your personal information in your account settings. You may also request a copy of personal information collected through use of the Service, and may correct it where it is inaccurate or incomplete.</span>
+                            <span class="zh">您可以在您的账户设置中访问您的个人信息。您也可以请求获取通过使用服务收集的个人信息的副本，并在信息不准确或不完整时予以更正。</span>
+                        </p>
+                        <p class="mb-4">
+                            <span class="en">We may retain your personal information as long as you continue to use the Service, have an account with us, or for as long as is necessary to fulfill the purposes outlined in this Policy. We will delete your personal information on your request. We may, however, retain personal information for an additional period as is permitted or required under applicable laws, for legal, tax, or regulatory reasons, or for legitimate and lawful business purposes.</span>
+                            <span class="zh">只要您继续使用服务、拥有我们的账户，或在实现本政策所概述目的必需的时间内，我们可能会保留您的个人信息。我们将根据您的要求删除您的个人信息。但是，在适用法律允许或要求的情况下，出于法律、税务或监管原因，或者出于合法合规的商业目的，我们可能会在额外的时间内保留个人信息。</span>
+                        </p>
+                        <p>
+                            <span class="en">If you have a privacy concern, complaint, or question, please contact our privacy officer at <a href="mailto:hello@ginkgo.health" class="text-emerald-600 hover:underline">hello@ginkgo.health</a>.</span>
+                            <span class="zh">如果您有隐私方面的疑虑、投诉或问题，请通过 <a href="mailto:hello@ginkgo.health" class="text-emerald-600 hover:underline">hello@ginkgo.health</a> 联系我们的隐私专员。</span>
+                        </p>
                     </section>
 
                     <section>
-                        <h2 class="text-xl font-bold text-stone-900 mb-3">Changes to Privacy Policy</h2>
-                        <p>We may change this Privacy Policy from time to time to align with changes to our business practices and/or changes to our legal requirements. We will post the updated Privacy Policy on this page: <a href="http://ginkgo.health" class="text-emerald-600 hover:underline">ginkgo.health</a>, and will indicate that the updates have been made by changing the effective date first written above. We urge you to check back periodically to check whether there have been updates to our Privacy Policy.</p>
+                        <h2 class="text-xl font-bold text-stone-900 mb-3">
+                            <span class="en">Changes to Privacy Policy</span>
+                            <span class="zh">隐私政策的变更</span>
+                        </h2>
+                        <p>
+                            <span class="en">We may change this Privacy Policy from time to time to align with changes to our business practices and/or changes to our legal requirements. We will post the updated Privacy Policy on this page: <a href="http://ginkgo.health" class="text-emerald-600 hover:underline">ginkgo.health</a>, and will indicate that the updates have been made by changing the effective date first written above. We urge you to check back periodically to check whether there have been updates to our Privacy Policy.</span>
+                            <span class="zh">我们可能不时更改本隐私政策，以适应我们业务实践的变化和/或法律要求的变化。我们将在本页面公布更新后的隐私政策：<a href="http://ginkgo.health" class="text-emerald-600 hover:underline">ginkgo.health</a>，并通过更改上面首个注明的生效日期来表明已进行更新。我们建议您定期查看，以了解我们的隐私政策是否有更新。</span>
+                        </p>
                     </section>
                 </div>
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="bg-stone-950 py-8 text-center text-stone-500 text-sm mt-12">
-          <p>© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</p>
+          <p>
+              <span class="en">© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</span>
+              <span class="zh">© 2026 Ginkgo Active. 保留所有权利。您的健康 GPS。</span>
+          </p>
           <div class="mt-4 flex justify-center gap-4 flex-wrap px-6">
-            <a href="/terms-and-conditions" class="hover:text-stone-300 transition-colors">Terms & Conditions</a>
+            <a href="/terms-and-conditions.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">Terms & Conditions</span>
+                <span class="zh">条款与条件</span>
+            </a>
             <span class="text-stone-700">|</span>
-            <a href="/privacy-policy" class="hover:text-stone-300 transition-colors">Privacy Policy</a>
+            <a href="/privacy-policy.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">Privacy Policy</span>
+                <span class="zh">隐私政策</span>
+            </a>
             <span class="text-stone-700">|</span>
-            <a href="/faqs-copy" class="hover:text-stone-300 transition-colors">FAQ</a>
+            <a href="/faqs-copy.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">FAQ</span>
+                <span class="zh">常见问题解答</span>
+            </a>
           </div>
         </footer>
     </div>
 
-    <!-- Initialize the Icons -->
     <script>
+        // Initialize Icons
         lucide.createIcons();
+
+        // Language Switcher Logic
+        function toggleLanguage() {
+            const body = document.body;
+            if (body.classList.contains('lang-en')) {
+                body.classList.remove('lang-en');
+                body.classList.add('lang-zh');
+                localStorage.setItem('ginkgo-lang', 'zh');
+            } else {
+                body.classList.remove('lang-zh');
+                body.classList.add('lang-en');
+                localStorage.setItem('ginkgo-lang', 'en');
+            }
+        }
+
+        // Apply saved language preference on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('ginkgo-lang') || 'en';
+            document.body.classList.remove('lang-en', 'lang-zh');
+            document.body.classList.add('lang-' + savedLang);
+        });
     </script>
 </body>
 </html>
