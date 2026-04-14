@@ -31,25 +31,44 @@
       }
     </script>
 
+    <!-- Language Toggle Styles -->
+    <style>
+        body.lang-zh .en { display: none !important; }
+        body.lang-en .zh { display: none !important; }
+        body:not(.lang-zh):not(.lang-en) .zh { display: none !important; } /* Fallback */
+    </style>
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-    <div class="min-h-screen bg-stone-50 font-sans text-stone-800">
+<body class="bg-stone-50 font-sans text-stone-800 lang-en">
+    <div class="min-h-screen flex flex-col">
       
         <!-- Navigation -->
         <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full border-b border-stone-100 mb-8 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
-          <a href="index.html" class="flex items-center">
+          <a href="/" class="flex items-center">
             <img src="Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto">
           </a>
-          <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
-            <a href="#why" class="hover:text-emerald-600 transition-colors">Why Ginkgo?</a>
-            <a href="#concept" class="hover:text-emerald-600 transition-colors">How it Works</a>
-            <a href="#science" class="hover:text-emerald-600 transition-colors">The Science</a>
+          <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600 items-center">
+            <a href="#why" class="hover:text-emerald-600 transition-colors">
+                <span class="en">Why Ginkgo?</span><span class="zh">为什么选择 Ginkgo？</span>
+            </a>
+            <a href="#concept" class="hover:text-emerald-600 transition-colors">
+                <span class="en">How it Works</span><span class="zh">工作原理</span>
+            </a>
+            <a href="#science" class="hover:text-emerald-600 transition-colors">
+                <span class="en">The Science</span><span class="zh">科学依据</span>
+            </a>
           </div>
-          <div class="flex gap-4">
-            <a href="https://forms.gle/udpqMUY27ww23kPB9" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm">
-                Request a Demo
+          <div class="flex items-center gap-5">
+            <!-- Language Switcher -->
+            <button onclick="toggleLanguage()" class="flex items-center gap-1.5 text-stone-500 hover:text-emerald-600 text-sm font-bold transition-colors" title="Change Language">
+                <i data-lucide="globe" class="w-5 h-5"></i>
+                <span class="en">中文</span>
+                <span class="zh">EN</span>
+            </button>
+            <a href="https://forms.gle/udpqMUY27ww23kPB9" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm flex items-center">
+                <span class="en">Request a Demo</span><span class="zh">申请演示</span>
             </a>
           </div>
         </nav>
@@ -64,17 +83,21 @@
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                 </span>
-                AI-Powered Solution for Preventive Care
+                <span class="en">AI-Powered Solution for Preventive Care</span>
+                <span class="zh">人工智能驱动的预防性护理解决方案</span>
               </div>
               <h1 class="text-5xl lg:text-6xl font-extrabold text-stone-900 leading-tight mb-6 tracking-tight">
-                The First Vertical AI Model for Precise <span class="text-emerald-600">End-to-End Health.</span>
+                <span class="en">The First Vertical AI Model for Precise <span class="text-emerald-600">End-to-End Health.</span></span>
+                <span class="zh">首个用于精准<span class="text-emerald-600">端到端健康管理</span>的垂直AI模型。</span>
               </h1>
               <p class="text-lg lg:text-xl text-stone-600 mb-8 leading-relaxed">
-                Stop guessing your route to longevity and invest in long-term health with the world’s only purpose-built Ginkgo Preventive Solution. Developed entirely in-house, our unique AI model delivers holistic wellness by analyzing complex health profiles to deliver <span class="font-bold text-stone-800">continuous daily personalized guidance</span>.
+                <span class="en">Stop guessing your route to longevity and invest in long-term health with the world’s only purpose-built Ginkgo Preventive Solution. Developed entirely in-house, our unique AI model delivers holistic wellness by analyzing complex health profiles to deliver <span class="font-bold text-stone-800">continuous daily personalized guidance</span>.</span>
+                <span class="zh">停止在长寿之路上盲目摸索，使用全球唯一专属打造的 Ginkgo 预防解决方案投资您的长期健康。我们完全自主研发的独特 AI 模型，通过分析复杂的健康档案，提供<span class="font-bold text-stone-800">持续的每日个性化指导</span>，实现全面的身心健康。</span>
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
                 <a href="https://forms.gle/udpqMUY27ww23kPB9" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 w-fit">
-                  Request a Demo <i data-lucide="calendar" class="w-5 h-5"></i>
+                  <span class="en">Request a Demo</span><span class="zh">申请演示</span>
+                  <i data-lucide="calendar" class="w-5 h-5"></i>
                 </a>
               </div>
             </div>
@@ -89,15 +112,15 @@
                  <div class="absolute top-12 left-8 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce" style="animation-duration: 3s;">
                    <div class="bg-emerald-100 p-2 rounded-full"><i data-lucide="message-square-text" class="w-6 h-6 text-emerald-600"></i></div>
                    <div>
-                     <p class="text-xs text-stone-500 font-semibold">Real-Time Feedback</p>
-                     <p class="text-sm font-bold text-stone-800">Load Adjusted: Safe</p>
+                     <p class="text-xs text-stone-500 font-semibold"><span class="en">Real-Time Feedback</span><span class="zh">实时反馈</span></p>
+                     <p class="text-sm font-bold text-stone-800"><span class="en">Load Adjusted: Safe</span><span class="zh">负荷已调整：安全</span></p>
                    </div>
                  </div>
                  <div class="absolute bottom-16 right-8 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-4">
                    <div class="bg-blue-100 p-2 rounded-full"><i data-lucide="milestone" class="w-6 h-6 text-blue-600"></i></div>
                    <div>
-                     <p class="text-xs text-stone-500 font-semibold">Clinical Guidance</p>
-                     <p class="text-sm font-bold text-stone-800">Route Optimized</p>
+                     <p class="text-xs text-stone-500 font-semibold"><span class="en">Clinical Guidance</span><span class="zh">临床指导</span></p>
+                     <p class="text-sm font-bold text-stone-800"><span class="en">Route Optimized</span><span class="zh">路线已优化</span></p>
                    </div>
                  </div>
               </div>
@@ -109,12 +132,16 @@
         <section class="py-20 bg-white" id="concept">
           <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-16">
-              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-4">Meet Your Health GPS</h2>
+              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-4">
+                <span class="en">Meet Your Health GPS</span><span class="zh">遇见您的健康 GPS</span>
+              </h2>
               <p class="text-xl text-emerald-600 font-medium mb-4">
-                It's not a map to the hospital. It's a map to make sure you never need one.
+                <span class="en">It's not a map to the hospital. It's a map to make sure you never need one.</span>
+                <span class="zh">它不是去医院的地图。它是确保您永远不需要去医院的指南。</span>
               </p>
               <p class="text-lg text-stone-600">
-                We are redefining the starting point of healthcare, not in a practitioner’s office but in your own home. Ginkgo Active is the world’s first Health GPS, an end-to-end coaching tool to replace personal trainers, delivering personalized prevention programs that are safe and effective.
+                <span class="en">We are redefining the starting point of healthcare, not in a practitioner’s office but in your own home. Ginkgo Active is the world’s first Health GPS, an end-to-end coaching tool to replace personal trainers, delivering personalized prevention programs that are safe and effective.</span>
+                <span class="zh">我们正在重新定义医疗保健的起点——不是在医生的诊所，而是在您自己的家中。Ginkgo Active 是全球首个健康 GPS，一款取代私人教练的端到端辅导工具，提供安全有效的个性化预防方案。</span>
               </p>
             </div>
   
@@ -123,24 +150,39 @@
                 <div class="bg-emerald-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <i data-lucide="navigation" class="w-8 h-8 text-emerald-600"></i>
                 </div>
-                <h3 class="text-xl font-bold text-stone-900 mb-3">Rerouting Around Hazards</h3>
-                <p class="text-stone-600">Just as a car GPS helps you avoid traffic, Ginkgo reroutes you around "roadblocks" like joint pain while focusing on restoring your mobility and youth.</p>
+                <h3 class="text-xl font-bold text-stone-900 mb-3">
+                    <span class="en">Rerouting Around Hazards</span><span class="zh">绕开健康隐患</span>
+                </h3>
+                <p class="text-stone-600">
+                    <span class="en">Just as a car GPS helps you avoid traffic, Ginkgo reroutes you around "roadblocks" like joint pain while focusing on restoring your mobility and youth.</span>
+                    <span class="zh">就像汽车 GPS 帮助您避开拥堵一样，Ginkgo 引导您绕开关节疼痛等“路障”，同时专注于恢复您的机动性和青春活力。</span>
+                </p>
               </div>
               
               <div class="bg-stone-50 rounded-3xl p-8 border border-stone-100 text-center hover:-translate-y-2 transition-transform duration-300">
                 <div class="bg-emerald-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <i data-lucide="refresh-cw" class="w-8 h-8 text-emerald-600"></i>
                 </div>
-                <h3 class="text-xl font-bold text-stone-900 mb-3">Real-Time Adaptation</h3>
-                <p class="text-stone-600">If you’re feeling low energy or reporting pain, our AI adapts your plan in real-time, removing triggers and adjusting intensity to ensure every training session is risk-free.</p>
+                <h3 class="text-xl font-bold text-stone-900 mb-3">
+                    <span class="en">Real-Time Adaptation</span><span class="zh">实时动态调整</span>
+                </h3>
+                <p class="text-stone-600">
+                    <span class="en">If you’re feeling low energy or reporting pain, our AI adapts your plan in real-time, removing triggers and adjusting intensity to ensure every training session is risk-free.</span>
+                    <span class="zh">如果您感到精力不足或报告疼痛，我们的 AI 会实时调整您的计划，移除诱因并调整强度，以确保每次训练都毫无风险。</span>
+                </p>
               </div>
   
               <div class="bg-stone-50 rounded-3xl p-8 border border-stone-100 text-center hover:-translate-y-2 transition-transform duration-300">
                 <div class="bg-emerald-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <i data-lucide="activity" class="w-8 h-8 text-emerald-600"></i>
                 </div>
-                <h3 class="text-xl font-bold text-stone-900 mb-3">Total Integration</h3>
-                <p class="text-stone-600">We synthesize your athletic history, medical conditions, and injury history into a single, systemized route that aligns with your individual health conditions.</p>
+                <h3 class="text-xl font-bold text-stone-900 mb-3">
+                    <span class="en">Total Integration</span><span class="zh">全面整合</span>
+                </h3>
+                <p class="text-stone-600">
+                    <span class="en">We synthesize your athletic history, medical conditions, and injury history into a single, systemized route that aligns with your individual health conditions.</span>
+                    <span class="zh">我们将您的运动史、医疗状况和受伤史综合成一条单一、系统化的路线，与您的个人健康状况完美契合。</span>
+                </p>
               </div>
             </div>
           </div>
@@ -150,40 +192,75 @@
         <section class="py-20 bg-stone-50">
           <div class="max-w-5xl mx-auto px-6">
             <div class="text-center mb-12">
-              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-4">How we're different</h2>
-              <p class="text-lg text-stone-600">The Science of "Precision". Most fitness apps are "one-size-fits-all." Ginkgo Active is a clinical-grade AI-Driven Precise Preventative Exercise Prescription.</p>
+              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-4">
+                  <span class="en">How we're different</span><span class="zh">我们的与众不同之处</span>
+              </h2>
+              <p class="text-lg text-stone-600">
+                  <span class="en">The Science of "Precision". Most fitness apps are "one-size-fits-all." Ginkgo Active is a clinical-grade AI-Driven Precise Preventative Exercise Prescription.</span>
+                  <span class="zh">“精准”的科学。大多数健身应用都是“一刀切”的。Ginkgo Active 是临床级、AI 驱动的精准预防性运动处方。</span>
+              </p>
             </div>
   
             <div class="bg-white rounded-3xl shadow-sm border border-stone-200 overflow-hidden">
               <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-left border-collapse min-w-[600px]">
                   <thead>
                     <tr>
-                      <th class="p-6 border-b border-stone-100 text-stone-500 font-semibold w-1/3">Feature</th>
-                      <th class="p-6 border-b border-stone-100 text-stone-500 font-semibold w-1/3">Traditional Exercise App</th>
-                      <th class="p-6 border-b border-stone-100 bg-emerald-50 text-emerald-800 font-bold w-1/3 text-lg">Ginkgo Active (AI-Powered)</th>
+                      <th class="p-6 border-b border-stone-100 text-stone-500 font-semibold w-1/4">
+                          <span class="en">Feature</span><span class="zh">功能</span>
+                      </th>
+                      <th class="p-6 border-b border-stone-100 text-stone-500 font-semibold w-1/3">
+                          <span class="en">Traditional Exercise App</span><span class="zh">传统健身应用</span>
+                      </th>
+                      <th class="p-6 border-b border-stone-100 bg-emerald-50 text-emerald-800 font-bold w-5/12 text-lg">
+                          <span class="en">Ginkgo Active (AI-Powered)</span><span class="zh">Ginkgo Active (AI 驱动)</span>
+                      </th>
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-stone-100">
                     <tr>
-                      <td class="p-6 font-medium text-stone-900">Foundation</td>
-                      <td class="p-6 text-stone-600"><div class="flex gap-2"><i data-lucide="x-circle" class="w-5 h-5 text-stone-300 shrink-0"></i> General library of videos</div></td>
-                      <td class="p-6 bg-emerald-50/50 text-stone-800 font-medium"><div class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i> Comprehensive initial health & lifestyle assessment</div></td>
+                      <td class="p-6 font-medium text-stone-900">
+                          <span class="en">Foundation</span><span class="zh">基础设定</span>
+                      </td>
+                      <td class="p-6 text-stone-600"><div class="flex gap-2"><i data-lucide="x-circle" class="w-5 h-5 text-stone-300 shrink-0"></i> 
+                          <span class="en">General library of videos</span><span class="zh">通用视频库</span>
+                      </div></td>
+                      <td class="p-6 bg-emerald-50/50 text-stone-800 font-medium"><div class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i> 
+                          <span class="en">Comprehensive initial health & lifestyle assessment</span><span class="zh">全面的初始健康与生活方式评估</span>
+                      </div></td>
                     </tr>
                     <tr>
-                      <td class="p-6 font-medium text-stone-900">Customization</td>
-                      <td class="p-6 text-stone-600"><div class="flex gap-2"><i data-lucide="x-circle" class="w-5 h-5 text-stone-300 shrink-0"></i> Basic filters (Beginner/Advanced)</div></td>
-                      <td class="p-6 bg-emerald-50/50 text-stone-800 font-medium"><div class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i> AI-powered "Prescription" tailored to your unique biology</div></td>
+                      <td class="p-6 font-medium text-stone-900">
+                          <span class="en">Customization</span><span class="zh">定制化</span>
+                      </td>
+                      <td class="p-6 text-stone-600"><div class="flex gap-2"><i data-lucide="x-circle" class="w-5 h-5 text-stone-300 shrink-0"></i> 
+                          <span class="en">Basic filters (Beginner/Advanced)</span><span class="zh">基础筛选 (初级/高级)</span>
+                      </div></td>
+                      <td class="p-6 bg-emerald-50/50 text-stone-800 font-medium"><div class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i> 
+                          <span class="en">AI-powered "Prescription" tailored to your unique biology</span><span class="zh">为您独特生理特征量身定制的 AI“处方”</span>
+                      </div></td>
                     </tr>
                     <tr>
-                      <td class="p-6 font-medium text-stone-900">Safety</td>
-                      <td class="p-6 text-stone-600"><div class="flex gap-2"><i data-lucide="x-circle" class="w-5 h-5 text-stone-300 shrink-0"></i> "Push through the pain"</div></td>
-                      <td class="p-6 bg-emerald-50/50 text-stone-800 font-medium"><div class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i> "Stoplight" load management & injury risk frameworks</div></td>
+                      <td class="p-6 font-medium text-stone-900">
+                          <span class="en">Safety</span><span class="zh">安全性</span>
+                      </td>
+                      <td class="p-6 text-stone-600"><div class="flex gap-2"><i data-lucide="x-circle" class="w-5 h-5 text-stone-300 shrink-0"></i> 
+                          <span class="en">"Push through the pain"</span><span class="zh">“忍痛坚持”模式</span>
+                      </div></td>
+                      <td class="p-6 bg-emerald-50/50 text-stone-800 font-medium"><div class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i> 
+                          <span class="en">"Stoplight" load management & injury risk frameworks</span><span class="zh">“红绿灯”负荷管理与受伤风险框架</span>
+                      </div></td>
                     </tr>
                     <tr>
-                      <td class="p-6 font-medium text-stone-900">Evolution</td>
-                      <td class="p-6 text-stone-600"><div class="flex gap-2"><i data-lucide="x-circle" class="w-5 h-5 text-stone-300 shrink-0"></i> Static plans</div></td>
-                      <td class="p-6 bg-emerald-50/50 text-stone-800 font-medium"><div class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i> Our model is constantly learning with 4-week reassessments and daily micro-adjustments</div></td>
+                      <td class="p-6 font-medium text-stone-900">
+                          <span class="en">Evolution</span><span class="zh">方案演进</span>
+                      </td>
+                      <td class="p-6 text-stone-600"><div class="flex gap-2"><i data-lucide="x-circle" class="w-5 h-5 text-stone-300 shrink-0"></i> 
+                          <span class="en">Static plans</span><span class="zh">静态训练计划</span>
+                      </div></td>
+                      <td class="p-6 bg-emerald-50/50 text-stone-800 font-medium"><div class="flex gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i> 
+                          <span class="en">Our model is constantly learning with 4-week reassessments and daily micro-adjustments</span><span class="zh">我们的模型通过四周的重新评估和每日微调不断学习优化</span>
+                      </div></td>
                     </tr>
                   </tbody>
                 </table>
@@ -196,12 +273,17 @@
         <section class="py-24 bg-white" id="science">
           <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-4xl mx-auto mb-16">
-              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-8">Safety & Science: Clinical Backing</h2>
+              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-8">
+                  <span class="en">Safety & Science: Clinical Backing</span><span class="zh">安全与科学：临床验证</span>
+              </h2>
               
               <div class="bg-stone-50 border border-stone-200 rounded-3xl p-8 lg:p-12 mb-12 relative">
-                <h3 class="text-2xl font-bold text-stone-900 mb-4">The Core Principle</h3>
+                <h3 class="text-2xl font-bold text-stone-900 mb-4">
+                    <span class="en">The Core Principle</span><span class="zh">核心原则</span>
+                </h3>
                 <p class="text-lg text-stone-600 leading-relaxed">
-                  Our AI is built on rehabilitation principles used by elite professionals. We focus on strengthening the surrounding tissues to support your body while it heals, a concept known as "treating the doughnut".
+                  <span class="en">Our AI is built on rehabilitation principles used by elite professionals. We focus on strengthening the surrounding tissues to support your body while it heals, a concept known as "treating the doughnut".</span>
+                  <span class="zh">我们的 AI 建立在精英专业人士使用的康复原则基础之上。我们专注于强化周围组织，在身体愈合时提供支撑，这一概念被称为“治疗甜甜圈（周边）”。</span>
                 </p>
               </div>
             </div>
@@ -214,8 +296,13 @@
                   </div>
                 </div>
                 <div>
-                  <h4 class="text-2xl font-bold text-stone-900 mb-3">Injury Prevention</h4>
-                  <p class="text-stone-600 leading-relaxed">A comprehensive initial assessment creates for each user a unique "web of determinants" that predicts and prevents exercise injuries before they happen.</p>
+                  <h4 class="text-2xl font-bold text-stone-900 mb-3">
+                      <span class="en">Injury Prevention</span><span class="zh">预防受伤</span>
+                  </h4>
+                  <p class="text-stone-600 leading-relaxed">
+                      <span class="en">A comprehensive initial assessment creates for each user a unique "web of determinants" that predicts and prevents exercise injuries before they happen.</span>
+                      <span class="zh">全面的初始评估为每位用户创建独特的“决定因素网络”，在运动伤害发生前进行预测和预防。</span>
+                  </p>
                 </div>
               </div>
               
@@ -226,8 +313,13 @@
                   </div>
                 </div>
                 <div>
-                  <h4 class="text-2xl font-bold text-stone-900 mb-3">Validation</h4>
-                  <p class="text-stone-600 leading-relaxed">Ginkgo Active is currently undergoing implementation studies to document proven outcome changes that rival the precision of a personal trainer at a fraction of the cost, scalable to entire populations.</p>
+                  <h4 class="text-2xl font-bold text-stone-900 mb-3">
+                      <span class="en">Validation</span><span class="zh">科学验证</span>
+                  </h4>
+                  <p class="text-stone-600 leading-relaxed">
+                      <span class="en">Ginkgo Active is currently undergoing implementation studies to document proven outcome changes that rival the precision of a personal trainer at a fraction of the cost, scalable to entire populations.</span>
+                      <span class="zh">Ginkgo Active 目前正在进行实施研究，以记录已证实的成果变化，其精确度媲美私人教练，但成本极低，且可扩展至整个人群。</span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -238,9 +330,13 @@
         <section class="py-20 bg-stone-50" id="why">
           <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-16">
-              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-4">The World is Changing, So Should Your Health Strategy</h2>
+              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-4">
+                  <span class="en">The World is Changing, So Should Your Health Strategy</span>
+                  <span class="zh">世界在变，您的健康战略也应与时俱进</span>
+              </h2>
               <p class="text-lg text-stone-600">
-                We aren't just building an app; we are solving a global crisis in care.
+                  <span class="en">We aren't just building an app; we are solving a global crisis in care.</span>
+                  <span class="zh">我们不仅仅是在开发一款应用；我们正在解决全球性的护理危机。</span>
               </p>
             </div>
   
@@ -248,28 +344,46 @@
               <!-- Card 1 -->
               <div class="bg-blue-50 p-8 rounded-3xl border border-stone-100/50 relative overflow-hidden group hover:shadow-md transition-all">
                 <div class="mb-4"><i data-lucide="trending-up" class="w-8 h-8 text-blue-500"></i></div>
-                <h3 class="text-xl font-bold text-stone-900 mb-2">Global Aging</h3>
-                <p class="text-stone-600 text-sm leading-relaxed">By 2050, nearly 23% of the population will be over age 65, creating a massive demand for tools that support independent, active aging. We are bridging the gap by reaching underserved populations such as rural areas and senior communities who lack access to preventive care.</p>
+                <h3 class="text-xl font-bold text-stone-900 mb-2">
+                    <span class="en">Global Aging</span><span class="zh">全球老龄化</span>
+                </h3>
+                <p class="text-stone-600 text-sm leading-relaxed">
+                    <span class="en">By 2050, nearly 23% of the population will be over age 65, creating a massive demand for tools that support independent, active aging. We are bridging the gap by reaching underserved populations such as rural areas and senior communities who lack access to preventive care.</span>
+                    <span class="zh">到2050年，近23%的人口将超过65岁，这创造了对支持独立、积极老龄化工具的巨大需求。我们正通过覆盖缺乏预防性护理的农村地区和老年社区等服务不足的人群来弥合这一差距。</span>
+                </p>
               </div>
               <!-- Card 2 -->
               <div class="bg-rose-50 p-8 rounded-3xl border border-stone-100/50 relative overflow-hidden group hover:shadow-md transition-all">
                 <div class="mb-4"><i data-lucide="activity" class="w-8 h-8 text-rose-500"></i></div>
-                <h3 class="text-xl font-bold text-stone-900 mb-2">Healthcare Burden</h3>
-                <p class="text-stone-600 text-sm leading-relaxed">Chronic diseases now drive 90% of all healthcare spending—a staggering $4.5 trillion annually in the U.S. alone.</p>
+                <h3 class="text-xl font-bold text-stone-900 mb-2">
+                    <span class="en">Healthcare Burden</span><span class="zh">医疗保健负担</span>
+                </h3>
+                <p class="text-stone-600 text-sm leading-relaxed">
+                    <span class="en">Chronic diseases now drive 90% of all healthcare spending—a staggering $4.5 trillion annually in the U.S. alone.</span>
+                    <span class="zh">慢性病目前占据了所有医疗保健支出的90%——仅在美国，每年就高达惊人的4.5万亿美元。</span>
+                </p>
               </div>
               <!-- Card 3 -->
               <div class="bg-orange-50 p-8 rounded-3xl border border-stone-100/50 relative overflow-hidden group hover:shadow-md transition-all">
                 <div class="mb-4"><i data-lucide="heart" class="w-8 h-8 text-orange-500"></i></div>
-                <h3 class="text-xl font-bold text-stone-900 mb-2">Cost of Inactivity</h3>
-                <p class="text-stone-600 text-sm leading-relaxed">Physical inactivity costs the global economy billions every year in preventable treatments for heart disease and diabetes.</p>
+                <h3 class="text-xl font-bold text-stone-900 mb-2">
+                    <span class="en">Cost of Inactivity</span><span class="zh">缺乏运动的代价</span>
+                </h3>
+                <p class="text-stone-600 text-sm leading-relaxed">
+                    <span class="en">Physical inactivity costs the global economy billions every year in preventable treatments for heart disease and diabetes.</span>
+                    <span class="zh">缺乏运动导致的心脏病和糖尿病的可预防治疗，每年给全球经济造成数十亿美元的损失。</span>
+                </p>
               </div>
             </div>
   
             <div class="bg-stone-900 rounded-3xl p-8 lg:p-12 text-center text-white relative overflow-hidden">
               <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-600 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/3"></div>
-              <h3 class="text-sm font-bold tracking-widest text-emerald-400 uppercase mb-4">The Verdict</h3>
+              <h3 class="text-sm font-bold tracking-widest text-emerald-400 uppercase mb-4">
+                  <span class="en">The Verdict</span><span class="zh">结论</span>
+              </h3>
               <p class="text-2xl lg:text-3xl font-medium leading-relaxed max-w-4xl mx-auto">
-                We need smarter, at-home solutions that prevent decline before it starts. <span class="text-emerald-400 font-bold">Ginkgo Active is a digital solution delivering precise preventive healthcare to the population scale.</span>
+                <span class="en">We need smarter, at-home solutions that prevent decline before it starts. <span class="text-emerald-400 font-bold">Ginkgo Active is a digital solution delivering precise preventive healthcare to the population scale.</span></span>
+                <span class="zh">我们需要更智能的居家解决方案，在衰退开始前进行预防。<span class="text-emerald-400 font-bold">Ginkgo Active 是一种将精准预防性医疗保健交付至人群规模的数字化解决方案。</span></span>
               </p>
             </div>
           </div>
@@ -279,7 +393,10 @@
         <section class="py-20 bg-white">
           <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-6">Why do most people feel lost on their health journey?</h2>
+              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-6">
+                  <span class="en">Why do most people feel lost on their health journey?</span>
+                  <span class="zh">为什么大多数人在健康之路上感到迷茫？</span>
+              </h2>
               
               <div class="flex gap-4 bg-stone-50 p-6 rounded-3xl border border-stone-100 mt-8">
                 <div class="flex-shrink-0 mt-1">
@@ -289,7 +406,8 @@
                 </div>
                 <div>
                   <p class="text-stone-600 text-lg leading-relaxed">
-                    Exercise is well-known to be an elixir for healthy aging, but the advice is often fragmented. Without a guide, it’s easy to take a wrong turn into over-exertion or injury.
+                    <span class="en">Exercise is well-known to be an elixir for healthy aging, but the advice is often fragmented. Without a guide, it’s easy to take a wrong turn into over-exertion or injury.</span>
+                    <span class="zh">众所周知，运动是健康老龄化的灵丹妙药，但相关的建议往往是碎片化的。如果没有向导，很容易误入过度劳累或受伤的歧途。</span>
                   </p>
                 </div>
               </div>
@@ -297,12 +415,16 @@
   
             <div class="bg-emerald-600 rounded-[2.5rem] p-10 lg:p-14 text-white shadow-2xl relative overflow-hidden">
               <div class="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl opacity-10 -translate-y-1/2 translate-x-1/3"></div>
-              <h3 class="text-sm font-bold tracking-widest text-emerald-200 uppercase mb-4">Our Perspective</h3>
+              <h3 class="text-sm font-bold tracking-widest text-emerald-200 uppercase mb-4">
+                  <span class="en">Our Perspective</span><span class="zh">我们的视角</span>
+              </h3>
               <p class="text-2xl lg:text-3xl font-medium leading-relaxed mb-8 relative z-10">
-                We don't just give you a workout; we give you a Ginkgo Preventive Solution (GPS) that integrates all health disciplines into one clear, safe path.
+                <span class="en">We don't just give you a workout; we give you a Ginkgo Preventive Solution (GPS) that integrates all health disciplines into one clear, safe path.</span>
+                <span class="zh">我们不仅仅为您提供一套锻炼方案；我们为您提供一个 Ginkgo 预防解决方案 (GPS)，将所有健康学科整合为一条清晰、安全的路径。</span>
               </p>
               <div class="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full font-semibold text-sm backdrop-blur-sm">
-                <i data-lucide="shield-check" class="w-5 h-5"></i> Safety First Architecture
+                <i data-lucide="shield-check" class="w-5 h-5"></i> 
+                <span class="en">Safety First Architecture</span><span class="zh">安全第一的架构设计</span>
               </div>
             </div>
           </div>
@@ -316,35 +438,53 @@
           </div>
           
           <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <h2 class="text-4xl lg:text-5xl font-extrabold text-white mb-6">Decline is not destiny and health is not luck.</h2>
+            <h2 class="text-4xl lg:text-5xl font-extrabold text-white mb-6">
+                <span class="en">Decline is not destiny and health is not luck.</span>
+                <span class="zh">衰退不是宿命，健康不靠运气。</span>
+            </h2>
             <p class="text-xl text-emerald-100 mb-6 leading-relaxed">
-              The future of healthcare isn't just about treating disease; it's about prevention. Automating the complex process of assessment and prescription enables us to remove barriers like accessibility, personalization, and safety to prevention care.
+              <span class="en">The future of healthcare isn't just about treating disease; it's about prevention. Automating the complex process of assessment and prescription enables us to remove barriers like accessibility, personalization, and safety to prevention care.</span>
+              <span class="zh">医疗保健的未来不仅仅是治疗疾病；更是关于预防。将评估和处方这一复杂过程自动化，使我们能够消除在预防性护理可及性、个性化和安全性等方面的障碍。</span>
             </p>
             <p class="text-lg text-emerald-100/90 mb-12 leading-relaxed">
-              We are alleviating the burden on global healthcare systems by empowering you to stay strong, stay balanced, and stay out of the clinic. Making safe, elite-level longevity coaching accessible to everyone with a smartphone.
+              <span class="en">We are alleviating the burden on global healthcare systems by empowering you to stay strong, stay balanced, and stay out of the clinic. Making safe, elite-level longevity coaching accessible to everyone with a smartphone.</span>
+              <span class="zh">通过赋予您保持强壮、保持平衡、远离诊所的能力，我们正在减轻全球医疗保健系统的负担。让每一个拥有智能手机的人都能获得安全的、精英级别的长寿辅导。</span>
             </p>
             
             <div class="bg-white/10 backdrop-blur-md rounded-3xl p-10 border border-white/20 mb-16">
-              <h3 class="text-3xl font-bold text-white mb-4">Ready to find your route?</h3>
-              <p class="text-emerald-50 mb-8 text-lg">Stop driving your health journey blind. Get the daily directions you need to arrive at a healthier future.</p>
+              <h3 class="text-3xl font-bold text-white mb-4">
+                  <span class="en">Ready to find your route?</span><span class="zh">准备好寻找您的路线了吗？</span>
+              </h3>
+              <p class="text-emerald-50 mb-8 text-lg">
+                  <span class="en">Stop driving your health journey blind. Get the daily directions you need to arrive at a healthier future.</span>
+                  <span class="zh">停止在您的健康之旅中盲目行驶。获取您所需的每日指南，抵达更健康的未来。</span>
+              </p>
               <a href="https://link.ginkgo.health/i" target="_blank" class="bg-white text-emerald-900 hover:bg-stone-100 px-10 py-5 rounded-full text-xl font-bold transition-all shadow-xl hover:scale-105 active:scale-95 flex items-center gap-3 mx-auto w-fit">
-                Get your Health GPS <i data-lucide="navigation" class="w-6 h-6"></i>
+                <span class="en">Get your Health GPS</span><span class="zh">获取您的健康 GPS</span>
+                <i data-lucide="navigation" class="w-6 h-6"></i>
               </a>
-              <p class="text-emerald-200 text-sm mt-6 font-medium">GPS = Ginkgo Preventive Solution</p>
+              <p class="text-emerald-200 text-sm mt-6 font-medium">
+                  <span class="en">GPS = Ginkgo Preventive Solution</span><span class="zh">GPS = Ginkgo 预防解决方案</span>
+              </p>
             </div>
   
             <!-- Professor Ginkgo Note -->
             <div class="flex flex-col md:flex-row items-center justify-center gap-6 max-w-2xl mx-auto text-left">
               <div class="w-20 h-20 shrink-0 relative">
                 <img src="Profile Picture (1).png" alt="Professor Ginkgo" class="w-full h-full object-cover rounded-full border-4 border-emerald-800 shadow-lg">
-                <div class="absolute -bottom-2 -right-2 bg-white text-xs font-bold px-2 py-1 rounded-full text-emerald-900 shadow-sm border border-emerald-100 z-10">Prof.</div>
+                <div class="absolute -bottom-2 -right-2 bg-white text-xs font-bold px-2 py-1 rounded-full text-emerald-900 shadow-sm border border-emerald-100 z-10">
+                    <span class="en">Prof.</span><span class="zh">教授</span>
+                </div>
               </div>
               <div class="bg-white text-stone-800 p-6 rounded-2xl rounded-tl-none md:rounded-tl-2xl md:rounded-bl-none shadow-xl relative">
                 <div class="absolute -top-3 left-6 md:top-6 md:-left-3 w-6 h-6 bg-white transform rotate-45 hidden md:block"></div>
                 <p class="font-medium italic text-lg leading-relaxed">
-                  "No, I won't tell you where the nearest hospital is. I'm here to tell you how to avoid needing one."
+                  <span class="en">"No, I won't tell you where the nearest hospital is. I'm here to tell you how to avoid needing one."</span>
+                  <span class="zh">“不，我不会告诉你最近的医院在哪里。我在这里告诉你如何避免去医院。”</span>
                 </p>
-                <p class="text-sm font-bold text-emerald-600 mt-2 uppercase tracking-wide">— Professor Ginkgo</p>
+                <p class="text-sm font-bold text-emerald-600 mt-2 uppercase tracking-wide">
+                    <span class="en">— Professor Ginkgo</span><span class="zh">— Ginkgo 教授</span>
+                </p>
               </div>
             </div>
           </div>
@@ -352,20 +492,51 @@
         
         <!-- Footer -->
         <footer class="bg-stone-950 py-8 text-center text-stone-500 text-sm">
-          <p>© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</p>
+          <p>
+              <span class="en">© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</span>
+              <span class="zh">© 2026 Ginkgo Active. 保留所有权利。您的健康 GPS。</span>
+          </p>
           <div class="mt-4 flex justify-center gap-4 flex-wrap px-6">
-            <a href="/terms-and-conditions" class="hover:text-stone-300 transition-colors">Terms & Conditions</a>
+            <a href="/terms-and-conditions" class="hover:text-stone-300 transition-colors">
+                <span class="en">Terms & Conditions</span><span class="zh">条款与条件</span>
+            </a>
             <span class="text-stone-700">|</span>
-            <a href="/privacy-policy" class="hover:text-stone-300 transition-colors">Privacy Policy</a>
+            <a href="/privacy-policy" class="hover:text-stone-300 transition-colors">
+                <span class="en">Privacy Policy</span><span class="zh">隐私政策</span>
+            </a>
             <span class="text-stone-700">|</span>
-            <a href="/faqs-copy" class="hover:text-stone-300 transition-colors">FAQ</a>
+            <a href="/faqs-copy" class="hover:text-stone-300 transition-colors">
+                <span class="en">FAQ</span><span class="zh">常见问题</span>
+            </a>
           </div>
         </footer>
-      </div>
+    </div>
 
-    <!-- Initialize the Icons -->
+    <!-- Scripts -->
     <script>
+        // Initialize Icons
         lucide.createIcons();
+
+        // Language Switcher Logic
+        function toggleLanguage() {
+            const body = document.body;
+            if (body.classList.contains('lang-en')) {
+                body.classList.remove('lang-en');
+                body.classList.add('lang-zh');
+                localStorage.setItem('ginkgo-lang', 'zh');
+            } else {
+                body.classList.remove('lang-zh');
+                body.classList.add('lang-en');
+                localStorage.setItem('ginkgo-lang', 'en');
+            }
+        }
+
+        // Apply saved language preference on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('ginkgo-lang') || 'en';
+            document.body.classList.remove('lang-en', 'lang-zh');
+            document.body.classList.add('lang-' + savedLang);
+        });
     </script>
 </body>
 </html>
