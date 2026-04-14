@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - Ginkgo Active</title>
-    <!-- Tailwind CSS for Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Custom Tailwind Configuration for Ginkgo Brand Colors -->
     <script>
       tailwind.config = {
         theme: {
@@ -31,96 +29,147 @@
       }
     </script>
 
-    <!-- Lucide Icons -->
+    <style>
+        body.lang-zh .en { display: none !important; }
+        body.lang-en .zh { display: none !important; }
+        body:not(.lang-zh):not(.lang-en) .zh { display: none !important; } /* Fallback */
+    </style>
+
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-stone-50 font-sans text-stone-800">
-    <div class="min-h-screen flex flex-col">
-      
-        <!-- Navigation -->
-        <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full border-b border-stone-100 mb-8 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
-          <a href="index.html" class="flex items-center">
-            <img src="Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto">
-          </a>
-          <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
-            <a href="index.html#why" class="hover:text-emerald-600 transition-colors">Why Ginkgo?</a>
-            <a href="index.html#concept" class="hover:text-emerald-600 transition-colors">How it Works</a>
-            <a href="index.html#science" class="hover:text-emerald-600 transition-colors">The Science</a>
-          </div>
-          <div class="flex gap-4">
-            <a href="https://forms.gle/udpqMUY27ww23kPB9" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm">
-                Request a Demo
-            </a>
-          </div>
-        </nav>
+<body class="bg-stone-50 font-sans text-stone-800 lang-en relative">
 
-        <!-- Main Content -->
-        <main class="flex-grow max-w-4xl mx-auto px-6 py-4 lg:py-12 w-full">
+    <div class="absolute top-6 right-6 lg:top-10 lg:right-10 z-50">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 bg-white border border-stone-200 px-4 py-2 rounded-full text-stone-600 hover:text-emerald-600 hover:border-emerald-200 shadow-sm transition-all text-sm font-bold" title="Change Language">
+            <i data-lucide="globe" class="w-4 h-4"></i>
+            <span class="en">中文</span>
+            <span class="zh">EN</span>
+        </button>
+    </div>
+
+    <div class="min-h-screen flex flex-col">
+        <main class="flex-grow max-w-4xl mx-auto px-6 pt-20 pb-12 w-full">
             <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-stone-100 border border-stone-100">
                 <div class="text-center mb-12">
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-4 tracking-tight">Frequently Asked Questions</h1>
-                    <p class="text-stone-500 text-lg">Find answers to common questions about using Ginkgo Active.</p>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-4 tracking-tight">
+                        <span class="en">Frequently Asked Questions</span>
+                        <span class="zh">常见问题解答</span>
+                    </h1>
+                    <p class="text-stone-500 text-lg">
+                        <span class="en">Find answers to common questions about using Ginkgo Active.</span>
+                        <span class="zh">查找有关使用 Ginkgo Active 的常见问题的解答。</span>
+                    </p>
                 </div>
                 
                 <div class="space-y-12">
-                    <!-- SECTION 1: How to Use -->
                     <section>
                         <div class="flex items-center gap-3 mb-6 pb-2 border-b border-stone-100">
                             <i data-lucide="help-circle" class="w-6 h-6 text-emerald-600"></i>
-                            <h2 class="text-2xl font-bold text-stone-900">How to Use</h2>
+                            <h2 class="text-2xl font-bold text-stone-900">
+                                <span class="en">How to Use</span>
+                                <span class="zh">如何使用</span>
+                            </h2>
                         </div>
                         
                         <div class="space-y-4">
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: How can I share my thoughts and comments?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: How can I share my thoughts and comments?</span>
+                                        <span class="zh">问：我该如何分享我的想法和意见？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>We’d love to hear from you! You can submit feedback to <a href="mailto:support@ginkgo.health" class="text-emerald-600 hover:underline">support@ginkgo.health</a>.</p>
+                                    <p>
+                                        <span class="en">We’d love to hear from you! You can submit feedback to <a href="mailto:support@ginkgo.health" class="text-emerald-600 hover:underline">support@ginkgo.health</a>.</span>
+                                        <span class="zh">我们很乐意听到您的反馈！您可以将意见发送至 <a href="mailto:support@ginkgo.health" class="text-emerald-600 hover:underline">support@ginkgo.health</a>。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: The app is frozen or isn't functioning properly, what should I do?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: The app is frozen or isn't functioning properly, what should I do?</span>
+                                        <span class="zh">问：应用程序卡住或无法正常运行，我该怎么办？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>Make sure your internet is working and the app is up to date. If it’s still not working, try restarting your device. If you need more help, you can reach out to our support team at <a href="mailto:support@ginkgo.health" class="text-emerald-600 hover:underline">support@ginkgo.health</a>.</p>
+                                    <p>
+                                        <span class="en">Make sure your internet is working and the app is up to date. If it’s still not working, try restarting your device. If you need more help, you can reach out to our support team at <a href="mailto:support@ginkgo.health" class="text-emerald-600 hover:underline">support@ginkgo.health</a>.</span>
+                                        <span class="zh">请确保您的网络正常且应用程序是最新版本。如果仍然无法运行，请尝试重启设备。如需更多帮助，您可以联系我们的支持团队：<a href="mailto:support@ginkgo.health" class="text-emerald-600 hover:underline">support@ginkgo.health</a>。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: The fonts and buttons are too small, how can I make them larger?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: The fonts and buttons are too small, how can I make them larger?</span>
+                                        <span class="zh">问：字体和按钮太小，如何将它们放大？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-4">It is recommended to use bigger screens like iPad, Mac or TV projection. iPad is the best device for Ginkgo Active, as it is big enough, portable, and easy to be placed at the best spot to your exercises.</p>
-                                    <p class="text-stone-800 font-medium mb-3">If you want to project your screen onto the TV:</p>
+                                    <p class="mb-4">
+                                        <span class="en">It is recommended to use bigger screens like iPad, Mac or TV projection. iPad is the best device for Ginkgo Active, as it is big enough, portable, and easy to be placed at the best spot to your exercises.</span>
+                                        <span class="zh">建议使用更大的屏幕，如 iPad、Mac 或电视投影。iPad 是使用 Ginkgo Active 的最佳设备，因为它足够大、便携，且易于放置在您锻炼的最佳位置。</span>
+                                    </p>
+                                    <p class="text-stone-800 font-medium mb-3">
+                                        <span class="en">If you want to project your screen onto the TV:</span>
+                                        <span class="zh">如果您想将屏幕投影到电视上：</span>
+                                    </p>
                                     <div class="space-y-4 bg-white p-6 rounded-2xl border border-stone-100">
                                         <div>
-                                            <p class="text-stone-800 font-semibold mb-2">1. AirPlay (For Apple TV or AirPlay-compatible devices):</p>
+                                            <p class="text-stone-800 font-semibold mb-2">
+                                                <span class="en">1. AirPlay (For Apple TV or AirPlay-compatible devices):</span>
+                                                <span class="zh">1. AirPlay（适用于 Apple TV 或兼容 AirPlay 的设备）：</span>
+                                            </p>
                                             <ul class="list-disc pl-5 text-stone-600 space-y-1">
-                                                <li>Make sure your iPhone and the TV are connected to the same Wi-Fi network.</li>
-                                                <li>Open Control Center.</li>
-                                                <li>Tap Screen Mirroring and select your TV from the list.</li>
-                                                <li>The screen of your device will be displayed on the TV.</li>
+                                                <li>
+                                                    <span class="en">Make sure your iPhone and the TV are connected to the same Wi-Fi network.</span>
+                                                    <span class="zh">确保您的 iPhone 和电视连接到同一个 Wi-Fi 网络。</span>
+                                                </li>
+                                                <li>
+                                                    <span class="en">Open Control Center.</span>
+                                                    <span class="zh">打开控制中心。</span>
+                                                </li>
+                                                <li>
+                                                    <span class="en">Tap Screen Mirroring and select your TV from the list.</span>
+                                                    <span class="zh">点击“屏幕镜像”并从列表中选择您的电视。</span>
+                                                </li>
+                                                <li>
+                                                    <span class="en">The screen of your device will be displayed on the TV.</span>
+                                                    <span class="zh">您设备的屏幕将显示在电视上。</span>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div>
-                                            <p class="text-stone-800 font-semibold mb-2">2. HDMI Adapter (For non-AirPlay TVs/Monitors):</p>
+                                            <p class="text-stone-800 font-semibold mb-2">
+                                                <span class="en">2. HDMI Adapter (For non-AirPlay TVs/Monitors):</span>
+                                                <span class="zh">2. HDMI 适配器（适用于不支持 AirPlay 的电视/显示器）：</span>
+                                            </p>
                                             <ul class="list-disc pl-5 text-stone-600 space-y-1">
-                                                <li>Use a Lightning to HDMI adapter such as Apple's Lightning Digital AV Adapter.</li>
-                                                <li>Connect one end of an HDMI cable to the adapter and the other to your TV or monitor.</li>
-                                                <li>Switch your TV input to the correct HDMI source, and the screen of your device will appear.</li>
+                                                <li>
+                                                    <span class="en">Use a Lightning to HDMI adapter such as Apple's Lightning Digital AV Adapter.</span>
+                                                    <span class="zh">使用闪电转 HDMI 适配器，例如 Apple 的闪电数字影音转换器。</span>
+                                                </li>
+                                                <li>
+                                                    <span class="en">Connect one end of an HDMI cable to the adapter and the other to your TV or monitor.</span>
+                                                    <span class="zh">将 HDMI 线缆的一端连接到适配器，另一端连接到您的电视或显示器。</span>
+                                                </li>
+                                                <li>
+                                                    <span class="en">Switch your TV input to the correct HDMI source, and the screen of your device will appear.</span>
+                                                    <span class="zh">将电视输入切换到正确的 HDMI 源，您设备的屏幕就会显示出来。</span>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -129,95 +178,188 @@
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: Can I still use Ginkgo Active while travelling?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: Can I still use Ginkgo Active while travelling?</span>
+                                        <span class="zh">问：旅行时我还能使用 Ginkgo Active 吗？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-3">Of course! Ginkgo Active is developed with the goal of exercising anywhere, anytime. Professor Ginkgo will adjust your training session based on what's available to you during the trip, so you can always get the most effectiveness out of your exercises.</p>
+                                    <p class="mb-3">
+                                        <span class="en">Of course! Ginkgo Active is developed with the goal of exercising anywhere, anytime. Professor Ginkgo will adjust your training session based on what's available to you during the trip, so you can always get the most effectiveness out of your exercises.</span>
+                                        <span class="zh">当然可以！Ginkgo Active 的开发目标就是让您随时随地进行锻炼。Ginkgo 教授会根据您旅行期间可用的设备调整训练课程，确保您始终获得最佳的锻炼效果。</span>
+                                    </p>
                                     <ol class="list-decimal pl-5 text-stone-600 space-y-1">
-                                        <li>In Ginkgo Active, press the "Navigation Menu" button.</li>
-                                        <li>Go to "My Gym" under the "Private Island" location.</li>
-                                        <li>Press the "Pencil" icon inside the box for "Today's Equipment".</li>
-                                        <li>Remove any equipment that you cannot currently access.</li>
+                                        <li>
+                                            <span class="en">In Ginkgo Active, press the "Navigation Menu" button.</span>
+                                            <span class="zh">在 Ginkgo Active 中，点击“导航菜单”按钮。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Go to "My Gym" under the "Private Island" location.</span>
+                                            <span class="zh">在“私人岛屿”位置下，进入“我的健身房”。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Press the "Pencil" icon inside the box for "Today's Equipment".</span>
+                                            <span class="zh">点击“今日设备”框内的“铅笔”图标。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Remove any equipment that you cannot currently access.</span>
+                                            <span class="zh">移除您目前无法使用的任何设备。</span>
+                                        </li>
                                     </ol>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: What if my health condition changes during my exercise prescription?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: What if my health condition changes during my exercise prescription?</span>
+                                        <span class="zh">问：如果在执行运动处方期间我的健康状况发生变化怎么办？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-3">Simply contact Professor Ginkgo anytime by going to his office, and he will be more than happy to adjust the rest of your current exercise prescription accordingly.</p>
+                                    <p class="mb-3">
+                                        <span class="en">Simply contact Professor Ginkgo anytime by going to his office, and he will be more than happy to adjust the rest of your current exercise prescription accordingly.</span>
+                                        <span class="zh">只需随时前往 Ginkgo 教授的办公室联系他，他将非常乐意对您当前的剩余运动处方进行相应调整。</span>
+                                    </p>
                                     <ol class="list-decimal pl-5 text-stone-600 space-y-1">
-                                        <li>In Ginkgo Active, press the "Navigation Menu" button at the top left of your screen.</li>
-                                        <li>Go to "Professor Ginkgo's Office" under the "Ginkgo Center" location.</li>
-                                        <li>Press the health category that you wish to make adjustments to.</li>
-                                        <li>Enter the adjustments for your health profile.</li>
-                                        <li>Press the "Save" button.</li>
+                                        <li>
+                                            <span class="en">In Ginkgo Active, press the "Navigation Menu" button at the top left of your screen.</span>
+                                            <span class="zh">在 Ginkgo Active 中，点击屏幕左上角的“导航菜单”按钮。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Go to "Professor Ginkgo's Office" under the "Ginkgo Center" location.</span>
+                                            <span class="zh">在“Ginkgo 中心”位置下，进入“Ginkgo 教授的办公室”。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Press the health category that you wish to make adjustments to.</span>
+                                            <span class="zh">点击您希望进行调整的健康类别。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Enter the adjustments for your health profile.</span>
+                                            <span class="zh">输入对您健康档案的调整信息。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Press the "Save" button.</span>
+                                            <span class="zh">点击“保存”按钮。</span>
+                                        </li>
                                     </ol>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: I just bought new exercise equipment that I want to incorporate into my exercises with Ginkgo Active.</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: I just bought new exercise equipment that I want to incorporate into my exercises with Ginkgo Active.</span>
+                                        <span class="zh">问：我刚买了一些新的运动器材，想将它们整合到 Ginkgo Active 的锻炼中。</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-3">Your virtual gym in Ginkgo Active can be upgraded as you upgrade your home gym! Professor Ginkgo will expand the list of exercises that you can access when you add new equipment.</p>
+                                    <p class="mb-3">
+                                        <span class="en">Your virtual gym in Ginkgo Active can be upgraded as you upgrade your home gym! Professor Ginkgo will expand the list of exercises that you can access when you add new equipment.</span>
+                                        <span class="zh">当您升级家庭健身房时，您在 Ginkgo Active 中的虚拟健身房也可以同步升级！当您添加新设备时，Ginkgo 教授会扩展您可以进行的锻炼列表。</span>
+                                    </p>
                                     <ol class="list-decimal pl-5 text-stone-600 space-y-1">
-                                        <li>In Ginkgo Active, press the "Navigation Menu" button at the top left of your screen.</li>
-                                        <li>Go to "My Gym" under the "Private Island" location.</li>
-                                        <li>Press the "Equipments" icon on the left side of your screen.</li>
-                                        <li>Add any new equipment that you own.</li>
-                                        <li>Press the "Save" button.</li>
+                                        <li>
+                                            <span class="en">In Ginkgo Active, press the "Navigation Menu" button at the top left of your screen.</span>
+                                            <span class="zh">在 Ginkgo Active 中，点击屏幕左上角的“导航菜单”按钮。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Go to "My Gym" under the "Private Island" location.</span>
+                                            <span class="zh">在“私人岛屿”位置下，进入“我的健身房”。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Press the "Equipments" icon on the left side of your screen.</span>
+                                            <span class="zh">点击屏幕左侧的“设备”图标。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Add any new equipment that you own.</span>
+                                            <span class="zh">添加您拥有的任何新设备。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Press the "Save" button.</span>
+                                            <span class="zh">点击“保存”按钮。</span>
+                                        </li>
                                     </ol>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: There's no sound when I use Ginkgo Active, even when I turned up the volume both in app and on my device.</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: There's no sound when I use Ginkgo Active, even when I turned up the volume both in app and on my device.</span>
+                                        <span class="zh">问：使用 Ginkgo Active 时没有声音，即使我在应用和设备上都调大了音量。</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>This may happen when Silent Mode is turned on, or when the volume inside the app is muted. Try increasing the volume in the "Settings" panel in Ginkgo Active, or turning off Silent Mode on your device.</p>
+                                    <p>
+                                        <span class="en">This may happen when Silent Mode is turned on, or when the volume inside the app is muted. Try increasing the volume in the "Settings" panel in Ginkgo Active, or turning off Silent Mode on your device.</span>
+                                        <span class="zh">这可能是由于设备开启了静音模式，或者应用内的音量被静音。请尝试在 Ginkgo Active 的“设置”面板中调大音量，或者关闭设备上的静音模式。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: I feel like my training sessions do not perfectly match my current fitness level.</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: I feel like my training sessions do not perfectly match my current fitness level.</span>
+                                        <span class="zh">问：我感觉我的训练课程不能完美匹配我当前的体能水平。</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-6">Our bodies and how we feel can change frequently due to many factors in our daily lives. No need to worry though, as Professor Ginkgo will make the respective adjustments to your training sessions on the spot based on the information you share with him.</p>
+                                    <p class="mb-6">
+                                        <span class="en">Our bodies and how we feel can change frequently due to many factors in our daily lives. No need to worry though, as Professor Ginkgo will make the respective adjustments to your training sessions on the spot based on the information you share with him.</span>
+                                        <span class="zh">由于日常生活中的多种因素，我们的身体状况和感受会经常变化。不过无需担心，Ginkgo 教授会根据您与他分享的信息，当场对您的训练课程进行相应调整。</span>
+                                    </p>
                                     
                                     <div class="space-y-6">
                                         <div class="bg-white p-5 rounded-xl border border-stone-100">
-                                            <p class="text-stone-800 font-semibold mb-2">A. When an exercise is misaligned with your fitness level:</p>
+                                            <p class="text-stone-800 font-semibold mb-2">
+                                                <span class="en">A. When an exercise is misaligned with your fitness level:</span>
+                                                <span class="zh">A. 当某项运动与您的体能水平不符时：</span>
+                                            </p>
                                             <ol class="list-decimal pl-5 text-stone-600 space-y-1 mb-3">
-                                                <li>On the "Exercising" screen, press the "Too Easy" or the "Too Hard" button based on your concern with the exercise.</li>
-                                                <li>Let Professor Ginkgo know the reason of your concern with the exercise.</li>
-                                                <li>Press the "Continue" button at the bottom right of the window.</li>
+                                                <li>
+                                                    <span class="en">On the "Exercising" screen, press the "Too Easy" or the "Too Hard" button based on your concern with the exercise.</span>
+                                                    <span class="zh">在“锻炼”屏幕上，根据您对该项运动的感受，点击“太容易”或“太难”按钮。</span>
+                                                </li>
+                                                <li>
+                                                    <span class="en">Let Professor Ginkgo know the reason of your concern with the exercise.</span>
+                                                    <span class="zh">告诉 Ginkgo 教授您觉得不合适的具体原因。</span>
+                                                </li>
+                                                <li>
+                                                    <span class="en">Press the "Continue" button at the bottom right of the window.</span>
+                                                    <span class="zh">点击窗口右下角的“继续”按钮。</span>
+                                                </li>
                                             </ol>
-                                            <p class="text-stone-600 italic">Professor Gingko will swap out the exercise of concern on the spot and replace it with another exercise better aligning with how you feel.</p>
+                                            <p class="text-stone-600 italic">
+                                                <span class="en">Professor Gingko will swap out the exercise of concern on the spot and replace it with another exercise better aligning with how you feel.</span>
+                                                <span class="zh">Ginkgo 教授会当场替换掉该运动，换成更符合您感受的另一项运动。</span>
+                                            </p>
                                         </div>
                                         <div class="bg-white p-5 rounded-xl border border-stone-100">
-                                            <p class="text-stone-800 font-semibold mb-2">B. When the training session is misaligned with your fitness level:</p>
-                                            <p class="text-stone-600">Based on your RPE records at the end of your training sessions, Professor Ginkgo may decide adjust the intensity of the rest of your exercise prescription. The adjustment will happen when your RPE records break certain thresholds for at least two training sessions. Make sure to record your RPE as accurately as you feel, so your exercise prescription can be better fitted to your needs and goals!</p>
+                                            <p class="text-stone-800 font-semibold mb-2">
+                                                <span class="en">B. When the training session is misaligned with your fitness level:</span>
+                                                <span class="zh">B. 当整个训练课程与您的体能水平不符时：</span>
+                                            </p>
+                                            <p class="text-stone-600">
+                                                <span class="en">Based on your RPE records at the end of your training sessions, Professor Ginkgo may decide adjust the intensity of the rest of your exercise prescription. The adjustment will happen when your RPE records break certain thresholds for at least two training sessions. Make sure to record your RPE as accurately as you feel, so your exercise prescription can be better fitted to your needs and goals!</span>
+                                                <span class="zh">根据您在训练课程结束时的 RPE（主观用力疲劳度）记录，Ginkgo 教授可能会决定调整您剩余运动处方的强度。当您的 RPE 记录在至少两次训练课程中打破特定阈值时，就会进行此调整。请务必尽可能准确地记录您的 RPE，这样您的运动处方才能更好地满足您的需求和目标！</span>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -225,236 +367,405 @@
                         </div>
                     </section>
 
-                    <!-- SECTION 2: My Experience -->
                     <section>
                         <div class="flex items-center gap-3 mb-6 pb-2 border-b border-stone-100 mt-12">
                             <i data-lucide="star" class="w-6 h-6 text-emerald-600"></i>
-                            <h2 class="text-2xl font-bold text-stone-900">My Experience</h2>
+                            <h2 class="text-2xl font-bold text-stone-900">
+                                <span class="en">My Experience</span>
+                                <span class="zh">我的体验</span>
+                            </h2>
                         </div>
 
                         <div class="space-y-4">
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: Why do I need to provide personal information?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: Why do I need to provide personal information?</span>
+                                        <span class="zh">问：为什么我需要提供个人信息？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>We require information such as your gender, age, weight, fitness habits, and any existing injuries or medical conditions to design a personalized workout plan tailored to your needs, ensuring both safety and optimal results.</p>
+                                    <p>
+                                        <span class="en">We require information such as your gender, age, weight, fitness habits, and any existing injuries or medical conditions to design a personalized workout plan tailored to your needs, ensuring both safety and optimal results.</span>
+                                        <span class="zh">我们需要您的性别、年龄、体重、健身习惯以及任何现有的伤病或医疗状况等信息，以便为您设计量身定制的锻炼计划，从而确保安全和最佳效果。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: Is my personal information secure?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: Is my personal information secure?</span>
+                                        <span class="zh">问：我的个人信息安全吗？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>Absolutely! Your privacy is our top priority, and we strictly comply with PIPEDA regulations to protect your personal information. For more details, please visit our <a href="/privacy-policy" class="text-emerald-600 hover:underline">Privacy Policy</a>.</p>
+                                    <p>
+                                        <span class="en">Absolutely! Your privacy is our top priority, and we strictly comply with PIPEDA regulations to protect your personal information. For more details, please visit our <a href="/privacy-policy" class="text-emerald-600 hover:underline">Privacy Policy</a>.</span>
+                                        <span class="zh">绝对安全！您的隐私是我们的首要任务，我们严格遵守 PIPEDA 法规来保护您的个人信息。了解更多详情，请访问我们的<a href="/privacy-policy" class="text-emerald-600 hover:underline">隐私政策</a>。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: Can I re-do the performance measure to improve my score?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: Can I re-do the performance measure to improve my score?</span>
+                                        <span class="zh">问：我可以重新进行体能测试以提高分数吗？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-2">Redoing the assessment within the initial 28 days is not supported, as your results are essential for creating your personalized 28-day prescription.</p>
-                                    <p>After 28 days, you'll be able to conduct a reassessment to update your fitness levels and ensure your next prescription aligns with your progress.</p>
+                                    <p class="mb-2">
+                                        <span class="en">Redoing the assessment within the initial 28 days is not supported, as your results are essential for creating your personalized 28-day prescription.</span>
+                                        <span class="zh">不支持在最初的 28 天内重新进行评估，因为您的测试结果对于制定您专属的 28 天处方至关重要。</span>
+                                    </p>
+                                    <p>
+                                        <span class="en">After 28 days, you'll be able to conduct a reassessment to update your fitness levels and ensure your next prescription aligns with your progress.</span>
+                                        <span class="zh">28 天后，您将能够进行重新评估，以更新您的体能水平，并确保您的下一个处方符合您的进度。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: Can I use Ginkgo Active offline?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: Can I use Ginkgo Active offline?</span>
+                                        <span class="zh">问：我可以离线使用 Ginkgo Active 吗？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>No, because Ginkgo Active adjusts your prescription based on your feedback to the exercises in real time and so needs to stay connected via wifi at all times.</p>
+                                    <p>
+                                        <span class="en">No, because Ginkgo Active adjusts your prescription based on your feedback to the exercises in real time and so needs to stay connected via wifi at all times.</span>
+                                        <span class="zh">不可以。因为 Ginkgo Active 会根据您对运动的实时反馈调整您的处方，因此需要始终保持 Wi-Fi 连接。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: What types of workouts are included?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: What types of workouts are included?</span>
+                                        <span class="zh">问：包含哪些类型的锻炼？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>We offer a range of workouts, including balance, strength, cardio, and functional training. You can browse the exercise list every time before you start a workout session.</p>
+                                    <p>
+                                        <span class="en">We offer a range of workouts, including balance, strength, cardio, and functional training. You can browse the exercise list every time before you start a workout session.</span>
+                                        <span class="zh">我们提供各种类型的锻炼，包括平衡、力量、有氧和功能性训练。您可以在每次开始锻炼课程之前浏览运动列表。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: Is Ginkgo Active suitable for beginners?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: Is Ginkgo Active suitable for beginners?</span>
+                                        <span class="zh">问：Ginkgo Active 适合初学者吗？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>Absolutely! Prof Ginkgo will generate prescriptions based on your profile and assessment results. Users of all levels, from beginner to advanced, are welcome to Ginkgo world.</p>
+                                    <p>
+                                        <span class="en">Absolutely! Prof Ginkgo will generate prescriptions based on your profile and assessment results. Users of all levels, from beginner to advanced, are welcome to Ginkgo world.</span>
+                                        <span class="zh">绝对适合！Ginkgo 教授将根据您的个人资料和评估结果生成处方。欢迎从初学者到高级锻炼者的所有级别用户加入 Ginkgo 世界。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: Can I use Ginkgo Active if I have an injury or a medical condition?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: Can I use Ginkgo Active if I have an injury or a medical condition?</span>
+                                        <span class="zh">问：如果我有伤病或医疗状况，可以使用 Ginkgo Active 吗？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>We recommend consulting with your healthcare provider before starting any exercise program, especially if you have an injury or a medical condition. Please report any injuries and/or medical conditions to Prof Ginkgo during the assessment process. As the result, your prescription should include gentle exercises that may be more suitable for those with physical restrictions.</p>
+                                    <p>
+                                        <span class="en">We recommend consulting with your healthcare provider before starting any exercise program, especially if you have an injury or a medical condition. Please report any injuries and/or medical conditions to Prof Ginkgo during the assessment process. As the result, your prescription should include gentle exercises that may be more suitable for those with physical restrictions.</span>
+                                        <span class="zh">在开始任何运动计划之前，特别是如果您有伤病或医疗状况，我们建议咨询您的医疗保健提供者。请在评估过程中向 Ginkgo 教授报告任何伤病和/或医疗状况。因此，您的处方将包含可能更适合身体受限人士的温和运动。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: I found a specific exercise is very helpful. Should I do that exercise few more times?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: I found a specific exercise is very helpful. Should I do that exercise few more times?</span>
+                                        <span class="zh">问：我发现某项特定的运动非常有帮助。我应该多做几次吗？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>There is no need to do the exercise more times than prescribed because you will have opportunity to practice that exercise (or something similar) again later.</p>
+                                    <p>
+                                        <span class="en">There is no need to do the exercise more times than prescribed because you will have opportunity to practice that exercise (or something similar) again later.</span>
+                                        <span class="zh">没有必要超出处方规定的次数进行锻炼，因为您稍后将有机会再次练习该运动（或类似的运动）。</span>
+                                    </p>
                                 </div>
                             </details>
                         </div>
                     </section>
 
-                    <!-- SECTION 3: My Account -->
                     <section>
                         <div class="flex items-center gap-3 mb-6 pb-2 border-b border-stone-100 mt-12">
                             <i data-lucide="user" class="w-6 h-6 text-emerald-600"></i>
-                            <h2 class="text-2xl font-bold text-stone-900">My Account</h2>
+                            <h2 class="text-2xl font-bold text-stone-900">
+                                <span class="en">My Account</span>
+                                <span class="zh">我的账户</span>
+                            </h2>
                         </div>
 
                         <div class="space-y-4">
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: I received a subscription code to the membership subscription through promotions. How do I use it?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: I received a subscription code to the membership subscription through promotions. How do I use it?</span>
+                                        <span class="zh">问：我通过促销活动收到了会员订阅的代码。我该如何使用它？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-3">Invitation codes provides special offers to Ginkgo Active subscriptions like discounted pricing or free subscription periods.</p>
-                                    <p class="mb-3">If you are a new user, you can enter your invitation code on the payment screen by clicking the "Enter a subscription or family code" button.</p>
-                                    <p>If you are already subscribed to Ginkgo Active, you go to your account settings and press the "Change payment plan" button to enter your code.</p>
+                                    <p class="mb-3">
+                                        <span class="en">Invitation codes provides special offers to Ginkgo Active subscriptions like discounted pricing or free subscription periods.</span>
+                                        <span class="zh">邀请码可为 Ginkgo Active 订阅提供特别优惠，例如折扣价或免费订阅期。</span>
+                                    </p>
+                                    <p class="mb-3">
+                                        <span class="en">If you are a new user, you can enter your invitation code on the payment screen by clicking the "Enter a subscription or family code" button.</span>
+                                        <span class="zh">如果您是新用户，可以通过点击“输入订阅或家庭验证码”按钮，在支付页面输入您的邀请码。</span>
+                                    </p>
+                                    <p>
+                                        <span class="en">If you are already subscribed to Ginkgo Active, you go to your account settings and press the "Change payment plan" button to enter your code.</span>
+                                        <span class="zh">如果您已经订阅了 Ginkgo Active，您可以前往您的账户设置，然后点击“更改付款计划”按钮来输入您的验证码。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: I received a family code to enroll in the family plan that my family member subscribed to. How do I use it?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: I received a family code to enroll in the family plan that my family member subscribed to. How do I use it?</span>
+                                        <span class="zh">问：我收到了一个家庭验证码，用于加入我家庭成员订阅的家庭计划。我该如何使用？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-3">Great to hear that you're starting to exercise alongside your family members! You can enrol in the same family plan with your family code.</p>
-                                    <p class="mb-3">If you are a new user, you can enter your family code on the payment screen by clicking the "Enter a subscription or family code" button.</p>
-                                    <p>If you are already subscribed to Ginkgo Active through either an individual plan or a family plan, you will first need to cancel your subscription first in the settings of your device. Once you have cancelled your current Ginkgo Active subscription, go to your account settings in app and press the "Change payment plan" button to enter your code.</p>
+                                    <p class="mb-3">
+                                        <span class="en">Great to hear that you're starting to exercise alongside your family members! You can enrol in the same family plan with your family code.</span>
+                                        <span class="zh">很高兴听到您开始与家人一起锻炼！您可以使用您的家庭验证码加入同一个家庭计划。</span>
+                                    </p>
+                                    <p class="mb-3">
+                                        <span class="en">If you are a new user, you can enter your family code on the payment screen by clicking the "Enter a subscription or family code" button.</span>
+                                        <span class="zh">如果您是新用户，可以通过点击“输入订阅或家庭验证码”按钮，在支付页面输入您的家庭验证码。</span>
+                                    </p>
+                                    <p>
+                                        <span class="en">If you are already subscribed to Ginkgo Active through either an individual plan or a family plan, you will first need to cancel your subscription first in the settings of your device. Once you have cancelled your current Ginkgo Active subscription, go to your account settings in app and press the "Change payment plan" button to enter your code.</span>
+                                        <span class="zh">如果您已经通过个人计划或家庭计划订阅了 Ginkgo Active，您需要先在设备的设置中取消订阅。取消当前的 Ginkgo Active 订阅后，转到应用内的账户设置，然后点击“更改付款计划”按钮来输入您的验证码。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: How do I cancel my subscription?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: How do I cancel my subscription?</span>
+                                        <span class="zh">问：如何取消订阅？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-3">It's sad to see you leave the Ginkgo World :( Remember, your private island and Professor Ginkgo will always be waiting for your return so we can serve you again.</p>
-                                    <p class="text-stone-800 font-medium mb-2">To cancel your subscription:</p>
+                                    <p class="mb-3">
+                                        <span class="en">It's sad to see you leave the Ginkgo World :( Remember, your private island and Professor Ginkgo will always be waiting for your return so we can serve you again.</span>
+                                        <span class="zh">很遗憾看到您离开 Ginkgo 世界 :( 请记住，您的私人岛屿和 Ginkgo 教授将永远等待您的归来，以便我们能再次为您服务。</span>
+                                    </p>
+                                    <p class="text-stone-800 font-medium mb-2">
+                                        <span class="en">To cancel your subscription:</span>
+                                        <span class="zh">要取消订阅：</span>
+                                    </p>
                                     <ol class="list-decimal pl-5 space-y-1">
-                                        <li>Go to "Settings" on your device.</li>
-                                        <li>Select "Apple ID" then "Media & Purchases" then "Subscriptions".</li>
-                                        <li>Select Ginkgo Active.</li>
-                                        <li>Press the "Cancel Subscription" button.</li>
+                                        <li>
+                                            <span class="en">Go to "Settings" on your device.</span>
+                                            <span class="zh">转到您设备上的“设置”。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Select "Apple ID" then "Media & Purchases" then "Subscriptions".</span>
+                                            <span class="zh">选择“Apple ID”，然后选择“媒体与购买项目”，再选择“订阅”。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Select Ginkgo Active.</span>
+                                            <span class="zh">选择 Ginkgo Active。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Press the "Cancel Subscription" button.</span>
+                                            <span class="zh">点击“取消订阅”按钮。</span>
+                                        </li>
                                     </ol>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: Can my family members share the same iPad with me to use Ginkgo Active?</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: Can my family members share the same iPad with me to use Ginkgo Active?</span>
+                                        <span class="zh">问：我的家人可以和我共用同一台 iPad 来使用 Ginkgo Active 吗？</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p>Of course! You can log out from your account in the app to allow other members to sign in. Their data will be automatically loaded.</p>
+                                    <p>
+                                        <span class="en">Of course! You can log out from your account in the app to allow other members to sign in. Their data will be automatically loaded.</span>
+                                        <span class="zh">当然可以！您可以在应用中退出您的账户，以允许其他成员登录。他们的数据将会自动加载。</span>
+                                    </p>
                                 </div>
                             </details>
 
                             <details class="group bg-stone-50 rounded-2xl border border-stone-100 [&_summary::-webkit-details-marker]:hidden">
                                 <summary class="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-stone-900 hover:text-emerald-600 transition-colors">
-                                    <span class="text-lg pr-4">Q: I subscribed to a family plan and want to invite my family members to Ginkgo Active.</span>
+                                    <span class="text-lg pr-4">
+                                        <span class="en">Q: I subscribed to a family plan and want to invite my family members to Ginkgo Active.</span>
+                                        <span class="zh">问：我订阅了家庭计划，想邀请我的家人加入 Ginkgo Active。</span>
+                                    </span>
                                     <span class="transition duration-300 group-open:-rotate-180 shrink-0 text-emerald-600">
                                         <i data-lucide="chevron-down" class="w-5 h-5"></i>
                                     </span>
                                 </summary>
                                 <div class="px-6 pb-6 text-stone-600 border-t border-stone-100 pt-4">
-                                    <p class="mb-3">You will be able to invite two family members onto your family plan:</p>
+                                    <p class="mb-3">
+                                        <span class="en">You will be able to invite two family members onto your family plan:</span>
+                                        <span class="zh">您将能够邀请两名家庭成员加入您的家庭计划：</span>
+                                    </p>
                                     <ol class="list-decimal pl-5 space-y-1 mb-4">
-                                        <li>In Ginkgo Active, press the "Navigation Menu" button.</li>
-                                        <li>Press the "Settings” button at the bottom of the Navigation Menu.</li>
-                                        <li>Press the "Account" tab.</li>
-                                        <li>Under the "Family Member" box, press the "Add Member" button.</li>
-                                        <li>Select your relationship with this family member.</li>
-                                        <li>A family code will be generated, share this code with your family member.</li>
-                                        <li>The member will be added to your family plan once they enter the family code by pressing the "Enter a subscription or family code" button.</li>
+                                        <li>
+                                            <span class="en">In Ginkgo Active, press the "Navigation Menu" button.</span>
+                                            <span class="zh">在 Ginkgo Active 中，点击“导航菜单”按钮。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Press the "Settings” button at the bottom of the Navigation Menu.</span>
+                                            <span class="zh">点击导航菜单底部的“设置”按钮。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Press the "Account" tab.</span>
+                                            <span class="zh">点击“账户”选项卡。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Under the "Family Member" box, press the "Add Member" button.</span>
+                                            <span class="zh">在“家庭成员”框下，点击“添加成员”按钮。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">Select your relationship with this family member.</span>
+                                            <span class="zh">选择您与该家庭成员的关系。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">A family code will be generated, share this code with your family member.</span>
+                                            <span class="zh">系统将生成一个家庭验证码，请与您的家庭成员分享此验证码。</span>
+                                        </li>
+                                        <li>
+                                            <span class="en">The member will be added to your family plan once they enter the family code by pressing the "Enter a subscription or family code" button.</span>
+                                            <span class="zh">成员点击“输入订阅或家庭验证码”按钮并输入家庭验证码后，即可加入您的家庭计划。</span>
+                                        </li>
                                     </ol>
-                                    <p class="italic text-sm">For more information, please see FAQ: I received a family code to enrol in the family plan.</p>
+                                    <p class="italic text-sm">
+                                        <span class="en">For more information, please see FAQ: I received a family code to enrol in the family plan.</span>
+                                        <span class="zh">获取更多信息，请参阅常见问题：我收到了一个家庭验证码，用于加入家庭计划。</span>
+                                    </p>
                                 </div>
                             </details>
                         </div>
                     </section>
                 </div>
 
-                <!-- Contact Us Section -->
                 <div class="mt-16 pt-10 border-t border-stone-200 text-center bg-stone-50 rounded-2xl p-8">
                     <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i data-lucide="mail" class="w-6 h-6 text-emerald-600"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-stone-900 mb-3">Contact Us</h2>
+                    <h2 class="text-2xl font-bold text-stone-900 mb-3">
+                        <span class="en">Contact Us</span>
+                        <span class="zh">联系我们</span>
+                    </h2>
                     <p class="text-stone-600 max-w-lg mx-auto">
-                        Didn’t see your question or didn’t find the answers? Send us an email at 
-                        <a href="mailto:support@ginkgo.health" class="text-emerald-600 font-semibold hover:underline">support@ginkgo.health</a> 
-                        and our team will get back to you as soon as possible!
+                        <span class="en">Didn’t see your question or didn’t find the answers? Send us an email at <a href="mailto:support@ginkgo.health" class="text-emerald-600 font-semibold hover:underline">support@ginkgo.health</a> and our team will get back to you as soon as possible!</span>
+                        <span class="zh">没看到您的问题或没有找到答案？发送电子邮件至 <a href="mailto:support@ginkgo.health" class="text-emerald-600 font-semibold hover:underline">support@ginkgo.health</a>，我们的团队将尽快给您回复！</span>
                     </p>
                 </div>
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="bg-stone-950 py-8 text-center text-stone-500 text-sm mt-12">
-          <p>© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</p>
+          <p>
+              <span class="en">© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</span>
+              <span class="zh">© 2026 Ginkgo Active. 保留所有权利。您的健康 GPS。</span>
+          </p>
           <div class="mt-4 flex justify-center gap-4 flex-wrap px-6">
-            <a href="/terms-and-conditions" class="hover:text-stone-300 transition-colors">Terms & Conditions</a>
+            <a href="/terms-and-conditions.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">Terms & Conditions</span>
+                <span class="zh">条款与条件</span>
+            </a>
             <span class="text-stone-700">|</span>
-            <a href="/privacy-policy" class="hover:text-stone-300 transition-colors">Privacy Policy</a>
+            <a href="/privacy-policy.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">Privacy Policy</span>
+                <span class="zh">隐私政策</span>
+            </a>
             <span class="text-stone-700">|</span>
-            <a href="/faqs-copy" class="hover:text-stone-300 transition-colors">FAQ</a>
+            <a href="/faqs-copy.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">FAQ</span>
+                <span class="zh">常见问题解答</span>
+            </a>
           </div>
         </footer>
     </div>
 
-    <!-- Initialize the Icons -->
     <script>
+        // Initialize Icons
         lucide.createIcons();
+
+        // Language Switcher Logic
+        function toggleLanguage() {
+            const body = document.body;
+            if (body.classList.contains('lang-en')) {
+                body.classList.remove('lang-en');
+                body.classList.add('lang-zh');
+                localStorage.setItem('ginkgo-lang', 'zh');
+            } else {
+                body.classList.remove('lang-zh');
+                body.classList.add('lang-en');
+                localStorage.setItem('ginkgo-lang', 'en');
+            }
+        }
+
+        // Apply saved language preference on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('ginkgo-lang') || 'en';
+            document.body.classList.remove('lang-en', 'lang-zh');
+            document.body.classList.add('lang-' + savedLang);
+        });
     </script>
 </body>
 </html>
