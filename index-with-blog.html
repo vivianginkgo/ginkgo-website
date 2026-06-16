@@ -471,11 +471,7 @@
                       </a>
                       <div class="p-8 flex flex-col flex-grow">
                           <div class="flex items-center gap-4 text-xs font-bold text-stone-500 mb-4 uppercase tracking-wider">
-                              <span class="text-emerald-600">
-                                  {{ post.category }}
-                              </span>
-                              <span>•</span>
-                              <span>{{ post.date | date: "%b %d, %Y" }}</span>
+                            <span>{{ post.date | date: "%B %d, %Y" }}</span>
                           </div>
                           <a href="{{ post.url | relative_url }}">
                             <h3 class="text-xl font-bold text-stone-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
