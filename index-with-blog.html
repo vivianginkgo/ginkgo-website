@@ -78,10 +78,12 @@
         <!-- Hero Section -->
         <section class="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-b from-emerald-50/80 to-stone-50 z-0"></div>
-          <div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center">
+          
+          <!-- Reverted back to a 50/50 grid (grid-cols-2) to give the text its original full width -->
+          <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             
-            <!-- Text Content (Centered) -->
-            <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
+            <!-- Text Content (Left Column - Back to original sizing) -->
+            <div class="max-w-2xl relative z-20">
               <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-sm font-semibold mb-6">
                 <span class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
@@ -91,17 +93,17 @@
                 <span class="zh">人工智能驱动的预防性护理解决方案</span>
               </div>
               
-              <h1 class="text-5xl lg:text-7xl font-extrabold text-stone-900 leading-tight mb-6 tracking-tight">
+              <h1 class="text-5xl lg:text-6xl font-extrabold text-stone-900 leading-tight mb-6 tracking-tight">
                 <span class="en">The First Vertical AI Model for Precise <span class="text-emerald-600">End-to-End Health.</span></span>
                 <span class="zh">首个用于精准<span class="text-emerald-600">端到端健康管理</span>的垂直AI模型。</span>
               </h1>
               
-              <p class="text-lg lg:text-xl text-stone-600 mb-10 leading-relaxed max-w-3xl mx-auto">
+              <p class="text-lg lg:text-xl text-stone-600 mb-10 leading-relaxed">
                 <span class="en">Stop guessing your route to longevity and invest in long-term health with the world’s only purpose-built Ginkgo Preventive Solution. Developed entirely in-house, our unique AI model delivers holistic wellness by analyzing complex health profiles to deliver <span class="font-bold text-stone-800">continuous daily personalized guidance</span>.</span>
                 <span class="zh">停止在长寿之路上盲目摸索，使用全球唯一专属打造的 Ginkgo 预防解决方案投资您的长期健康。我们完全自主研发的独特 AI 模型，通过分析复杂的健康档案，提供<span class="font-bold text-stone-800">持续的每日个性化指导</span>，实现全面的身心健康。</span>
               </p>
               
-              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <div class="flex flex-col sm:flex-row gap-4">
                 <a href="https://forms.gle/udpqMUY27ww23kPB9" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 w-fit">
                   <span class="en">Request a Demo</span><span class="zh">申请演示</span>
                   <i data-lucide="calendar" class="w-5 h-5"></i>
@@ -109,9 +111,10 @@
               </div>
             </div>
 
-            <!-- Massive Hero Image -->
-            <div class="w-full max-w-6xl mx-auto mt-16 lg:mt-20 relative">
-               <img src="hero image.png" alt="Ginkgo Active App Interface" class="w-full h-auto drop-shadow-2xl" />
+            <!-- Massive Hero Image (Right Column) -->
+            <div class="relative hidden lg:block z-10">
+               <!-- The image is now explicitly scaled up (w-[125%]) and pulled slightly left to overlap the gap, bleeding beautifully off the right edge -->
+               <img src="hero image.png" alt="Ginkgo Active App Interface" class="w-[125%] max-w-none drop-shadow-2xl relative -left-8" />
             </div>
 
           </div>
