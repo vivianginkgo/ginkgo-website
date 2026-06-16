@@ -3,7 +3,7 @@ layout: post
 title: "Ginkgo Active Launches An All-in-One Health App: Shaping the Future of Holistic Fitness"
 date: 2024-12-09
 image: "/assets/images/launch-hero.jpg"
-summary: "We are pioneering bio-psychosocial solutions to deliver personalized, AI-driven exercise prescriptions in an immersive virtual world."
+summary: "We are beyond excited to finally pull back the curtain on something we’ve been working on for a long time: the official launch of Ginkgo Active."
 ---
 
 We are beyond excited to finally pull back the curtain on something we’ve been working on for a long time: the official launch of **Ginkgo Active**. 
