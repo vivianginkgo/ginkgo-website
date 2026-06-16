@@ -294,34 +294,67 @@
           </div>
         </section>
   
-        <!-- Safety & Science -->
+        <!-- Combined Safety, Science & Perspective Section -->
         <section class="py-24 bg-white border-t border-stone-100" id="science">
           <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-4xl mx-auto mb-16">
-              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-8">
-                  <span class="en">Safety & Science: Clinical Backing</span><span class="zh">安全与科学：临床验证</span>
-              </h2>
-              
-              <div class="bg-stone-50 border border-stone-200 rounded-3xl p-8 lg:p-12 mb-12 relative">
-                <h3 class="text-2xl font-bold text-stone-900 mb-4">
-                    <span class="en">The Core Principle</span><span class="zh">核心原则</span>
-                </h3>
+            
+            <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
+              <div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-6">
+                    <span class="en">Safety & Science: Your Clinical-Grade GPS</span>
+                    <span class="zh">安全与科学：您的临床级 GPS</span>
+                </h2>
+                
                 <p class="text-lg text-stone-600 leading-relaxed">
-                  <span class="en">Our AI is built on rehabilitation principles used by elite professionals. We focus on strengthening the surrounding tissues to support your body while it heals.</span>
-                  <span class="zh">我们的 AI 建立在精英专业人士使用的康复原则基础之上。我们专注于强化周围组织，在身体愈合时提供支撑。</span>
+                    <span class="en">Exercise is well-known to be an elixir for healthy aging, but the advice is often fragmented. Without a guide, it’s easy to take a wrong turn into over-exertion or injury.</span>
+                    <span class="zh">众所周知，运动是健康老龄化的灵丹妙药，但相关的建议往往是碎片化的。如果没有向导，很容易误入过度劳累或受伤的歧途。</span>
                 </p>
               </div>
-            </div>
   
-            <div class="grid md:grid-cols-2 gap-12">
-              <div class="flex gap-6">
+              <div class="bg-emerald-600 rounded-[2.5rem] p-10 lg:p-14 text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl opacity-10 -translate-y-1/2 translate-x-1/3"></div>
+                <h3 class="text-sm font-bold tracking-widest text-emerald-200 uppercase mb-4">
+                    <span class="en">Our Perspective</span><span class="zh">我们的视角</span>
+                </h3>
+                <p class="text-2xl lg:text-3xl font-medium leading-relaxed mb-8 relative z-10">
+                  <span class="en">We don't just give you a workout; we give you a Ginkgo Preventive Solution (GPS) that integrates all health disciplines into one clear, safe path.</span>
+                  <span class="zh">我们不仅仅为您提供一套锻炼方案；我们为您提供一个 Ginkgo 预防解决方案 (GPS)，将所有健康学科整合为一条清晰、安全的路径。</span>
+                </p>
+                <div class="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full font-semibold text-sm backdrop-blur-sm">
+                  <i data-lucide="shield-check" class="w-5 h-5"></i> 
+                  <span class="en">Safety First Architecture</span><span class="zh">安全第一的架构设计</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+              <!-- Card 1: Core Principle -->
+              <div class="flex flex-col gap-6 bg-stone-50 p-8 rounded-3xl border border-stone-100 hover:shadow-md transition-shadow">
                 <div class="shrink-0">
-                  <div class="bg-emerald-100 p-4 rounded-2xl">
-                    <i data-lucide="shield-check" class="w-8 h-8 text-emerald-600"></i>
+                  <div class="bg-emerald-100 p-4 rounded-2xl w-fit">
+                    <i data-lucide="microscope" class="w-8 h-8 text-emerald-600"></i>
                   </div>
                 </div>
                 <div>
-                  <h4 class="text-2xl font-bold text-stone-900 mb-3">
+                  <h4 class="text-xl font-bold text-stone-900 mb-3">
+                      <span class="en">The Core Principle</span><span class="zh">核心原则</span>
+                  </h4>
+                  <p class="text-stone-600 leading-relaxed">
+                    <span class="en">Our AI is built on rehabilitation principles used by elite professionals. We focus on strengthening the surrounding tissues to support your body while it heals.</span>
+                    <span class="zh">我们的 AI 建立在精英专业人士使用的康复原则基础之上。我们专注于强化周围组织，在身体愈合时提供支撑。</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Card 2: Injury Prevention -->
+              <div class="flex flex-col gap-6 bg-stone-50 p-8 rounded-3xl border border-stone-100 hover:shadow-md transition-shadow">
+                <div class="shrink-0">
+                  <div class="bg-emerald-100 p-4 rounded-2xl w-fit">
+                    <i data-lucide="shield-alert" class="w-8 h-8 text-emerald-600"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-xl font-bold text-stone-900 mb-3">
                       <span class="en">Injury Prevention</span><span class="zh">预防受伤</span>
                   </h4>
                   <p class="text-stone-600 leading-relaxed">
@@ -331,14 +364,15 @@
                 </div>
               </div>
               
-              <div class="flex gap-6">
+              <!-- Card 3: Validation -->
+              <div class="flex flex-col gap-6 bg-stone-50 p-8 rounded-3xl border border-stone-100 hover:shadow-md transition-shadow">
                 <div class="shrink-0">
-                  <div class="bg-blue-100 p-4 rounded-2xl">
+                  <div class="bg-blue-100 p-4 rounded-2xl w-fit">
                     <i data-lucide="activity" class="w-8 h-8 text-blue-600"></i>
                   </div>
                 </div>
                 <div>
-                  <h4 class="text-2xl font-bold text-stone-900 mb-3">
+                  <h4 class="text-xl font-bold text-stone-900 mb-3">
                       <span class="en">Validation</span><span class="zh">科学验证</span>
                   </h4>
                   <p class="text-stone-600 leading-relaxed">
@@ -402,50 +436,9 @@
             </div>
           </div>
         </section>
-  
-        <!-- The "Why" Section (Refined Layout) -->
-        <section class="py-24 bg-white border-t border-stone-100">
-          <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 class="text-3xl lg:text-4xl font-bold text-stone-900 mb-6">
-                  <span class="en">Why Do Most People Feel Lost on Their Health Journey?</span>
-                  <span class="zh">为什么大多数人在健康之路上感到迷茫？</span>
-              </h2>
-              
-              <div class="flex gap-4 bg-stone-50 p-6 md:p-8 rounded-3xl border border-stone-100 mt-8">
-                <div class="flex-shrink-0 mt-1">
-                  <div class="bg-white p-3 rounded-2xl shadow-sm border border-stone-100">
-                    <i data-lucide="map" class="w-6 h-6 text-stone-600"></i>
-                  </div>
-                </div>
-                <div>
-                  <p class="text-stone-600 text-lg leading-relaxed">
-                    <span class="en">Exercise is well-known to be an elixir for healthy aging, but the advice is often fragmented. Without a guide, it’s easy to take a wrong turn into over-exertion or injury.</span>
-                    <span class="zh">众所周知，运动是健康老龄化的灵丹妙药，但相关的建议往往是碎片化的。如果没有向导，很容易误入过度劳累或受伤的歧途。</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-  
-            <div class="bg-emerald-600 rounded-[2.5rem] p-10 lg:p-14 text-white shadow-2xl relative overflow-hidden">
-              <div class="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl opacity-10 -translate-y-1/2 translate-x-1/3"></div>
-              <h3 class="text-sm font-bold tracking-widest text-emerald-200 uppercase mb-4">
-                  <span class="en">Our Perspective</span><span class="zh">我们的视角</span>
-              </h3>
-              <p class="text-2xl lg:text-3xl font-medium leading-relaxed mb-8 relative z-10">
-                <span class="en">We don't just give you a workout; we give you a Ginkgo Preventive Solution (GPS) that integrates all health disciplines into one clear, safe path.</span>
-                <span class="zh">我们不仅仅为您提供一套锻炼方案；我们为您提供一个 Ginkgo 预防解决方案 (GPS)，将所有健康学科整合为一条清晰、安全的路径。</span>
-              </p>
-              <div class="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full font-semibold text-sm backdrop-blur-sm">
-                <i data-lucide="shield-check" class="w-5 h-5"></i> 
-                <span class="en">Safety First Architecture</span><span class="zh">安全第一的架构设计</span>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <!-- --- NEW BLOG PREVIEW SECTION --- -->
-        <section class="py-24 bg-stone-50 border-t border-stone-100" id="insights">
+        <section class="py-24 bg-white border-t border-stone-100" id="insights">
             <div class="max-w-7xl mx-auto px-6">
               
               <!-- Blog Header -->
@@ -460,7 +453,7 @@
                       <span class="zh">随时了解预防性医疗保健、长寿和运动科学的最新动态。</span>
                   </p>
                 </div>
-                <a href="/blog" class="inline-flex items-center gap-2 bg-white border border-stone-200 hover:border-emerald-600 text-stone-700 hover:text-emerald-700 px-6 py-3 rounded-full font-semibold transition-all shadow-sm">
+                <a href="/blog" class="inline-flex items-center gap-2 bg-stone-50 border border-stone-200 hover:border-emerald-600 text-stone-700 hover:text-emerald-700 px-6 py-3 rounded-full font-semibold transition-all shadow-sm">
                     <span class="en">View All Articles</span>
                     <span class="zh">查看所有文章</span>
                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -471,7 +464,7 @@
               <div class="grid md:grid-cols-3 gap-8">
                   
                   <!-- Article 1 -->
-                  <article class="bg-white rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
+                  <article class="bg-stone-50 rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
                       <a href="/blog/pushing-through-pain" class="aspect-[4/3] bg-stone-200 relative overflow-hidden block">
                           <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Exercise Science" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
                       </a>
@@ -500,7 +493,7 @@
                   </article>
                   
                   <!-- Article 2 -->
-                  <article class="bg-white rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
+                  <article class="bg-stone-50 rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
                       <a href="/blog/treating-the-doughnut" class="aspect-[4/3] bg-stone-200 relative overflow-hidden block">
                           <img src="https://images.unsplash.com/photo-1552674605-15c370487311?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rehabilitation" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
                       </a>
@@ -529,7 +522,7 @@
                   </article>
                   
                   <!-- Article 3 -->
-                  <article class="bg-white rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
+                  <article class="bg-stone-50 rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
                       <a href="/blog/future-of-longevity" class="aspect-[4/3] bg-stone-200 relative overflow-hidden block">
                           <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Company News" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
                       </a>
