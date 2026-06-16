@@ -1,4 +1,4 @@
-## **title: "Ginkgo Active Launches An All-in-One Health App: Shaping the Future of Holistic Fitness" date: 2026-06-16 category: "Company News" image: "/assets/images/newswire-header.jpg" summary: "We are pioneering bio-psychosocial solutions to deliver personalized, AI-driven exercise prescriptions in an immersive virtual world."**
+## **title: "Ginkgo Active Launches An All-in-One Health App: Shaping the Future of Holistic Fitness" date: 2024-12-09 category: "Company News" image: "/assets/images/newswire-header.jpg" summary: "We are pioneering bio-psychosocial solutions to deliver personalized, AI-driven exercise prescriptions in an immersive virtual world."**
 
 We are beyond excited to finally pull back the curtain on something we’ve been working on for a long time: the official launch of **Ginkgo Active**.
 
