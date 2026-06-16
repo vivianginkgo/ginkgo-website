@@ -1,0 +1,203 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keeping Up with Prof. Ginkgo - Blog</title>
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration for Ginkgo Brand Colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              emerald: {
+                50: '#f4f8f1',
+                100: '#e5f0dd',
+                200: '#cbe0bb',
+                300: '#a6c990',
+                400: '#81ad66',
+                500: '#649646',
+                600: '#5F9C32', /* Your custom primary green */
+                700: '#4A7A27', /* Darker shade for hover states */
+                800: '#385C1D', /* Darker shade for borders */
+                900: '#263E14', /* Darkest shade for contrasting text */
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Language Toggle Styles -->
+    <style>
+        body.lang-zh .en { display: none !important; }
+        body.lang-en .zh { display: none !important; }
+        body:not(.lang-zh):not(.lang-en) .zh { display: none !important; } /* Fallback */
+    </style>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-stone-50 font-sans text-stone-800 lang-en relative">
+
+    <!-- Top Right Floating Language Button (Mobile mostly, though desktop has nav) -->
+    <div class="absolute top-6 right-6 lg:hidden z-50">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 bg-white border border-stone-200 px-3 py-1.5 rounded-full text-stone-600 hover:text-emerald-600 hover:border-emerald-200 shadow-sm transition-all text-xs font-bold" title="Change Language">
+            <i data-lucide="globe" class="w-3 h-3"></i>
+            <span class="en">中文</span>
+            <span class="zh">EN</span>
+        </button>
+    </div>
+
+    <div class="min-h-screen flex flex-col">
+      
+        <!-- Navigation -->
+        <nav class="w-full border-b border-stone-100 mb-0 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+          <div class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
+            <a href="/" class="flex items-center">
+              <img src="/Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto" onerror="this.src='Frame 48097238.png'">
+            </a>
+            <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600 items-center">
+              <!-- Note: Links use /# to redirect safely back to the homepage sections -->
+              <a href="/#why" class="hover:text-emerald-600 transition-colors">
+                  <span class="en">Why Ginkgo?</span><span class="zh">为什么选择 Ginkgo？</span>
+              </a>
+              <a href="/#concept" class="hover:text-emerald-600 transition-colors">
+                  <span class="en">How It Works</span><span class="zh">工作原理</span>
+              </a>
+              <a href="/#science" class="hover:text-emerald-600 transition-colors">
+                  <span class="en">The Science</span><span class="zh">科学依据</span>
+              </a>
+            </div>
+            <div class="hidden lg:flex items-center gap-5">
+              <!-- Language Switcher -->
+              <button onclick="toggleLanguage()" class="flex items-center gap-1.5 text-stone-500 hover:text-emerald-600 text-sm font-bold transition-colors" title="Change Language">
+                  <i data-lucide="globe" class="w-5 h-5"></i>
+                  <span class="en">中文</span>
+                  <span class="zh">EN</span>
+              </button>
+              <a href="https://forms.gle/udpqMUY27ww23kPB9" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm flex items-center">
+                  <span class="en">Request a Demo</span><span class="zh">申请演示</span>
+              </a>
+            </div>
+          </div>
+        </nav>
+  
+        <!-- Blog Header Section -->
+        <section class="relative pt-16 pb-16 lg:pt-24 lg:pb-20 overflow-hidden bg-stone-50 border-b border-stone-200">
+            <!-- Soft background elements -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-200/50 rounded-full blur-[100px] opacity-50 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-teal-100/50 rounded-full blur-[100px] opacity-50 translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+                <!-- Prof Ginkgo Avatar -->
+                <div class="w-24 h-24 mb-6 relative">
+                    <img src="Profile Picture (1).png" alt="Professor Ginkgo" class="w-full h-full object-cover rounded-full border-4 border-white shadow-xl">
+                    <div class="absolute -bottom-2 -right-2 bg-emerald-100 text-xs font-bold px-2 py-1 rounded-full text-emerald-900 shadow-sm border border-emerald-200 z-10">
+                        <span class="en">Prof.</span><span class="zh">教授</span>
+                    </div>
+                </div>
+
+                <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-6 tracking-tight">
+                    <span class="en">Keeping Up with Prof. Ginkgo</span>
+                    <span class="zh">Ginkgo 教授专栏</span>
+                </h1>
+                
+                <p class="text-lg text-stone-600 max-w-2xl leading-relaxed">
+                    <span class="en">The latest insights on preventive healthcare, longevity, and exercise science from our AI expert and the Ginkgo Active team.</span>
+                    <span class="zh">来自我们的 AI 专家和 Ginkgo Active 团队关于预防性医疗保健、长寿和运动科学的最新见解。</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- All Articles Grid (Powered by Jekyll) -->
+        <main class="flex-grow bg-white py-16 lg:py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- The Jekyll Loop (No 'limit:3' here, so it shows all posts) -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for post in site.posts %}
+                    <article class="bg-stone-50 rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
+                        <a href="{{ post.url | relative_url }}" class="aspect-[4/3] bg-stone-200 relative overflow-hidden block">
+                            <!-- Fallback image logic if front matter image is missing -->
+                            <img src="{% if post.image %}{{ post.image }}{% else %}https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80{% endif %}" alt="{{ post.category }}" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+                        </a>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <div class="flex items-center gap-4 text-xs font-bold text-stone-500 mb-4 uppercase tracking-wider">
+                                <span>{{ post.date | date: "%B %d, %Y" }}</span>
+                            </div>
+                            <a href="{{ post.url | relative_url }}">
+                              <h3 class="text-xl font-bold text-stone-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
+                                  {{ post.title }}
+                              </h3>
+                            </a>
+                            <p class="text-stone-600 mb-6 line-clamp-3 flex-grow">
+                                {{ post.summary }}
+                            </p>
+                            <a href="{{ post.url | relative_url }}" class="text-emerald-600 font-bold inline-flex items-center gap-1 hover:gap-2 transition-all mt-auto w-fit">
+                                <span class="en">Read more</span><span class="zh">阅读更多</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-stone-950 py-8 text-center text-stone-500 text-sm">
+          <p>
+              <span class="en">© 2026 Ginkgo Active. All rights reserved. The GPS for Your Health.</span>
+              <span class="zh">© 2026 Ginkgo Active. 保留所有权利。您的健康 GPS。</span>
+          </p>
+          <div class="mt-4 flex justify-center gap-4 flex-wrap px-6">
+            <a href="/terms-and-conditions.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">Terms & Conditions</span>
+                <span class="zh">条款与条件</span>
+            </a>
+            <span class="text-stone-700">|</span>
+            <a href="/privacy-policy.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">Privacy Policy</span>
+                <span class="zh">隐私政策</span>
+            </a>
+            <span class="text-stone-700">|</span>
+            <a href="/faqs-copy.html" class="hover:text-stone-300 transition-colors">
+                <span class="en">FAQ</span>
+                <span class="zh">常见问题解答</span>
+            </a>
+          </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Language Switcher Logic
+        function toggleLanguage() {
+            const body = document.body;
+            if (body.classList.contains('lang-en')) {
+                body.classList.remove('lang-en');
+                body.classList.add('lang-zh');
+                localStorage.setItem('ginkgo-lang', 'zh');
+            } else {
+                body.classList.remove('lang-zh');
+                body.classList.add('lang-en');
+                localStorage.setItem('ginkgo-lang', 'en');
+            }
+        }
+
+        // Apply saved language preference on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('ginkgo-lang') || 'en';
+            document.body.classList.remove('lang-en', 'lang-zh');
+            document.body.classList.add('lang-' + savedLang);
+        });
+    </script>
+</body>
+</html>
