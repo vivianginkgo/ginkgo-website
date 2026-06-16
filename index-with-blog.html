@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -460,96 +462,35 @@
                 </a>
               </div>
       
-              <!-- Blog Grid -->
+              <!-- Blog Grid (Now Powered by Jekyll) -->
               <div class="grid md:grid-cols-3 gap-8">
-                  
-                  <!-- Article 1 -->
+                  {% for post in site.posts limit:3 %}
                   <article class="bg-stone-50 rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
-                      <a href="/blog/pushing-through-pain" class="aspect-[4/3] bg-stone-200 relative overflow-hidden block">
-                          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Exercise Science" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+                      <a href="{{ post.url | relative_url }}" class="aspect-[4/3] bg-stone-200 relative overflow-hidden block">
+                          <img src="{{ post.image }}" alt="{{ post.category }}" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
                       </a>
                       <div class="p-8 flex flex-col flex-grow">
                           <div class="flex items-center gap-4 text-xs font-bold text-stone-500 mb-4 uppercase tracking-wider">
                               <span class="text-emerald-600">
-                                  <span class="en">Exercise Science</span><span class="zh">运动科学</span>
+                                  {{ post.category }}
                               </span>
                               <span>•</span>
-                              <span>Mar 12, 2026</span>
+                              <span>{{ post.date | date: "%b %d, %Y" }}</span>
                           </div>
-                          <a href="/blog/pushing-through-pain">
+                          <a href="{{ post.url | relative_url }}">
                             <h3 class="text-xl font-bold text-stone-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
-                                <span class="en">Why "Pushing Through the Pain" is Failing Aging Adults</span>
-                                <span class="zh">为什么“忍痛坚持”对中老年人不再适用</span>
+                                {{ post.title }}
                             </h3>
                           </a>
                           <p class="text-stone-600 mb-6 line-clamp-3 flex-grow">
-                              <span class="en">A deep dive into load management and why listening to your body is more important than hitting arbitrary weekly targets.</span>
-                              <span class="zh">深入探讨负荷管理，以及为什么倾听身体的声音比实现任意的每周目标更重要。</span>
+                              {{ post.summary }}
                           </p>
-                          <a href="/blog/pushing-through-pain" class="text-emerald-600 font-bold inline-flex items-center gap-1 hover:gap-2 transition-all mt-auto w-fit">
+                          <a href="{{ post.url | relative_url }}" class="text-emerald-600 font-bold inline-flex items-center gap-1 hover:gap-2 transition-all mt-auto w-fit">
                               <span class="en">Read Article</span><span class="zh">阅读文章</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
                           </a>
                       </div>
                   </article>
-                  
-                  <!-- Article 2 -->
-                  <article class="bg-stone-50 rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
-                      <a href="/blog/treating-the-doughnut" class="aspect-[4/3] bg-stone-200 relative overflow-hidden block">
-                          <img src="https://images.unsplash.com/photo-1552674605-15c370487311?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rehabilitation" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
-                      </a>
-                      <div class="p-8 flex flex-col flex-grow">
-                          <div class="flex items-center gap-4 text-xs font-bold text-stone-500 mb-4 uppercase tracking-wider">
-                              <span class="text-emerald-600">
-                                  <span class="en">Rehabilitation</span><span class="zh">康复治疗</span>
-                              </span>
-                              <span>•</span>
-                              <span>Feb 28, 2026</span>
-                          </div>
-                          <a href="/blog/treating-the-doughnut">
-                            <h3 class="text-xl font-bold text-stone-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
-                                <span class="en">Treating the Doughnut: The Science of Injury Prevention</span>
-                                <span class="zh">治疗甜甜圈：预防受伤的科学原理</span>
-                            </h3>
-                          </a>
-                          <p class="text-stone-600 mb-6 line-clamp-3 flex-grow">
-                              <span class="en">Discover how strengthening the surrounding tissues supports your body while it heals, creating a sustainable foundation for mobility.</span>
-                              <span class="zh">探索强化周围组织如何在身体愈合时提供支撑，从而为机动性打下可持续的基础。</span>
-                          </p>
-                          <a href="/blog/treating-the-doughnut" class="text-emerald-600 font-bold inline-flex items-center gap-1 hover:gap-2 transition-all mt-auto w-fit">
-                              <span class="en">Read Article</span><span class="zh">阅读文章</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                          </a>
-                      </div>
-                  </article>
-                  
-                  <!-- Article 3 -->
-                  <article class="bg-stone-50 rounded-3xl border border-stone-200 overflow-hidden hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 group flex flex-col">
-                      <a href="/blog/future-of-longevity" class="aspect-[4/3] bg-stone-200 relative overflow-hidden block">
-                          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Company News" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
-                      </a>
-                      <div class="p-8 flex flex-col flex-grow">
-                          <div class="flex items-center gap-4 text-xs font-bold text-stone-500 mb-4 uppercase tracking-wider">
-                              <span class="text-emerald-600">
-                                  <span class="en">Company News</span><span class="zh">公司新闻</span>
-                              </span>
-                              <span>•</span>
-                              <span>Jan 15, 2026</span>
-                          </div>
-                          <a href="/blog/future-of-longevity">
-                            <h3 class="text-xl font-bold text-stone-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
-                                <span class="en">The Future of At-Home Longevity Coaching</span>
-                                <span class="zh">居家抗衰老辅导的未来</span>
-                            </h3>
-                          </a>
-                          <p class="text-stone-600 mb-6 line-clamp-3 flex-grow">
-                              <span class="en">How Ginkgo Active is leveraging AI to make elite-level preventive healthcare accessible to populations globally.</span>
-                              <span class="zh">Ginkgo Active 如何利用人工智能，让全球大众都能获得精英级别的预防性医疗保健。</span>
-                          </p>
-                          <a href="/blog/future-of-longevity" class="text-emerald-600 font-bold inline-flex items-center gap-1 hover:gap-2 transition-all mt-auto w-fit">
-                              <span class="en">Read Article</span><span class="zh">阅读文章</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                          </a>
-                      </div>
-                  </article>
-      
+                  {% endfor %}
               </div>
             </div>
         </section>
