@@ -76,10 +76,12 @@
         </nav>
   
         <!-- Hero Section -->
-        <section class="relative pt-8 pb-20 lg:pt-16 lg:pb-24 overflow-hidden">
+        <section class="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-b from-emerald-50/80 to-stone-50 z-0"></div>
-          <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-            <div class="max-w-2xl">
+          <div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center">
+            
+            <!-- Text Content (Centered) -->
+            <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
               <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-sm font-semibold mb-6">
                 <span class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
@@ -88,44 +90,30 @@
                 <span class="en">AI-Powered Solution for Preventive Care</span>
                 <span class="zh">人工智能驱动的预防性护理解决方案</span>
               </div>
-              <h1 class="text-5xl lg:text-6xl font-extrabold text-stone-900 leading-tight mb-6 tracking-tight">
+              
+              <h1 class="text-5xl lg:text-7xl font-extrabold text-stone-900 leading-tight mb-6 tracking-tight">
                 <span class="en">The First Vertical AI Model for Precise <span class="text-emerald-600">End-to-End Health.</span></span>
                 <span class="zh">首个用于精准<span class="text-emerald-600">端到端健康管理</span>的垂直AI模型。</span>
               </h1>
-              <p class="text-lg lg:text-xl text-stone-600 mb-8 leading-relaxed">
+              
+              <p class="text-lg lg:text-xl text-stone-600 mb-10 leading-relaxed max-w-3xl mx-auto">
                 <span class="en">Stop guessing your route to longevity and invest in long-term health with the world’s only purpose-built Ginkgo Preventive Solution. Developed entirely in-house, our unique AI model delivers holistic wellness by analyzing complex health profiles to deliver <span class="font-bold text-stone-800">continuous daily personalized guidance</span>.</span>
                 <span class="zh">停止在长寿之路上盲目摸索，使用全球唯一专属打造的 Ginkgo 预防解决方案投资您的长期健康。我们完全自主研发的独特 AI 模型，通过分析复杂的健康档案，提供<span class="font-bold text-stone-800">持续的每日个性化指导</span>，实现全面的身心健康。</span>
               </p>
-              <div class="flex flex-col sm:flex-row gap-4">
+              
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="https://forms.gle/udpqMUY27ww23kPB9" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 w-fit">
                   <span class="en">Request a Demo</span><span class="zh">申请演示</span>
                   <i data-lucide="calendar" class="w-5 h-5"></i>
                 </a>
               </div>
             </div>
-            <div class="relative hidden lg:block">
-              <!-- Hero Image Container -->
-              <div class="relative w-full">
-                 <!-- The injected user image -->
-                 <img src="hero image.png" alt="Ginkgo Active App Interface" class="w-full h-auto drop-shadow-2xl" />
-                 
-                 <!-- Floating UI Elements focused on Feedback & Guidance -->
-                 <div class="absolute top-[15%] left-4 md:-left-4 bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce border border-stone-100/50" style="animation-duration: 3s;">
-                   <div class="bg-emerald-100 p-2 rounded-full"><i data-lucide="message-square-text" class="w-6 h-6 text-emerald-600"></i></div>
-                   <div>
-                     <p class="text-xs text-stone-500 font-semibold"><span class="en">Real-Time Feedback</span><span class="zh">实时反馈</span></p>
-                     <p class="text-sm font-bold text-stone-800"><span class="en">Load Adjusted: Safe</span><span class="zh">负荷已调整：安全</span></p>
-                   </div>
-                 </div>
-                 <div class="absolute bottom-[15%] right-4 md:-right-4 bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-xl flex items-center gap-4 hover:-translate-y-2 transition-transform duration-300 border border-stone-100/50">
-                   <div class="bg-blue-100 p-2 rounded-full"><i data-lucide="milestone" class="w-6 h-6 text-blue-600"></i></div>
-                   <div>
-                     <p class="text-xs text-stone-500 font-semibold"><span class="en">Clinical Guidance</span><span class="zh">临床指导</span></p>
-                     <p class="text-sm font-bold text-stone-800"><span class="en">Route Optimized</span><span class="zh">路线已优化</span></p>
-                   </div>
-                 </div>
-              </div>
+
+            <!-- Massive Hero Image -->
+            <div class="w-full max-w-6xl mx-auto mt-16 lg:mt-20 relative">
+               <img src="hero image.png" alt="Ginkgo Active App Interface" class="w-full h-auto drop-shadow-2xl" />
             </div>
+
           </div>
         </section>
 
@@ -137,11 +125,6 @@
             
             <div class="max-w-5xl mx-auto px-6 relative z-10">
                 <div class="text-center mb-12">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-emerald-100 text-emerald-700 text-sm font-bold mb-6 shadow-sm">
-                      <i data-lucide="play-circle" class="w-4 h-4"></i>
-                      <span class="en">Product Tour</span>
-                      <span class="zh">产品演示</span>
-                    </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-4 tracking-tight">
                         <span class="en">To Prevent, Improve, Engage, and Save</span>
                         <span class="zh">预防、改善、参与和守护</span>
