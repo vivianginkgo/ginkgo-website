@@ -357,11 +357,30 @@
             }
         }
 
-        // Apply saved language preference on load
+        // Apply saved language preference or system default on load
         document.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('ginkgo-lang') || 'en';
+            let defaultLang = 'en'; // Global fallback
+            
+            // Check for previously saved user preference
+            const savedLang = localStorage.getItem('ginkgo-lang');
+            
+            if (savedLang) {
+                // If they manually toggled it before, respect their choice
+                defaultLang = savedLang;
+            } else {
+                // Otherwise, check the device/browser language
+                // navigator.userLanguage is for older IE compatibility, navigator.language covers modern iOS/Android
+                const systemLang = navigator.language || navigator.userLanguage || '';
+                
+                // If the system language starts with 'zh' (handles zh-CN, zh-TW, zh-HK, etc.)
+                if (systemLang.toLowerCase().startsWith('zh')) {
+                    defaultLang = 'zh';
+                }
+            }
+
+            // Apply the chosen language class
             document.body.classList.remove('lang-en', 'lang-zh');
-            document.body.classList.add('lang-' + savedLang);
+            document.body.classList.add('lang-' + defaultLang);
         });
     </script>
 </body>
