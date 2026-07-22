@@ -13,10 +13,14 @@
   "use strict";
 
   // ---- State -------------------------------------------------------------
-  const files = []; // { name, data|null, error|null }
+  const files = []; // { name, data|null, error|null, attrs }
   let activeData = null;
+  let activeIndex = -1; // index into `files` currently being viewed
   let activeTab = "assessment"; // preserved across file switches
   let hideUnselected = false; // assessment "hide unselected" checkbox state
+  const filterState = {}; // filterKey -> value ("" / "Yes" / "No" / {min,max} / text)
+  let sortState = { col: "name", dir: 1 }; // file list sort
+  let filtersOpen = false; // whether the Filters panel is expanded
 
   const MAX_FILE_BYTES = 25 * 1024 * 1024;
 
@@ -50,6 +54,33 @@
   // Summary scores hidden from the overview panel.
   const HIDDEN_SUMMARY_SCORES = { Safety: true, Time: true };
 
+  // ---- File filtering config ---------------------------------------------
+  const Q_AGE = "183b3e5b-2341-4e6f-88fe-323c8f4701cb";
+  const Q_SEX = "ab6d9072-a298-4954-9287-f22d3f3ce44f";
+  const Q_PREGNANT_WEEKS = "c4a8b328-98e1-40b3-a09f-ace967f34de8";
+  const Q_MINUTES = "1b455c25-c89b-42f8-9043-edeff82362ad";
+  // Derived filter keys (not real question ids).
+  const F_BMI = "_bmi";
+  const F_PREGNANT = "_pregnant";
+  // Questions never offered as filters: height/weight (represented by BMI), the
+  // training-days picker, and the three questions that read as follow-ups.
+  const FILTER_EXCLUDE_IDS = {};
+  [
+    BMI_HEIGHT_ID,
+    BMI_WEIGHT_ID,
+    "f1a0b5d4-2c3e-4b8c-9a6f-7d0e5f1a2b7b", // Choose {0}-{1} days you'd like to exercise
+    "def92796-61da-4ca0-809f-b4dfaa4e74bd", // Does it hurt to raise your left arm?
+    "60644586-5cfc-4558-a912-c51f457a7f0e", // Does it hurt to raise your right arm?
+    "48dede34-2dea-4c93-914c-af6b0724f3ec", // Are you receiving cancer treatment?
+    "a84856a8-1752-4c5e-aeaf-20928eff1647", // Fitness level
+  ].forEach(function (id) { FILTER_EXCLUDE_IDS[id] = true; });
+  // Weekly training minutes come in fixed steps.
+  const MINUTES_OPTIONS = [50, 100, 150, 200, 250, 300];
+  // Subsections (by number) that get their own sub-heading in the filter panel.
+  const FILTER_SUBHEADINGS = { "5.17": "Symptoms" };
+  // The hip questions share one subsection and collapse into a single filter.
+  const HIPS_SUB = "4.18";
+
   // Exercise AreasOfFocus code -> human label (from 'Area of focus' sheet).
   const AREA_OF_FOCUS = {
     1: "Chest", 2: "Shoulder", 3: "Thigh (back)", 4: "Thigh (front)", 5: "Butt",
@@ -64,8 +95,7 @@
   // ---- DOM refs ----------------------------------------------------------
   const fileInput = document.getElementById("sim-file-input");
   const clearBtn = document.getElementById("sim-clear-btn");
-  const selectorWrap = document.getElementById("sim-selector-wrap");
-  const fileSelect = document.getElementById("sim-file-select");
+  const filesPanel = document.getElementById("sim-files");
   const output = document.getElementById("sim-output");
 
   // ---- Helpers -----------------------------------------------------------
@@ -87,6 +117,212 @@
     const d = new Date(value);
     if (isNaN(d.getTime())) return String(value);
     return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  }
+
+  function num(v) {
+    const n = parseFloat(v);
+    return isNaN(n) ? null : n;
+  }
+
+  // ---- File attributes ---------------------------------------------------
+  // Flatten one file's assessment answers into { byId, sex, age, bmi, pregnant }
+  // so filtering and the file table can read them cheaply.
+  function fileAttrs(data) {
+    const byId = {};
+    const items = data && Array.isArray(data.AssessmentDataItems) ? data.AssessmentDataItems : [];
+    items.forEach(function (it) { byId[String(it.Id).toLowerCase()] = resolveAnswer(it.Answer); });
+    const height = num(byId[BMI_HEIGHT_ID]);
+    const weight = num(byId[BMI_WEIGHT_ID]);
+    // Rounded to 1dp so filtering matches the value shown in the table.
+    const rawBmi = height && weight && height > 0 ? weight / Math.pow(height / 100, 2) : null;
+    const bmi = rawBmi == null ? null : Math.round(rawBmi * 10) / 10;
+    const weeks = num(byId[Q_PREGNANT_WEEKS]);
+    return {
+      byId: byId,
+      sex: byId[Q_SEX] != null ? String(byId[Q_SEX]) : "",
+      age: num(byId[Q_AGE]),
+      bmi: bmi,
+      pregnant: weeks == null ? null : weeks > 0,
+    };
+  }
+
+  // ---- Filter definitions ------------------------------------------------
+  // Built from SIM_QUESTIONS: main questions only (answer-option children and
+  // the excluded follow-ups are skipped), plus derived BMI and Pregnant.
+  // Control type is inferred from the values present across loaded files.
+  function buildFilterDefs() {
+    const loaded = files.filter(function (f) { return f.data && f.attrs; });
+    // Distinct answers, de-duplicated case-insensitively — files differ on
+    // capitalisation (e.g. "female" vs "Female"), which would otherwise show up
+    // as two separate options. The first letter is capitalised for display.
+    const valuesFor = function (id) {
+      const seen = {};
+      loaded.forEach(function (f) {
+        const v = f.attrs.byId[id];
+        if (v === undefined || v === null || String(v).trim() === "") return;
+        const raw = String(v).trim();
+        const k = raw.toLowerCase();
+        if (!seen[k]) seen[k] = raw.charAt(0).toUpperCase() + raw.slice(1);
+      });
+      return Object.keys(seen).map(function (k) { return seen[k]; });
+    };
+
+    const defs = [];
+    Object.keys(QUESTIONS).forEach(function (id) {
+      const m = QUESTIONS[id];
+      if (m.g) return;                     // answer-option child ("follow-up")
+      if (FILTER_EXCLUDE_IDS[id]) return;  // explicitly excluded
+      if (id === Q_PREGNANT_WEEKS) return; // replaced by derived Pregnant
+      defs.push({ key: id, id: id, label: m.t, section: m.s, sub: m.sub,
+        subsection: FILTER_SUBHEADINGS[m.sub] || null, order: m.o });
+    });
+
+    // Derived filters: BMI sits just after age, Pregnant just after sex.
+    const ageOrder = (QUESTIONS[Q_AGE] || {}).o || 0;
+    const sexOrder = (QUESTIONS[Q_SEX] || {}).o || ageOrder + 1;
+    defs.push({ key: F_BMI, id: null, label: "BMI", section: "Basic Info", subsection: null, order: ageOrder + 0.1, type: "range" });
+    defs.push({ key: F_PREGNANT, id: null, label: "Pregnant", section: "Basic Info", subsection: null, order: sexOrder + 0.1, type: "yesno" });
+
+    defs.forEach(function (d) {
+      if (d.type) return; // already fixed (derived)
+      if (d.key === Q_AGE) { d.type = "range"; return; }
+      if (d.key === Q_MINUTES) { d.type = "choice"; d.choices = MINUTES_OPTIONS.map(String); return; }
+      const vals = valuesFor(d.id);
+      const allYesNo = vals.length > 0 && vals.every(function (v) { return /^(yes|no)$/i.test(v.trim()); });
+      const allNumeric = vals.length > 0 && vals.every(function (v) { return num(v) !== null; });
+      if (allYesNo) d.type = "yesno";
+      else if (allNumeric) d.type = d.section === "Injury report" ? "presence" : "range";
+      else if (vals.length) { d.type = "choice"; d.choices = vals.sort(); }
+      // No file carries this answer yet — fall back to the section's usual shape.
+      else if (d.section === "Injury report") d.type = "presence";
+      else if (d.section === "Fitness indicators") d.type = "range";
+      else d.type = "yesno";
+    });
+
+    const combined = combineInjuryDefs(defs);
+    combined.sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+    return combined;
+  }
+
+  // Injury report reads better combined: Left/Right pairs become one filter with
+  // Left / Right / Any, and the hip questions fold into a single "Hips" filter
+  // with one option each. Questions with no side (Neck, Lower back…) stay as-is.
+  function combineInjuryDefs(defs) {
+    const injury = defs.filter(function (d) { return d.section === "Injury report"; });
+    if (!injury.length) return defs;
+    const out = defs.filter(function (d) { return d.section !== "Injury report"; });
+
+    const cap = function (s) { return s.charAt(0).toUpperCase() + s.slice(1); };
+    const hips = [], rest = [];
+    injury.forEach(function (d) { (d.sub === HIPS_SUB ? hips : rest).push(d); });
+
+    // Pair up "Left x" / "Right x" by their shared base name; anything without a
+    // side stays a plain checkbox.
+    const singles = [], pairDefs = [], pairs = {}, pairOrder = [];
+    rest.forEach(function (d) {
+      const m = /^(left|right)\s+(.+)$/i.exec(d.label || "");
+      if (!m) { singles.push(d); return; }
+      const side = m[1].toLowerCase(), base = m[2].trim().toLowerCase();
+      if (!pairs[base]) { pairs[base] = { label: m[2].trim(), order: d.order, sides: {} }; pairOrder.push(base); }
+      pairs[base].sides[side] = d;
+      pairs[base].order = Math.min(pairs[base].order, d.order);
+    });
+    pairOrder.forEach(function (base) {
+      const p = pairs[base], L = p.sides.left, R = p.sides.right;
+      if (!L || !R) { if (L) singles.push(L); if (R) singles.push(R); return; } // unpaired
+      pairDefs.push({
+        key: "inj-" + base.replace(/\s+/g, "-"), id: null, label: cap(p.label),
+        section: "Injury report", subsection: null, order: p.order, type: "group",
+        options: [
+          { v: "left", l: "Left", ids: [L.id] },
+          { v: "right", l: "Right", ids: [R.id] },
+        ],
+      });
+    });
+
+    // Lay the section out in shape-consistent blocks: the plain checkboxes
+    // first, then the Left/Right pairs, then Hips as its own subsection.
+    let seq = injury.reduce(function (mn, d) { return Math.min(mn, d.order || 0); }, Infinity);
+    singles.sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+    singles.forEach(function (d) { d.order = (seq += 0.001); d.block = "checks"; out.push(d); });
+    pairDefs.forEach(function (d) { d.order = (seq += 0.001); d.block = "pairs"; out.push(d); });
+
+    if (hips.length) {
+      out.push({
+        key: "inj-hips", id: null, label: "Hips", section: "Injury report",
+        subsection: "Hips", hideLabel: true, order: (seq += 0.001), type: "group",
+        options: hips.map(function (d) {
+          // "Left side hip" -> "Left side" (the subsection is already Hips).
+          const l = String(d.label).replace(/\bhips?\b/i, "").replace(/\s+/g, " ").trim();
+          return { v: d.id, l: cap(l || d.label), ids: [d.id] };
+        }),
+      });
+    }
+    return out;
+  }
+
+  // Is a stored filter value actually constraining anything?
+  function filterIsActive(v) {
+    if (v === undefined || v === null || v === "") return false;
+    if (Array.isArray(v)) return v.length > 0;
+    if (typeof v === "object") return (v.min !== "" && v.min != null) || (v.max !== "" && v.max != null);
+    return true;
+  }
+
+  // Does a file's attributes satisfy every active filter? Different filters AND
+  // together; multiple selections within one filter OR together.
+  function matchesFilters(attrs, defs) {
+    return defs.every(function (d) {
+      const state = filterState[d.key];
+      if (!filterIsActive(state)) return true;
+      const selected = Array.isArray(state) ? state : [state];
+
+      // Combined injury filter: match if any question behind any selected
+      // option has a non-zero value.
+      if (d.type === "group") {
+        return selected.some(function (v) {
+          let opt = null;
+          (d.options || []).forEach(function (o) { if (String(o.v) === String(v)) opt = o; });
+          if (!opt) return false;
+          return opt.ids.some(function (qid) {
+            const n = num(attrs.byId[qid]);
+            return n !== null && n !== 0;
+          });
+        });
+      }
+
+      let value;
+      if (d.key === F_BMI) value = attrs.bmi;
+      else if (d.key === F_PREGNANT) value = attrs.pregnant == null ? null : (attrs.pregnant ? "Yes" : "No");
+      else value = attrs.byId[d.id];
+
+      if (d.type === "range") {
+        if (typeof state !== "object") return true;
+        const n = num(value);
+        if (state.min !== "" && state.min != null && (n === null || n < Number(state.min))) return false;
+        if (state.max !== "" && state.max != null && (n === null || n > Number(state.max))) return false;
+        return true;
+      }
+      if (d.type === "presence") {
+        const n = num(value);
+        if (state === "none") return n === 0;
+        if (state === "has") return n !== null && n !== 0;
+        return true;
+      }
+      if (d.type === "yesno") {
+        const s = value == null ? "" : String(value).trim().toLowerCase();
+        return s === String(state).toLowerCase();
+      }
+      // choice — any selected value matches, compared case-insensitively since
+      // files vary on capitalisation.
+      if (value == null) return false;
+      const v = String(value).trim().toLowerCase();
+      return selected.some(function (s) { return v === String(s).trim().toLowerCase(); });
+    });
+  }
+
+  function activeFilterCount() {
+    return Object.keys(filterState).filter(function (k) { return filterIsActive(filterState[k]); }).length;
   }
 
   // ---- File intake -------------------------------------------------------
@@ -113,31 +349,255 @@
     const incoming = Array.from(fileList);
     if (incoming.length === 0) return;
     const firstNewIndex = files.length;
-    for (const file of incoming) files.push(await readFile(file));
-    rebuildSelector();
+    for (const file of incoming) {
+      const entry = await readFile(file);
+      if (entry.data) entry.attrs = fileAttrs(entry.data);
+      files.push(entry);
+    }
+    // Select the first newly-added file that is valid and passes the filters.
+    const defs = buildFilterDefs();
     let selectIndex = -1;
-    for (let i = firstNewIndex; i < files.length; i += 1) { if (!files[i].error) { selectIndex = i; break; } }
-    if (selectIndex === -1) selectIndex = firstNewIndex;
-    fileSelect.value = String(selectIndex);
-    renderFile(selectIndex);
+    for (let i = firstNewIndex; i < files.length; i += 1) {
+      if (!files[i].error && matchesFilters(files[i].attrs, defs)) { selectIndex = i; break; }
+    }
+    if (selectIndex === -1) {
+      const visible = visibleIndexes(defs);
+      selectIndex = visible.length ? visible[0] : firstNewIndex;
+    }
+    renderFilesPanel();
+    selectFile(selectIndex);
     updateControls();
   }
 
-  // ---- Selector ----------------------------------------------------------
-  function rebuildSelector() {
-    fileSelect.innerHTML = "";
-    files.forEach((f, i) => {
-      const opt = document.createElement("option");
-      opt.value = String(i);
-      opt.textContent = f.error ? f.name + " (error)" : f.name;
-      fileSelect.appendChild(opt);
+  function updateControls() {
+    clearBtn.disabled = files.length === 0;
+  }
+
+  // Indexes of files passing the current filters, in current sort order.
+  function visibleIndexes(defs) {
+    const idx = [];
+    files.forEach(function (f, i) {
+      if (f.error) return;              // errored files are listed separately
+      if (matchesFilters(f.attrs, defs)) idx.push(i);
+    });
+    const dir = sortState.dir;
+    idx.sort(function (a, b) {
+      const fa = files[a], fb = files[b];
+      let va, vb;
+      if (sortState.col === "name") { va = fa.name.toLowerCase(); vb = fb.name.toLowerCase(); }
+      else if (sortState.col === "sex") { va = (fa.attrs.sex || "").toLowerCase(); vb = (fb.attrs.sex || "").toLowerCase(); }
+      else { va = fa.attrs[sortState.col]; vb = fb.attrs[sortState.col]; } // age | bmi
+      if (va == null && vb == null) return 0;
+      if (va == null) return 1;   // blanks last regardless of direction
+      if (vb == null) return -1;
+      if (va < vb) return -1 * dir;
+      if (va > vb) return 1 * dir;
+      return 0;
+    });
+    return idx;
+  }
+
+  // ---- Files panel (filters + file list) ---------------------------------
+  // The filter controls are rendered once and then left alone; only the results
+  // (counts, badges, file list) refresh as filters change. That stops the panel
+  // collapsing and keeps the caret in a field while you type.
+  // Multi-select checkbox group. Selections OR together; nothing ticked means no
+  // filter (so ticking every option is the same as leaving them all clear).
+  function checkGroup(key, opts, cur) {
+    const sel = Array.isArray(cur) ? cur : (cur == null || cur === "" ? [] : [cur]);
+    return '<div class="flex flex-wrap items-center gap-x-3 gap-y-1">' +
+      opts.map(function (o) {
+        return '<label class="inline-flex items-center gap-1 text-xs text-stone-600 cursor-pointer">' +
+          '<input type="checkbox" data-filter="' + esc(key) + '" data-multi="1" value="' + esc(o.v) + '"' +
+          (sel.indexOf(o.v) !== -1 ? " checked" : "") + ' class="accent-emerald-600"> ' + esc(o.l) + "</label>";
+      }).join("") + "</div>";
+  }
+
+  function filterControl(d) {
+    const st = filterState[d.key];
+    if (d.type === "range") {
+      const mn = st && st.min != null ? st.min : "";
+      const mx = st && st.max != null ? st.max : "";
+      const inp = 'class="w-full min-w-0 text-sm border border-stone-300 px-2 py-1 outline-none focus:border-emerald-500"';
+      return (
+        '<div class="flex items-center gap-1">' +
+        '<input type="number" data-filter="' + esc(d.key) + '" data-bound="min" value="' + esc(mn) + '" placeholder="min" ' + inp + ">" +
+        '<span class="text-stone-400">&ndash;</span>' +
+        '<input type="number" data-filter="' + esc(d.key) + '" data-bound="max" value="' + esc(mx) + '" placeholder="max" ' + inp + ">" +
+        "</div>"
+      );
+    }
+    if (d.type === "group") {
+      return checkGroup(d.key, (d.options || []).map(function (o) { return { v: o.v, l: o.l }; }), st);
+    }
+    return checkGroup(d.key, (d.choices || []).map(function (c) { return { v: c, l: c }; }), st);
+  }
+
+  // One grid cell per filter. Yes/No and injury filters collapse to a single
+  // inline checkbox — ticked means Yes (or "has an injury value above 0"),
+  // unticked means Any — which saves a lot of space.
+  function filterCell(d) {
+    if (d.type === "yesno" || d.type === "presence") {
+      const val = d.type === "presence" ? "has" : "Yes";
+      const on = filterState[d.key] === val;
+      return '<label class="flex items-start gap-2 text-xs text-stone-600 cursor-pointer py-0.5">' +
+        '<input type="checkbox" data-filter="' + esc(d.key) + '" value="' + val + '"' + (on ? " checked" : "") +
+        ' class="accent-emerald-600 mt-0.5 shrink-0"><span>' + esc(d.label) + "</span></label>";
+    }
+    // hideLabel: the def already sits under a matching subsection heading.
+    if (d.hideLabel) return "<div>" + filterControl(d) + "</div>";
+    return '<div><label class="block text-xs font-medium text-stone-500 mb-1">' + esc(d.label) + "</label>" + filterControl(d) + "</div>";
+  }
+
+  function renderFilesPanel() {
+    if (files.length === 0) { filesPanel.innerHTML = ""; return; }
+    const defs = buildFilterDefs();
+
+    // Group filters by section, in the assessment section order.
+    const bySection = {};
+    defs.forEach(function (d) { (bySection[d.section] = bySection[d.section] || []).push(d); });
+    const order = [];
+    SECTIONS.forEach(function (s) { if (bySection[s]) order.push(s); });
+    Object.keys(bySection).forEach(function (s) { if (order.indexOf(s) === -1) order.push(s); });
+
+    const grid = function (list) {
+      return '<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2">' + list.map(filterCell).join("") + "</div>";
+    };
+    // Defs carrying a `block` marker get their own grid, so each grid holds one
+    // shape of control (all checkboxes, or all radio groups) and lines up neatly.
+    const gridBlocks = function (list) {
+      const blocks = [];
+      let cur = null;
+      list.forEach(function (d) {
+        const name = d.block || "";
+        if (!cur || cur.name !== name) { cur = { name: name, items: [] }; blocks.push(cur); }
+        cur.items.push(d);
+      });
+      return blocks.map(function (b, i) {
+        return i ? '<div class="mt-3">' + grid(b.items) + "</div>" : grid(b.items);
+      }).join("");
+    };
+
+    const groups = order.map(function (section) {
+      const ds = bySection[section];
+      // Split off any labelled subsections (e.g. Symptoms) so they get their own
+      // sub-heading instead of running on from the rest of the section.
+      const main = ds.filter(function (d) { return !d.subsection; });
+      const subNames = [], subBuckets = {};
+      ds.forEach(function (d) {
+        if (!d.subsection) return;
+        if (!subBuckets[d.subsection]) { subBuckets[d.subsection] = []; subNames.push(d.subsection); }
+        subBuckets[d.subsection].push(d);
+      });
+      let body = main.length ? gridBlocks(main) : "";
+      subNames.forEach(function (name) {
+        body += '<h5 class="text-[11px] font-semibold uppercase tracking-wide text-stone-400 mt-4 mb-2">' + esc(name) + "</h5>" + grid(subBuckets[name]);
+      });
+      return (
+        "<div>" +
+        '<h4 class="text-xs font-bold uppercase tracking-wide text-stone-400 mb-2 pb-1 border-b border-stone-100">' +
+        esc(section) + ' <span data-badge="' + esc(section) + '" class="ml-1 font-semibold text-emerald-700"></span></h4>' +
+        body + "</div>"
+      );
+    }).join("");
+
+    filesPanel.innerHTML =
+      '<section class="bg-white border border-stone-200 shadow-sm p-6 mb-8">' +
+      '<div class="flex items-center justify-between gap-4 mb-4">' +
+      '<h3 class="text-lg font-bold text-stone-900">Files</h3>' +
+      '<div class="flex items-center gap-3 text-sm text-stone-500">' +
+      '<span id="sim-showing"></span>' +
+      '<button type="button" id="sim-clear-filters" class="text-sm font-semibold text-emerald-700 hover:text-emerald-800 hidden"></button>' +
+      "</div></div>" +
+      '<details id="sim-filters" class="group border border-stone-200 mb-5"' + (filtersOpen ? " open" : "") + ">" +
+      '<summary class="flex items-center gap-2 cursor-pointer px-4 py-2.5 bg-stone-50 hover:bg-stone-100 select-none">' +
+      '<span class="inline-block border-y-[5px] border-y-transparent border-l-[7px] border-l-stone-400 transition-transform group-open:rotate-90"></span>' +
+      '<span class="text-sm font-semibold text-stone-800">Filters</span>' +
+      '<span id="sim-filter-count" class="text-xs text-stone-400"></span></summary>' +
+      '<div class="p-4 space-y-5">' + groups + "</div></details>" +
+      '<div id="sim-file-list"></div></section>';
+
+    updateFilesResults();
+  }
+
+  // Refresh only what depends on filters / sort / selection.
+  function updateFilesResults() {
+    if (files.length === 0) return;
+    const defs = buildFilterDefs();
+    const visible = visibleIndexes(defs);
+    const totalValid = files.filter(function (f) { return !f.error; }).length;
+    const errored = files.filter(function (f) { return f.error; });
+    const activeCount = activeFilterCount();
+
+    const showing = document.getElementById("sim-showing");
+    if (showing) showing.textContent = "Showing " + visible.length + " of " + totalValid;
+
+    const clearEl = document.getElementById("sim-clear-filters");
+    if (clearEl) {
+      clearEl.textContent = "Clear filters (" + activeCount + ")";
+      clearEl.classList.toggle("hidden", activeCount === 0);
+    }
+    const countEl = document.getElementById("sim-filter-count");
+    if (countEl) countEl.textContent = activeCount ? activeCount + " active" : "";
+
+    // Per-section active counts.
+    filesPanel.querySelectorAll("[data-badge]").forEach(function (el) {
+      const section = el.getAttribute("data-badge");
+      const n = defs.filter(function (d) {
+        return d.section === section && filterIsActive(filterState[d.key]);
+      }).length;
+      el.textContent = n ? "(" + n + ")" : "";
+    });
+
+    // File list — filename only, so selecting one can't reflow other columns.
+    const listEl = document.getElementById("sim-file-list");
+    if (!listEl) return;
+    const arrow = sortState.dir === 1 ? "▲" : "▼";
+    const rows = visible.map(function (i) {
+      const on = i === activeIndex;
+      return '<div data-file="' + i + '" class="px-4 py-2 text-sm cursor-pointer border-t border-stone-100 ' +
+        (on ? "bg-emerald-50 font-semibold text-emerald-800" : "text-stone-800 hover:bg-stone-50") + '">' +
+        esc(files[i].name) + "</div>";
+    }).join("");
+    listEl.innerHTML =
+      (visible.length
+        ? '<div class="border border-stone-200">' +
+          '<div data-sort="name" class="px-4 py-2 bg-stone-50 text-sm font-semibold text-stone-500 cursor-pointer select-none hover:text-stone-800">File <span class="text-emerald-600">' + arrow + "</span></div>" +
+          rows + "</div>"
+        : '<p class="text-sm text-stone-500 border border-dashed border-stone-300 px-4 py-6 text-center">No files match the current filters.</p>') +
+      (errored.length
+        ? '<p class="text-xs text-red-600 mt-3">' + errored.length + " file(s) couldn't be read: " + esc(errored.map(function (f) { return f.name; }).join(", ")) + "</p>"
+        : "");
+  }
+
+  function resetFilterControls() {
+    filesPanel.querySelectorAll("[data-filter]").forEach(function (el) {
+      if (el.type === "radio" || el.type === "checkbox") el.checked = false;
+      else el.value = "";
     });
   }
 
-  function updateControls() {
-    const hasFiles = files.length > 0;
-    selectorWrap.classList.toggle("hidden", !hasFiles);
-    clearBtn.disabled = !hasFiles;
+  // Select a file to view (and keep the list highlight in sync).
+  function selectFile(index) {
+    activeIndex = index;
+    renderFile(index);
+    updateFilesResults();
+  }
+
+  // Re-apply filters after a control changes; keep the viewed file if it still
+  // matches, otherwise fall back to the first visible one.
+  function onFiltersChanged() {
+    const defs = buildFilterDefs();
+    const visible = visibleIndexes(defs);
+    if (visible.indexOf(activeIndex) === -1) {
+      if (visible.length) { selectFile(visible[0]); return; }
+      activeIndex = -1;
+      activeData = null;
+      output.innerHTML =
+        '<div class="text-center py-16 px-6 bg-white border border-dashed border-stone-300">' +
+        '<p class="text-stone-500 font-medium">No files match the current filters.</p></div>';
+    }
+    updateFilesResults();
   }
 
   // ---- Render dispatch ---------------------------------------------------
@@ -653,10 +1113,85 @@
     });
   });
 
+  // ---- Files panel events ------------------------------------------------
+  // Filter controls: selects fire "change", number inputs fire "input".
+  function readFilterControl(el) {
+    const key = el.getAttribute("data-filter");
+    const bound = el.getAttribute("data-bound");
+    if (bound) {
+      const cur = typeof filterState[key] === "object" && filterState[key] && !Array.isArray(filterState[key])
+        ? filterState[key] : { min: "", max: "" };
+      cur[bound] = el.value;
+      filterState[key] = cur;
+      return;
+    }
+    if (el.getAttribute("data-multi")) {
+      const sel = [];
+      filesPanel.querySelectorAll('input[data-filter="' + key + '"][data-multi]').forEach(function (x) {
+        if (x.checked) sel.push(x.value);
+      });
+      if (sel.length) filterState[key] = sel; else delete filterState[key];
+      return;
+    }
+    if (el.type === "checkbox") {
+      if (el.checked) filterState[key] = el.value; else delete filterState[key];
+      return;
+    }
+    filterState[key] = el.value;
+  }
+
+  filesPanel.addEventListener("change", function (e) {
+    const el = e.target.closest ? e.target.closest("[data-filter]") : null;
+    if (!el) return;
+    readFilterControl(el);
+    onFiltersChanged();
+  });
+
+  // Debounce number-range typing so the table doesn't thrash on every keystroke.
+  let rangeTimer = null;
+  filesPanel.addEventListener("input", function (e) {
+    const el = e.target.closest ? e.target.closest("[data-filter][data-bound]") : null;
+    if (!el) return;
+    readFilterControl(el);
+    clearTimeout(rangeTimer);
+    rangeTimer = setTimeout(onFiltersChanged, 250);
+  });
+
+  filesPanel.addEventListener("click", function (e) {
+    if (!e.target.closest) return;
+    if (e.target.closest("#sim-clear-filters")) {
+      Object.keys(filterState).forEach(function (k) { delete filterState[k]; });
+      resetFilterControls();
+      onFiltersChanged();
+      return;
+    }
+    const th = e.target.closest("[data-sort]");
+    if (th) {
+      const col = th.getAttribute("data-sort");
+      if (sortState.col === col) sortState.dir *= -1;
+      else sortState = { col: col, dir: 1 };
+      updateFilesResults();
+      return;
+    }
+    const row = e.target.closest("[data-file]");
+    if (row) selectFile(parseInt(row.getAttribute("data-file"), 10));
+  });
+
+  // Remember whether the Filters panel is open so rebuilds keep it that way.
+  filesPanel.addEventListener("toggle", function (e) {
+    if (e.target && e.target.id === "sim-filters") filtersOpen = e.target.open;
+  }, true);
+
   // ---- Wire up -----------------------------------------------------------
   fileInput.addEventListener("change", function () { handleFiles(this.files); this.value = ""; });
-  fileSelect.addEventListener("change", function () { renderFile(parseInt(this.value, 10)); });
-  clearBtn.addEventListener("click", function () { files.length = 0; rebuildSelector(); updateControls(); showEmptyState(); });
+  clearBtn.addEventListener("click", function () {
+    files.length = 0;
+    activeIndex = -1;
+    Object.keys(filterState).forEach(function (k) { delete filterState[k]; });
+    renderFilesPanel();
+    updateControls();
+    showEmptyState();
+  });
 
   updateControls();
 })();

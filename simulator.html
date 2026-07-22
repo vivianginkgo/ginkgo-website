@@ -121,15 +121,10 @@
                     </button>
                 </div>
 
-                <!-- File selector (hidden until files are loaded) -->
-                <div id="sim-selector-wrap" class="mt-6 hidden">
-                    <label for="sim-file-select" class="block text-sm font-semibold text-stone-700 mb-2">Viewing</label>
-                    <select
-                        id="sim-file-select"
-                        class="block w-full sm:w-auto sm:min-w-[20rem] text-sm border border-stone-300 bg-white px-4 py-2.5 text-stone-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none"
-                    ></select>
-                </div>
             </div>
+
+            <!-- Files panel: filters + sortable file table (rendered by simulator.js) -->
+            <div id="sim-files"></div>
 
             <!-- Output / states -->
             <div id="sim-output">
@@ -215,7 +210,7 @@
 
     <!-- Simulator: assessment question/answer lookup tables + logic -->
     <!-- ?v is bumped on each change so browsers fetch the latest file instead of a cached copy. -->
-    <script src="/assets/js/simulator-data.js?v=10"></script>
-    <script src="/assets/js/simulator.js?v=10"></script>
+    <script src="/assets/js/simulator-data.js?v=23"></script>
+    <script src="/assets/js/simulator.js?v=23"></script>
 </body>
 </html>
