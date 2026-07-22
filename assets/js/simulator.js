@@ -124,6 +124,16 @@
     return isNaN(n) ? null : n;
   }
 
+  // Round a slider's upper bound up to a clean number (83 -> 90, 29.3 -> 30).
+  // Falls back to 10 so a field where every file reads 0 still gets a usable
+  // slider rather than a degenerate 0–0 one.
+  function niceCeil(v) {
+    if (!v || v <= 0) return 10;
+    if (v <= 10) return Math.ceil(v);
+    if (v <= 50) return Math.ceil(v / 5) * 5;
+    return Math.ceil(v / 10) * 10;
+  }
+
   // ---- File attributes ---------------------------------------------------
   // Flatten one file's assessment answers into { byId, sex, age, bmi, pregnant }
   // so filtering and the file table can read them cheaply.
@@ -199,6 +209,20 @@
       else d.type = "yesno";
     });
 
+    // Slider bounds for numeric filters: 0 up to the highest value across the
+    // loaded files, rounded to a clean number. Recomputed whenever files change.
+    defs.forEach(function (d) {
+      if (d.type !== "range") return;
+      let hi = 0;
+      loaded.forEach(function (f) {
+        const v = num(attrValue(f.attrs, d));
+        if (v != null && v > hi) hi = v;
+      });
+      d.min = 0;
+      d.max = niceCeil(hi);
+      d.step = d.key === F_BMI ? 0.5 : 1;
+    });
+
     const combined = combineInjuryDefs(defs);
     combined.sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
     return combined;
@@ -261,6 +285,13 @@
     return out;
   }
 
+  // The value a given filter reads off one file.
+  function attrValue(attrs, d) {
+    if (d.key === F_BMI) return attrs.bmi;
+    if (d.key === F_PREGNANT) return attrs.pregnant == null ? null : (attrs.pregnant ? "Yes" : "No");
+    return attrs.byId[d.id];
+  }
+
   // Is a stored filter value actually constraining anything?
   function filterIsActive(v) {
     if (v === undefined || v === null || v === "") return false;
@@ -291,10 +322,7 @@
         });
       }
 
-      let value;
-      if (d.key === F_BMI) value = attrs.bmi;
-      else if (d.key === F_PREGNANT) value = attrs.pregnant == null ? null : (attrs.pregnant ? "Yes" : "No");
-      else value = attrs.byId[d.id];
+      const value = attrValue(attrs, d);
 
       if (d.type === "range") {
         if (typeof state !== "object") return true;
@@ -416,14 +444,25 @@
   function filterControl(d) {
     const st = filterState[d.key];
     if (d.type === "range") {
-      const mn = st && st.min != null ? st.min : "";
-      const mx = st && st.max != null ? st.max : "";
-      const inp = 'class="w-full min-w-0 text-sm border border-stone-300 px-2 py-1 outline-none focus:border-emerald-500"';
+      // Two stacked native range inputs. A handle parked at either end means
+      // "unbounded", so a later file beyond the current max still matches.
+      const top = d.max != null ? d.max : 100;
+      const step = d.step || 1;
+      const lo = st && st.min !== "" && st.min != null ? Math.max(0, Math.min(Number(st.min), top)) : 0;
+      const hi = st && st.max !== "" && st.max != null ? Math.max(lo, Math.min(Number(st.max), top)) : top;
+      const pct = function (v) { return top > 0 ? (v / top) * 100 : 0; };
+      const inp = function (bound, value) {
+        return '<input type="range" class="sim-range-input" data-filter="' + esc(d.key) + '" data-bound="' + bound +
+          '" min="0" max="' + top + '" step="' + step + '" value="' + value + '">';
+      };
       return (
-        '<div class="flex items-center gap-1">' +
-        '<input type="number" data-filter="' + esc(d.key) + '" data-bound="min" value="' + esc(mn) + '" placeholder="min" ' + inp + ">" +
-        '<span class="text-stone-400">&ndash;</span>' +
-        '<input type="number" data-filter="' + esc(d.key) + '" data-bound="max" value="' + esc(mx) + '" placeholder="max" ' + inp + ">" +
+        '<div data-range="' + esc(d.key) + '">' +
+        '<div class="relative h-5 flex items-center">' +
+        '<div class="absolute inset-x-0 h-1 bg-stone-200"></div>' +
+        '<div class="absolute h-1 bg-emerald-500" data-range-fill style="left:' + pct(lo) + "%;width:" + (pct(hi) - pct(lo)) + '%"></div>' +
+        inp("min", lo) + inp("max", hi) +
+        "</div>" +
+        '<div class="text-[11px] text-stone-500" data-range-readout>' + lo + " &ndash; " + hi + (hi >= top ? "+" : "") + "</div>" +
         "</div>"
       );
     }
@@ -555,9 +594,12 @@
     const arrow = sortState.dir === 1 ? "▲" : "▼";
     const rows = visible.map(function (i) {
       const on = i === activeIndex;
-      return '<div data-file="' + i + '" class="px-4 py-2 text-sm cursor-pointer border-t border-stone-100 ' +
+      return '<div data-file="' + i + '" class="flex items-center justify-between gap-2 px-4 py-2 text-sm cursor-pointer border-t border-stone-100 ' +
         (on ? "bg-emerald-50 font-semibold text-emerald-800" : "text-stone-800 hover:bg-stone-50") + '">' +
-        esc(files[i].name) + "</div>";
+        '<span class="truncate">' + esc(files[i].name) + "</span>" +
+        '<button type="button" data-remove="' + i + '" title="Remove this file" aria-label="Remove ' + esc(files[i].name) + '" ' +
+        'class="shrink-0 w-5 h-5 leading-none flex items-center justify-center text-stone-400 hover:text-red-600 hover:bg-red-50">&times;</button>' +
+        "</div>";
     }).join("");
     listEl.innerHTML =
       (visible.length
@@ -572,9 +614,11 @@
 
   function resetFilterControls() {
     filesPanel.querySelectorAll("[data-filter]").forEach(function (el) {
-      if (el.type === "radio" || el.type === "checkbox") el.checked = false;
+      if (el.type === "checkbox" || el.type === "radio") el.checked = false;
+      else if (el.type === "range") el.value = el.getAttribute("data-bound") === "min" ? el.min : el.max;
       else el.value = "";
     });
+    filesPanel.querySelectorAll("[data-range]").forEach(function (w) { syncRange(w); });
   }
 
   // Select a file to view (and keep the list highlight in sync).
@@ -582,6 +626,39 @@
     activeIndex = index;
     renderFile(index);
     updateFilesResults();
+  }
+
+  // Drop one file from the list. Indexes shift, and the slider bounds are
+  // derived from the loaded set, so the whole panel is rebuilt afterwards.
+  function removeFile(index) {
+    if (index < 0 || index >= files.length) return;
+    files.splice(index, 1);
+    if (activeIndex === index) activeIndex = -1;
+    else if (activeIndex > index) activeIndex -= 1;
+
+    if (files.length === 0) {
+      activeIndex = -1;
+      activeData = null;
+      renderFilesPanel();
+      updateControls();
+      showEmptyState();
+      return;
+    }
+
+    renderFilesPanel();
+    const visible = visibleIndexes(buildFilterDefs());
+    if (visible.indexOf(activeIndex) === -1) {
+      if (visible.length) {
+        selectFile(visible[0]);
+      } else {
+        activeIndex = -1;
+        activeData = null;
+        output.innerHTML =
+          '<div class="text-center py-16 px-6 bg-white border border-dashed border-stone-300">' +
+          '<p class="text-stone-500 font-medium">No files match the current filters.</p></div>';
+      }
+    }
+    updateControls();
   }
 
   // Re-apply filters after a control changes; keep the viewed file if it still
@@ -1115,10 +1192,39 @@
 
   // ---- Files panel events ------------------------------------------------
   // Filter controls: selects fire "change", number inputs fire "input".
+  // Keep the two handles from crossing, then repaint the fill and readout.
+  function syncRange(wrap, moved) {
+    const mn = wrap.querySelector('[data-bound="min"]');
+    const mx = wrap.querySelector('[data-bound="max"]');
+    if (!mn || !mx) return;
+    let lo = Number(mn.value), hi = Number(mx.value);
+    if (lo > hi) {
+      if (moved === mn) { hi = lo; mx.value = String(hi); }
+      else { lo = hi; mn.value = String(lo); }
+    }
+    const top = Number(mn.max) || 1;
+    const fill = wrap.querySelector("[data-range-fill]");
+    if (fill) {
+      fill.style.left = (lo / top) * 100 + "%";
+      fill.style.width = ((hi - lo) / top) * 100 + "%";
+    }
+    const out = wrap.querySelector("[data-range-readout]");
+    if (out) out.textContent = lo + " – " + hi + (hi >= top ? "+" : "");
+  }
+
   function readFilterControl(el) {
     const key = el.getAttribute("data-filter");
     const bound = el.getAttribute("data-bound");
     if (bound) {
+      const wrap = el.closest ? el.closest("[data-range]") : null;
+      if (wrap) {
+        const mn = wrap.querySelector('[data-bound="min"]');
+        const mx = wrap.querySelector('[data-bound="max"]');
+        const lo = Number(mn.value), hi = Number(mx.value), top = Number(mn.max);
+        // Handles parked at either end mean "no bound on that side".
+        filterState[key] = { min: lo <= 0 ? "" : lo, max: hi >= top ? "" : hi };
+        return;
+      }
       const cur = typeof filterState[key] === "object" && filterState[key] && !Array.isArray(filterState[key])
         ? filterState[key] : { min: "", max: "" };
       cur[bound] = el.value;
@@ -1147,14 +1253,17 @@
     onFiltersChanged();
   });
 
-  // Debounce number-range typing so the table doesn't thrash on every keystroke.
+  // Sliders fire continuously while dragging: repaint immediately, but debounce
+  // the (more expensive) re-filter so the list doesn't thrash.
   let rangeTimer = null;
   filesPanel.addEventListener("input", function (e) {
     const el = e.target.closest ? e.target.closest("[data-filter][data-bound]") : null;
     if (!el) return;
+    const wrap = el.closest("[data-range]");
+    if (wrap) syncRange(wrap, el);
     readFilterControl(el);
     clearTimeout(rangeTimer);
-    rangeTimer = setTimeout(onFiltersChanged, 250);
+    rangeTimer = setTimeout(onFiltersChanged, 120);
   });
 
   filesPanel.addEventListener("click", function (e) {
@@ -1173,6 +1282,9 @@
       updateFilesResults();
       return;
     }
+    // Checked before the row itself so the × doesn't also select the file.
+    const rm = e.target.closest("[data-remove]");
+    if (rm) { removeFile(parseInt(rm.getAttribute("data-remove"), 10)); return; }
     const row = e.target.closest("[data-file]");
     if (row) selectFile(parseInt(row.getAttribute("data-file"), 10));
   });

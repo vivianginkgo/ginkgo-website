@@ -36,6 +36,33 @@
         body.lang-zh .en { display: none !important; }
         body.lang-en .zh { display: none !important; }
         body:not(.lang-zh):not(.lang-en) .zh { display: none !important; } /* Fallback */
+
+        /* Dual-handle range slider: two native range inputs stacked on one track.
+           The inputs themselves ignore pointer events so both thumbs stay grabbable. */
+        .sim-range-input {
+            position: absolute; left: 0; top: 0;
+            width: 100%; height: 20px; margin: 0;
+            background: transparent; pointer-events: none;
+            -webkit-appearance: none; appearance: none;
+        }
+        .sim-range-input:focus { outline: none; }
+        .sim-range-input::-webkit-slider-runnable-track { background: transparent; height: 20px; }
+        .sim-range-input::-moz-range-track { background: transparent; height: 20px; }
+        .sim-range-input::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            pointer-events: auto; cursor: pointer;
+            width: 14px; height: 14px; border-radius: 9999px;
+            background: #5F9C32; border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #d6d3d1;
+        }
+        .sim-range-input::-moz-range-thumb {
+            pointer-events: auto; cursor: pointer;
+            width: 14px; height: 14px; border-radius: 9999px;
+            background: #5F9C32; border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #d6d3d1;
+        }
+        .sim-range-input:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px #a6c990; }
+        .sim-range-input:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 3px #a6c990; }
     </style>
 
     <!-- Lucide Icons -->
@@ -210,7 +237,7 @@
 
     <!-- Simulator: assessment question/answer lookup tables + logic -->
     <!-- ?v is bumped on each change so browsers fetch the latest file instead of a cached copy. -->
-    <script src="/assets/js/simulator-data.js?v=23"></script>
-    <script src="/assets/js/simulator.js?v=23"></script>
+    <script src="/assets/js/simulator-data.js?v=25"></script>
+    <script src="/assets/js/simulator.js?v=25"></script>
 </body>
 </html>
