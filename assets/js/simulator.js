@@ -47,6 +47,9 @@
   const BMI_HEIGHT_ID = "18f57667-7e89-4ad3-9db9-7c88c068452a";
   const BMI_WEIGHT_ID = "cca2f629-db44-4ba5-8904-2f2091ed4f3c";
 
+  // Summary scores hidden from the overview panel.
+  const HIDDEN_SUMMARY_SCORES = { Safety: true, Time: true };
+
   // Exercise AreasOfFocus code -> human label (from 'Area of focus' sheet).
   const AREA_OF_FOCUS = {
     1: "Chest", 2: "Shoulder", 3: "Thigh (back)", 4: "Thigh (front)", 5: "Butt",
@@ -222,28 +225,24 @@
 
   function overviewCard(data, p) {
     const days = Array.isArray(p.DailySchedules) ? p.DailySchedules.length : 0;
-    const bc = p.BcActivated
-      ? '<span class="inline-flex items-center text-emerald-700 bg-emerald-50 px-2 py-0.5 text-xs font-semibold">Balance Challenge on</span>'
-      : '<span class="inline-flex items-center text-stone-500 bg-stone-100 px-2 py-0.5 text-xs font-semibold">Balance Challenge off</span>';
-    const shortId = p.Id ? String(p.Id).split("-")[0] : "—";
     return (
       '<section class="bg-white border border-stone-200 shadow-sm p-8 mb-6">' +
       '<h2 class="text-xl font-bold text-stone-900 leading-tight">' + esc(data.UserId || "Simulation result") + "</h2>" +
       '<p class="text-sm text-stone-500 mb-6">Personalized exercise prescription</p>' +
-      '<dl class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">' +
+      '<dl class="grid grid-cols-2 sm:grid-cols-3 gap-5">' +
       statBlock("Program length", esc(days) + " days") +
-      statBlock("Sets", esc(p.Sets != null ? p.Sets : "—")) +
       statBlock("Begins", esc(formatDate(p.BeginDate))) +
       statBlock("Last modified", esc(formatDate(p.ModifiedAt))) +
-      statBlock("Prescription", '<span class="font-mono text-sm" title="' + esc(p.Id || "") + '">' + esc(shortId) + "</span>") +
-      "</dl><div class=\"mt-5\">" + bc + "</div></section>"
+      "</dl></section>"
     );
   }
 
   // ---- Summary scores ----------------------------------------------------
   function summaryCard(summary) {
-    const order = ["Fitness", "Intensity", "Difficulty", "Balance", "Safety", "Time"];
-    const keys = order.filter((k) => k in summary).concat(Object.keys(summary).filter((k) => order.indexOf(k) === -1));
+    const order = ["Fitness", "Intensity", "Difficulty", "Balance"];
+    const keys = order
+      .filter((k) => k in summary)
+      .concat(Object.keys(summary).filter((k) => order.indexOf(k) === -1 && !HIDDEN_SUMMARY_SCORES[k]));
     return (
       '<section class="bg-white border border-stone-200 shadow-sm p-8 mb-6">' +
       '<h3 class="text-lg font-bold text-stone-900 mb-6">Summary scores</h3>' +
@@ -330,12 +329,6 @@
   }
 
   function exerciseRow(ex) {
-    const meta = [];
-    if (ex.RepetitionsPerSet != null) meta.push(esc(ex.RepetitionsPerSet) + "×");
-    if (ex.HoldTime) meta.push(esc(ex.HoldTime) + "s hold");
-    if (ex.Plyometric) meta.push("plyometric");
-    const metaHtml = meta.length ? '<span class="text-xs font-medium text-stone-500 whitespace-nowrap">' + meta.join(" · ") + "</span>" : "";
-
     // Side badge from BalancingPosition: 1 = Left, 2 = Right, 0/other = none.
     const side = ex.BalancingPosition === 1 ? "L" : ex.BalancingPosition === 2 ? "R" : "";
     const sideBadge = side ? '<span class="ml-2 inline-block text-[11px] font-bold text-stone-500 border border-stone-300 px-1 leading-tight">' + side + "</span>" : "";
@@ -351,9 +344,9 @@
     const tags = (areaTags || equipTags) ? '<div class="mt-1.5 flex flex-wrap gap-1.5">' + areaTags + equipTags + "</div>" : "";
 
     return (
-      '<li class="flex items-start justify-between gap-4 bg-stone-50 px-4 py-3 border border-stone-100">' +
-      '<div class="min-w-0"><p class="text-sm font-medium text-stone-800">' + esc(ex.Name || "Exercise #" + (ex.Id != null ? ex.Id : "?")) + sideBadge + "</p>" +
-      tags + "</div>" + metaHtml + "</li>"
+      '<li class="bg-stone-50 px-4 py-3 border border-stone-100">' +
+      '<p class="text-sm font-medium text-stone-800">' + esc(ex.Name || "Exercise #" + (ex.Id != null ? ex.Id : "?")) + sideBadge + "</p>" +
+      tags + "</li>"
     );
   }
 
@@ -539,6 +532,13 @@
           blocks.push({ type: "set", items: gi });
         }
       });
+
+      // Section badge counts only "selected" answers (anything that isn't No or
+      // 0), counted on the post-merge items so arthritis pain values count once.
+      const selectedCount = blocks.reduce(function (n, b) {
+        return n + b.items.filter(function (r) { return isSelected(r.answer); }).length;
+      }, 0);
+
       // Render blocks, applying the "hide unselected" filter. Runs drop their
       // unselected rows; sets are shown or hidden as a whole (follow-ups follow
       // their parent). Zebra (ctx) only counts rows that actually render.
@@ -584,7 +584,7 @@
         '<summary class="flex items-center gap-3 cursor-pointer px-5 py-4 bg-stone-50 hover:bg-stone-100 transition-colors select-none border-stone-200 group-open:border-b">' +
         '<span class="inline-block border-y-[5px] border-y-transparent border-l-[7px] border-l-stone-400 transition-transform group-open:rotate-90"></span>' +
         '<span class="text-base font-bold text-stone-900">' + esc(section) + "</span>" +
-        '<span class="text-xs font-semibold text-stone-600 bg-stone-200 px-2 py-0.5">' + bySection[section].length + "</span>" +
+        '<span class="text-xs font-semibold text-stone-600 bg-stone-200 px-2 py-0.5">' + selectedCount + "</span>" +
         "</summary>" +
         body + "</details>"
       );
