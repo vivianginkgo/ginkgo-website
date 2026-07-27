@@ -21,6 +21,8 @@
   const filterState = {}; // filterKey -> value ("" / "Yes" / "No" / {min,max} / text)
   let sortState = { col: "name", dir: 1 }; // file list sort
   let filtersOpen = false; // whether the Filters panel is expanded
+  let fileSearch = ""; // filename search text
+  let filePage = 0; // current page of the file list
 
   const MAX_FILE_BYTES = 25 * 1024 * 1024;
 
@@ -80,6 +82,26 @@
   const FILTER_SUBHEADINGS = { "5.17": "Symptoms" };
   // The hip questions share one subsection and collapse into a single filter.
   const HIPS_SUB = "4.18";
+
+  // Fitness indicators questions we keep; the rest are dropped from the display.
+  const Q_FIT_LEVEL = "a84856a8-1752-4c5e-aeaf-20928eff1647";
+  const Q_LEFT_LEG_BAL = "ad7b1f79-ec38-4567-8683-254da0bf2e07";
+  const Q_RIGHT_LEG_BAL = "b85b682e-465c-4e9b-972a-985d72845ad6";
+  // Derived filter keys for the two fitness filters.
+  const F_FITLEVEL = "_fitlevel";        // reads the "Fitness level" question
+  const F_BALANCELEVEL = "_balancelevel"; // prescription SummaryResult.Balance (0–100)
+
+  // Sections removed from the assessment display entirely.
+  const ASSESSMENT_HIDE_SECTIONS = { Balance: true };
+  // Sections whose questions are never offered as filters.
+  const FILTER_EXCLUDE_SECTIONS = { Balance: true, "Fitness indicators": true };
+  // Display-label overrides for the assessment panel (question id -> label).
+  const ASSESSMENT_LABEL_OVERRIDES = {
+    "f1a0b5d4-2c3e-4b8c-9a6f-7d0e5f1a2b7b": "Days per week",
+  };
+
+  // How many files to list per page.
+  const FILE_PAGE_SIZE = 25;
 
   // Exercise AreasOfFocus code -> human label (from 'Area of focus' sheet).
   const AREA_OF_FOCUS = {
@@ -147,12 +169,15 @@
     const rawBmi = height && weight && height > 0 ? weight / Math.pow(height / 100, 2) : null;
     const bmi = rawBmi == null ? null : Math.round(rawBmi * 10) / 10;
     const weeks = num(byId[Q_PREGNANT_WEEKS]);
+    const sr = data && data.Prescription && data.Prescription.SummaryResult;
+    const balanceLevel = sr && typeof sr.Balance === "number" ? sr.Balance : null;
     return {
       byId: byId,
       sex: byId[Q_SEX] != null ? String(byId[Q_SEX]) : "",
       age: num(byId[Q_AGE]),
       bmi: bmi,
       pregnant: weeks == null ? null : weeks > 0,
+      balanceLevel: balanceLevel,
     };
   }
 
@@ -180,9 +205,10 @@
     const defs = [];
     Object.keys(QUESTIONS).forEach(function (id) {
       const m = QUESTIONS[id];
-      if (m.g) return;                     // answer-option child ("follow-up")
-      if (FILTER_EXCLUDE_IDS[id]) return;  // explicitly excluded
-      if (id === Q_PREGNANT_WEEKS) return; // replaced by derived Pregnant
+      if (m.g) return;                        // answer-option child ("follow-up")
+      if (FILTER_EXCLUDE_IDS[id]) return;     // explicitly excluded
+      if (FILTER_EXCLUDE_SECTIONS[m.s]) return; // whole section excluded
+      if (id === Q_PREGNANT_WEEKS) return;    // replaced by derived Pregnant
       defs.push({ key: id, id: id, label: m.t, section: m.s, sub: m.sub,
         subsection: FILTER_SUBHEADINGS[m.sub] || null, order: m.o });
     });
@@ -192,6 +218,9 @@
     const sexOrder = (QUESTIONS[Q_SEX] || {}).o || ageOrder + 1;
     defs.push({ key: F_BMI, id: null, label: "BMI", section: "Basic Info", subsection: null, order: ageOrder + 0.1, type: "range" });
     defs.push({ key: F_PREGNANT, id: null, label: "Pregnant", section: "Basic Info", subsection: null, order: sexOrder + 0.1, type: "yesno" });
+    // Fitness indicators keep only two filters: Fitness level and Balance level.
+    defs.push({ key: F_FITLEVEL, id: Q_FIT_LEVEL, label: "Fitness level", section: "Fitness indicators", subsection: null, order: 12.0, type: "range" });
+    defs.push({ key: F_BALANCELEVEL, id: null, label: "Balance level", section: "Fitness indicators", subsection: null, order: 12.1, type: "range" });
 
     defs.forEach(function (d) {
       if (d.type) return; // already fixed (derived)
@@ -289,6 +318,7 @@
   function attrValue(attrs, d) {
     if (d.key === F_BMI) return attrs.bmi;
     if (d.key === F_PREGNANT) return attrs.pregnant == null ? null : (attrs.pregnant ? "Yes" : "No");
+    if (d.key === F_BALANCELEVEL) return attrs.balanceLevel;
     return attrs.byId[d.id];
   }
 
@@ -554,22 +584,36 @@
       '<span class="text-sm font-semibold text-stone-800">Filters</span>' +
       '<span id="sim-filter-count" class="text-xs text-stone-400"></span></summary>' +
       '<div class="p-4 space-y-5">' + groups + "</div></details>" +
+      '<div class="mb-3">' +
+      '<input id="sim-file-search" type="text" placeholder="Search file names…" value="' + esc(fileSearch) + '" ' +
+      'class="w-full sm:w-72 text-sm border border-stone-300 px-3 py-1.5 outline-none focus:border-emerald-500">' +
+      "</div>" +
       '<div id="sim-file-list"></div></section>';
 
     updateFilesResults();
   }
 
-  // Refresh only what depends on filters / sort / selection.
+  // Refresh only what depends on filters / search / sort / selection.
   function updateFilesResults() {
     if (files.length === 0) return;
     const defs = buildFilterDefs();
     const visible = visibleIndexes(defs);
+    // Filename search narrows the list only (it doesn't change which file is viewed).
+    const q = fileSearch.trim().toLowerCase();
+    const matched = q ? visible.filter(function (i) { return files[i].name.toLowerCase().indexOf(q) !== -1; }) : visible;
     const totalValid = files.filter(function (f) { return !f.error; }).length;
     const errored = files.filter(function (f) { return f.error; });
     const activeCount = activeFilterCount();
 
+    // Paginate.
+    const totalPages = Math.max(1, Math.ceil(matched.length / FILE_PAGE_SIZE));
+    if (filePage >= totalPages) filePage = totalPages - 1;
+    if (filePage < 0) filePage = 0;
+    const pageStart = filePage * FILE_PAGE_SIZE;
+    const pageItems = matched.slice(pageStart, pageStart + FILE_PAGE_SIZE);
+
     const showing = document.getElementById("sim-showing");
-    if (showing) showing.textContent = "Showing " + visible.length + " of " + totalValid;
+    if (showing) showing.textContent = "Showing " + matched.length + " of " + totalValid;
 
     const clearEl = document.getElementById("sim-clear-filters");
     if (clearEl) {
@@ -592,7 +636,7 @@
     const listEl = document.getElementById("sim-file-list");
     if (!listEl) return;
     const arrow = sortState.dir === 1 ? "▲" : "▼";
-    const rows = visible.map(function (i) {
+    const rows = pageItems.map(function (i) {
       const on = i === activeIndex;
       return '<div data-file="' + i + '" class="flex items-center justify-between gap-2 px-4 py-2 text-sm cursor-pointer border-t border-stone-100 ' +
         (on ? "bg-emerald-50 font-semibold text-emerald-800" : "text-stone-800 hover:bg-stone-50") + '">' +
@@ -601,12 +645,20 @@
         'class="shrink-0 w-5 h-5 leading-none flex items-center justify-center text-stone-400 hover:text-red-600 hover:bg-red-50">&times;</button>' +
         "</div>";
     }).join("");
+    const btn = 'class="px-3 py-1 text-sm font-semibold border border-stone-300 text-stone-600 hover:bg-stone-50 disabled:opacity-40 disabled:cursor-not-allowed"';
+    const pager = totalPages > 1
+      ? '<div class="flex items-center justify-between gap-2 px-4 py-2 border-t border-stone-200 text-sm bg-stone-50">' +
+        '<button type="button" data-page="prev" ' + (filePage === 0 ? "disabled " : "") + btn + ">Prev</button>" +
+        '<span class="text-stone-500">Page ' + (filePage + 1) + " of " + totalPages + "</span>" +
+        '<button type="button" data-page="next" ' + (filePage >= totalPages - 1 ? "disabled " : "") + btn + ">Next</button>" +
+        "</div>"
+      : "";
     listEl.innerHTML =
-      (visible.length
+      (matched.length
         ? '<div class="border border-stone-200">' +
           '<div data-sort="name" class="px-4 py-2 bg-stone-50 text-sm font-semibold text-stone-500 cursor-pointer select-none hover:text-stone-800">File <span class="text-emerald-600">' + arrow + "</span></div>" +
-          rows + "</div>"
-        : '<p class="text-sm text-stone-500 border border-dashed border-stone-300 px-4 py-6 text-center">No files match the current filters.</p>') +
+          rows + pager + "</div>"
+        : '<p class="text-sm text-stone-500 border border-dashed border-stone-300 px-4 py-6 text-center">No files match' + (q ? " your search" : " the current filters") + ".</p>") +
       (errored.length
         ? '<p class="text-xs text-red-600 mt-3">' + errored.length + " file(s) couldn't be read: " + esc(errored.map(function (f) { return f.name; }).join(", ")) + "</p>"
         : "");
@@ -664,6 +716,7 @@
   // Re-apply filters after a control changes; keep the viewed file if it still
   // matches, otherwise fall back to the first visible one.
   function onFiltersChanged() {
+    filePage = 0; // a changed filter set makes the old page number meaningless
     const defs = buildFilterDefs();
     const visible = visibleIndexes(defs);
     if (visible.indexOf(activeIndex) === -1) {
@@ -1011,21 +1064,53 @@
   function assessmentCard(items) {
     // Resolve every item to its mapped metadata.
     const resolved = items.map(function (it) {
-      const m = QUESTIONS[String(it.Id).toLowerCase()] || {};
+      const id = String(it.Id).toLowerCase();
+      const m = QUESTIONS[id] || {};
       return {
+        id: id,
         section: m.s || "Other",
-        sub: m.sub || "_" + String(it.Id), // ungrouped items get a unique key
+        sub: m.sub || "_" + id, // ungrouped items get a unique key
         order: typeof m.o === "number" ? m.o : 1e9,
         group: m.g || null,
         prompt: m.p || null,
-        text: m.t || String(it.Id),
+        text: ASSESSMENT_LABEL_OVERRIDES[id] || m.t || String(it.Id),
         answer: resolveAnswer(it.Answer),
       };
     });
 
-    // Bucket by section.
+    // Bucket by section, dropping sections that are hidden from the display.
     const bySection = {};
-    resolved.forEach(function (r) { (bySection[r.section] = bySection[r.section] || []).push(r); });
+    resolved.forEach(function (r) {
+      if (ASSESSMENT_HIDE_SECTIONS[r.section]) return;
+      (bySection[r.section] = bySection[r.section] || []).push(r);
+    });
+
+    // Fitness indicators: keep only "Fitness level", then a "Balance level" set
+    // with the leg balances as its sub-values. Balance level is the prescription
+    // Balance summary score (0–100), not an assessment answer.
+    if (bySection["Fitness indicators"]) {
+      const fit = bySection["Fitness indicators"];
+      const rowFor = function (qid) { return fit.filter(function (r) { return r.id === qid; })[0]; };
+      const fitLevel = rowFor(Q_FIT_LEVEL);
+      const left = rowFor(Q_LEFT_LEG_BAL);
+      const right = rowFor(Q_RIGHT_LEG_BAL);
+      const sr = activeData && activeData.Prescription && activeData.Prescription.SummaryResult;
+      const bal = sr && typeof sr.Balance === "number" ? sr.Balance : null;
+      const rebuilt = [];
+      if (fitLevel) { fitLevel.order = 1; fitLevel.sub = "3.fit"; fitLevel.group = null; fitLevel.prompt = null; rebuilt.push(fitLevel); }
+      const legs = [];
+      [left, right].forEach(function (r, i) {
+        if (!r) return;
+        r.order = 3 + i; r.group = null; r.prompt = null;
+        r.sub = bal != null ? "3.bal" : "3.leg" + i; // grouped under Balance level when we have a score
+        legs.push(r);
+      });
+      if (bal != null && legs.length) {
+        rebuilt.push({ id: null, section: "Fitness indicators", sub: "3.bal", order: 2, group: null, prompt: null, text: "Balance level", answer: bal });
+      }
+      legs.forEach(function (r) { rebuilt.push(r); });
+      bySection["Fitness indicators"] = rebuilt;
+    }
 
     // Append a computed BMI row to the end of Basic Info (not present in JSON).
     const bmi = computeBMI(items);
@@ -1256,7 +1341,15 @@
   // Sliders fire continuously while dragging: repaint immediately, but debounce
   // the (more expensive) re-filter so the list doesn't thrash.
   let rangeTimer = null;
+  let searchTimer = null;
   filesPanel.addEventListener("input", function (e) {
+    if (e.target && e.target.id === "sim-file-search") {
+      fileSearch = e.target.value;
+      filePage = 0;
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(updateFilesResults, 120);
+      return;
+    }
     const el = e.target.closest ? e.target.closest("[data-filter][data-bound]") : null;
     if (!el) return;
     const wrap = el.closest("[data-range]");
@@ -1272,6 +1365,12 @@
       Object.keys(filterState).forEach(function (k) { delete filterState[k]; });
       resetFilterControls();
       onFiltersChanged();
+      return;
+    }
+    const pageBtn = e.target.closest("[data-page]");
+    if (pageBtn) {
+      filePage += pageBtn.getAttribute("data-page") === "next" ? 1 : -1;
+      updateFilesResults();
       return;
     }
     const th = e.target.closest("[data-sort]");
@@ -1299,6 +1398,8 @@
   clearBtn.addEventListener("click", function () {
     files.length = 0;
     activeIndex = -1;
+    fileSearch = "";
+    filePage = 0;
     Object.keys(filterState).forEach(function (k) { delete filterState[k]; });
     renderFilesPanel();
     updateControls();
