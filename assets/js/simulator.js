@@ -17,7 +17,7 @@
   let activeData = null;
   let activeIndex = -1; // index into `files` currently being viewed
   let activeTab = "assessment"; // preserved across file switches
-  let hideUnselected = false; // assessment "hide unselected" checkbox state
+  let hideUnselected = true; // assessment "hide unselected" checkbox state
   const filterState = {}; // filterKey -> value ("" / "Yes" / "No" / {min,max} / text)
   let sortState = { col: "name", dir: 1 }; // file list sort
   let filtersOpen = false; // whether the Filters panel is expanded
