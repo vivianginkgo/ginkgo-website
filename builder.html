@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulator - Ginkgo Active</title>
+    <title>Assessment Builder - Ginkgo Active</title>
     <!-- Tailwind CSS for Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -36,33 +36,6 @@
         body.lang-zh .en { display: none !important; }
         body.lang-en .zh { display: none !important; }
         body:not(.lang-zh):not(.lang-en) .zh { display: none !important; } /* Fallback */
-
-        /* Dual-handle range slider: two native range inputs stacked on one track.
-           The inputs themselves ignore pointer events so both thumbs stay grabbable. */
-        .sim-range-input {
-            position: absolute; left: 0; top: 0;
-            width: 100%; height: 20px; margin: 0;
-            background: transparent; pointer-events: none;
-            -webkit-appearance: none; appearance: none;
-        }
-        .sim-range-input:focus { outline: none; }
-        .sim-range-input::-webkit-slider-runnable-track { background: transparent; height: 20px; }
-        .sim-range-input::-moz-range-track { background: transparent; height: 20px; }
-        .sim-range-input::-webkit-slider-thumb {
-            -webkit-appearance: none; appearance: none;
-            pointer-events: auto; cursor: pointer;
-            width: 14px; height: 14px; border-radius: 9999px;
-            background: #5F9C32; border: 2px solid #fff;
-            box-shadow: 0 0 0 1px #d6d3d1;
-        }
-        .sim-range-input::-moz-range-thumb {
-            pointer-events: auto; cursor: pointer;
-            width: 14px; height: 14px; border-radius: 9999px;
-            background: #5F9C32; border: 2px solid #fff;
-            box-shadow: 0 0 0 1px #d6d3d1;
-        }
-        .sim-range-input:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px #a6c990; }
-        .sim-range-input:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 3px #a6c990; }
     </style>
 
     <!-- Lucide Icons -->
@@ -88,7 +61,6 @@
               <img src="/Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto" onerror="this.src='Frame 48097238.png'">
             </a>
             <div class="hidden md:flex gap-6 text-sm font-medium text-stone-600 items-center">
-              <!-- Note: Links use /# to redirect safely back to the homepage sections -->
               <a href="/#why" class="hover:text-emerald-600 transition-colors">
                   <span class="en">Why Ginkgo?</span><span class="zh">为什么选择 Ginkgo？</span>
               </a>
@@ -100,7 +72,6 @@
               </a>
             </div>
             <div class="hidden lg:flex items-center gap-5">
-              <!-- Language Switcher -->
               <button onclick="toggleLanguage()" class="flex items-center gap-1.5 text-stone-500 hover:text-emerald-600 text-sm font-bold transition-colors" title="Change Language">
                   <i data-lucide="globe" class="w-5 h-5"></i>
                   <span class="en">中文</span>
@@ -113,57 +84,36 @@
           </div>
         </nav>
 
-        <!-- Simulator -->
-        <main class="flex-grow max-w-5xl mx-auto px-6 py-10 w-full">
+        <!-- Builder -->
+        <main class="flex-grow max-w-3xl mx-auto px-6 py-10 w-full">
 
             <!-- Header -->
             <div class="mb-8 flex items-start justify-between gap-4">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight">Simulator</h1>
-                    <p class="text-stone-600 mt-2">Upload one or more JSON files to view their parsed results. Nothing is uploaded to a server &mdash; everything is processed in your browser and cleared when you refresh.</p>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight">Builder</h1>
+                    <p class="text-stone-600 mt-2">Fill in the assessment and generate a JSON file. Untouched questions use their default; questions that depend on another appear only when that answer changes from its default.</p>
                 </div>
-                <a href="/builder.html" class="shrink-0 inline-flex items-center px-4 py-2.5 text-sm font-semibold text-stone-600 bg-stone-100 hover:bg-stone-200 transition-colors">Builder &rarr;</a>
+                <a href="/simulator.html" class="shrink-0 inline-flex items-center px-4 py-2.5 text-sm font-semibold text-stone-600 bg-stone-100 hover:bg-stone-200 transition-colors">&larr; Simulator</a>
             </div>
 
-            <!-- Upload + controls card -->
+            <!-- UserId + generate controls -->
             <div class="bg-white border border-stone-200 shadow-sm p-6 mb-8">
                 <div class="flex flex-col sm:flex-row sm:items-end gap-4">
-                    <!-- File picker -->
                     <div class="flex-grow">
-                        <label for="sim-file-input" class="block text-sm font-semibold text-stone-700 mb-2">JSON file(s)</label>
-                        <input
-                            id="sim-file-input"
-                            type="file"
-                            accept="application/json,.json"
-                            multiple
-                            class="block w-full text-sm text-stone-600 file:mr-4 file:py-2.5 file:px-5 file:border-0 file:text-sm file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-700 file:cursor-pointer cursor-pointer"
-                        >
-                        <p class="text-xs text-stone-400 mt-2">You can select multiple files, and add more later &mdash; new files are added to the list.</p>
+                        <label for="bld-userid" class="block text-sm font-semibold text-stone-700 mb-2">User ID (file name)</label>
+                        <input id="bld-userid" type="text" placeholder="e.g. TestUser1"
+                            class="block w-full text-sm border border-stone-300 bg-white px-3 py-2 text-stone-800 outline-none focus:border-emerald-500">
+                        <p id="bld-userid-error" class="text-xs text-red-600 mt-1 hidden">Enter a user ID to name the file.</p>
                     </div>
-                    <!-- Clear -->
-                    <button
-                        id="sim-clear-btn"
-                        type="button"
-                        class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold text-stone-600 bg-stone-100 hover:bg-stone-200 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                        disabled
-                    >
-                        Clear all
-                    </button>
-                </div>
-
-            </div>
-
-            <!-- Files panel: filters + sortable file table (rendered by simulator.js) -->
-            <div id="sim-files"></div>
-
-            <!-- Output / states -->
-            <div id="sim-output">
-                <!-- Empty state -->
-                <div id="sim-empty-state" class="text-center py-20 px-6 bg-white border border-dashed border-stone-300">
-                    <p class="text-stone-500 font-medium">No files loaded yet.</p>
-                    <p class="text-stone-400 text-sm mt-1">Choose one or more JSON files above to get started.</p>
+                    <div class="flex gap-2 shrink-0">
+                        <button id="bld-reset" type="button" class="px-4 py-2 text-sm font-semibold text-stone-600 bg-stone-100 hover:bg-stone-200 transition-colors">Reset</button>
+                        <button id="bld-generate" type="button" class="px-5 py-2 text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors">Generate JSON</button>
+                    </div>
                 </div>
             </div>
+
+            <!-- Form (rendered by builder.js) -->
+            <div id="bld-form"></div>
 
         </main>
 
@@ -194,53 +144,29 @@
 
     <!-- Scripts -->
     <script>
-        // Initialize Icons
         lucide.createIcons();
-
-        // Language Switcher Logic
         function toggleLanguage() {
             const body = document.body;
             if (body.classList.contains('lang-en')) {
-                body.classList.remove('lang-en');
-                body.classList.add('lang-zh');
+                body.classList.remove('lang-en'); body.classList.add('lang-zh');
                 localStorage.setItem('ginkgo-lang', 'zh');
             } else {
-                body.classList.remove('lang-zh');
-                body.classList.add('lang-en');
+                body.classList.remove('lang-zh'); body.classList.add('lang-en');
                 localStorage.setItem('ginkgo-lang', 'en');
             }
         }
-
-        // Apply saved language preference or system default on load
         document.addEventListener('DOMContentLoaded', () => {
-            let defaultLang = 'en'; // Global fallback
-
-            // Check for previously saved user preference
+            let defaultLang = 'en';
             const savedLang = localStorage.getItem('ginkgo-lang');
-
-            if (savedLang) {
-                // If they manually toggled it before, respect their choice
-                defaultLang = savedLang;
-            } else {
-                // Otherwise, check the device/browser language
-                // navigator.userLanguage is for older IE compatibility, navigator.language covers modern iOS/Android
-                const systemLang = navigator.language || navigator.userLanguage || '';
-
-                // If the system language starts with 'zh' (handles zh-CN, zh-TW, zh-HK, etc.)
-                if (systemLang.toLowerCase().startsWith('zh')) {
-                    defaultLang = 'zh';
-                }
-            }
-
-            // Apply the chosen language class
+            if (savedLang) defaultLang = savedLang;
+            else if ((navigator.language || '').toLowerCase().startsWith('zh')) defaultLang = 'zh';
             document.body.classList.remove('lang-en', 'lang-zh');
             document.body.classList.add('lang-' + defaultLang);
         });
     </script>
 
-    <!-- Simulator: assessment question/answer lookup tables + logic -->
-    <!-- ?v is bumped on each change so browsers fetch the latest file instead of a cached copy. -->
-    <script src="/assets/js/simulator-data.js?v=26"></script>
-    <script src="/assets/js/simulator.js?v=26"></script>
+    <!-- Assessment builder: question data + logic -->
+    <script src="/assets/js/builder-data.js?v=2"></script>
+    <script src="/assets/js/builder.js?v=2"></script>
 </body>
 </html>
