@@ -1085,9 +1085,9 @@
       (bySection[r.section] = bySection[r.section] || []).push(r);
     });
 
-    // Fitness indicators: keep only "Fitness level", then a "Balance level" set
-    // with the leg balances as its sub-values. Balance level is the prescription
-    // Balance summary score (0–100), not an assessment answer.
+    // Fitness indicators: keep only "Fitness level", then "MET value" and a
+    // "Balance level" set with the leg balances as its sub-values. MET value and
+    // Balance level are computed prescription figures, not assessment answers.
     if (bySection["Fitness indicators"]) {
       const fit = bySection["Fitness indicators"];
       const rowFor = function (qid) { return fit.filter(function (r) { return r.id === qid; })[0]; };
@@ -1096,8 +1096,13 @@
       const right = rowFor(Q_RIGHT_LEG_BAL);
       const sr = activeData && activeData.Prescription && activeData.Prescription.SummaryResult;
       const bal = sr && typeof sr.Balance === "number" ? sr.Balance : null;
+      const met = activeData && activeData.Prescription && activeData.Prescription.MetabolicEquivalentOfTaskResult;
+      const metValue = met && typeof met.PrescriptionAverageMETValue === "number" ? met.PrescriptionAverageMETValue : null;
       const rebuilt = [];
       if (fitLevel) { fitLevel.order = 1; fitLevel.sub = "3.fit"; fitLevel.group = null; fitLevel.prompt = null; rebuilt.push(fitLevel); }
+      if (metValue != null) {
+        rebuilt.push({ id: null, section: "Fitness indicators", sub: "3.met", order: 1.5, group: null, prompt: null, text: "MET value", answer: metValue.toFixed(1) });
+      }
       const legs = [];
       [left, right].forEach(function (r, i) {
         if (!r) return;
