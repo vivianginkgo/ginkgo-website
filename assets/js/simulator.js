@@ -771,7 +771,7 @@
     if (!data || typeof data !== "object") return errorCard("Unexpected format", "This file isn't a simulation-result object.");
     const p = data.Prescription || {};
     const assessment = Array.isArray(data.AssessmentDataItems) ? assessmentCard(data.AssessmentDataItems) : '<p class="text-stone-500">No assessment data in this file.</p>';
-    const program = Array.isArray(p.DailySchedules) ? programCard(p.DailySchedules) : '<p class="text-stone-500">No program data in this file.</p>';
+    const program = Array.isArray(p.DailySchedules) ? programCard(p.DailySchedules, p.MetabolicEquivalentOfTaskResult) : '<p class="text-stone-500">No program data in this file.</p>';
     return (
       overviewCard(data, p) +
       (p.SummaryResult ? summaryCard(p.SummaryResult) : "") +
@@ -840,6 +840,8 @@
     );
   }
 
+  function round1(n) { return Math.round(n * 10) / 10; }
+
   function scoreColor(v) {
     if (typeof v !== "number") return "bg-stone-300";
     if (v >= 80) return "bg-emerald-600";
@@ -861,7 +863,20 @@
   }
 
   // ---- Program (daily schedules) -----------------------------------------
-  function programCard(schedules) {
+  // Below the title we show the two prescription-level MET figures (weekly MET
+  // minutes and the average MET value), plain values rather than scored bars.
+  function metSummary(met) {
+    if (!met) return "";
+    const blocks =
+      (typeof met.PrescriptionWeeklyMETMinutes === "number"
+        ? statBlock("Weekly MET minutes", esc(round1(met.PrescriptionWeeklyMETMinutes))) : "") +
+      (typeof met.PrescriptionAverageMETValue === "number"
+        ? statBlock("Average MET value", esc(round1(met.PrescriptionAverageMETValue))) : "");
+    if (!blocks) return "";
+    return '<dl class="flex flex-wrap gap-x-10 gap-y-4 mb-6">' + blocks + "</dl>";
+  }
+
+  function programCard(schedules, met) {
     const buttons = schedules.map(function (s, i) {
       const count = (s.WarmUp || []).length + (s.Training || []).length + (s.CoolDown || []).length;
       const rest = count === 0;
@@ -875,6 +890,7 @@
     return (
       '<section class="bg-white border border-stone-200 shadow-sm p-8 mb-6">' +
       '<h3 class="text-lg font-bold text-stone-900 mb-5">' + schedules.length + "-day program</h3>" +
+      metSummary(met) +
       // Sticky day strip: pins while scrolling the exercise list, scoped to this
       // section (releases at the end of the program). Flat with a bottom border
       // spanning the full width of the program box (-mx-8 offsets the p-8). Its
