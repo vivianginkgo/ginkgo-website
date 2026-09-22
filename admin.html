@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ginkgo Active - Admin Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              emerald: {
+                50: '#f4f8f1',
+                100: '#e5f0dd',
+                200: '#cbe0bb',
+                300: '#a6c990',
+                400: '#81ad66',
+                500: '#649646',
+                600: '#5F9C32',
+                700: '#4A7A27',
+                800: '#385C1D',
+                900: '#263E14',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .bar-animate { animation: barGrow 0.6s ease-out; }
+        @keyframes barGrow { from { height: 0; } }
+        body.lang-zh .en { display: none !important; }
+        body.lang-en .zh { display: none !important; }
+        body:not(.lang-zh):not(.lang-en) .zh { display: none !important; }
+    </style>
+</head>
+<body class="bg-stone-50 font-sans text-stone-800 lang-en">
+
+    <!-- Navigation -->
+    <nav class="w-full border-b border-stone-100 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+      <div class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
+        <a href="/" class="flex items-center">
+          <img src="Frame 48097238.png" alt="Ginkgo Active" class="h-8 md:h-10 w-auto">
+        </a>
+        <div class="flex items-center gap-4">
+          <button onclick="toggleLanguage()" class="flex items-center gap-1.5 text-stone-500 hover:text-emerald-600 text-sm font-bold transition-colors" title="Change Language">
+            <i data-lucide="globe" class="w-5 h-5"></i>
+            <span class="en">中文</span>
+            <span class="zh">EN</span>
+          </button>
+          <span class="text-sm font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full"><span class="en">Admin Portal</span><span class="zh">管理门户</span></span>
+          <button id="logoutBtn" onclick="handleLogout()" class="hidden text-sm text-stone-500 hover:text-red-600 font-medium transition-colors">
+            <span class="en">Sign Out</span><span class="zh">退出登录</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===================== LOGIN VIEW ===================== -->
+    <div id="loginView" class="min-h-[calc(100vh-73px)] flex items-center justify-center px-6">
+      <div class="w-full max-w-md fade-in">
+        <div class="text-center mb-8">
+          <div class="bg-emerald-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="shield-check" class="w-8 h-8 text-emerald-600"></i>
+          </div>
+          <h1 class="text-2xl font-bold text-stone-900"><span class="en">Admin Sign In</span><span class="zh">管理员登录</span></h1>
+          <p class="text-stone-500 mt-1"><span class="en">Sign in to access your organization's dashboard</span><span class="zh">登录以访问您组织的管理后台</span></p>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)" class="bg-white rounded-2xl border border-stone-200 p-8 shadow-sm">
+          <div class="mb-5">
+            <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Server / Region</span><span class="zh">服务器 / 区域</span></label>
+            <select id="loginRegion" onchange="selectedRegion = this.value"
+              class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm bg-white">
+              <option value="america">America</option>
+              <option value="china">China</option>
+            </select>
+          </div>
+          <div class="mb-5">
+            <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Username</span><span class="zh">用户名</span></label>
+            <input type="text" id="loginUsername" required
+              class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm"
+              placeholder="admin@example.com">
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Password</span><span class="zh">密码</span></label>
+            <input type="password" id="loginPassword" required
+              class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm"
+              placeholder="Enter your password">
+          </div>
+          <div id="loginError" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm"></div>
+          <button type="submit" id="loginBtn"
+            class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-semibold transition-all shadow-sm text-sm">
+            <span class="en">Sign In</span><span class="zh">登录</span>
+          </button>
+          <p class="text-center text-sm text-stone-500 mt-4">
+            <span class="en">Don't have an account? <a href="#" onclick="showSignup(); return false;" class="text-emerald-600 hover:text-emerald-700 font-semibold">Sign up</a></span>
+            <span class="zh">没有账号？<a href="#" onclick="showSignup(); return false;" class="text-emerald-600 hover:text-emerald-700 font-semibold">注册</a></span>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===================== SIGNUP VIEW ===================== -->
+    <div id="signupView" class="hidden min-h-[calc(100vh-73px)] flex items-center justify-center px-6">
+      <div class="w-full max-w-md fade-in">
+        <div class="text-center mb-8">
+          <div class="bg-emerald-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="user-plus" class="w-8 h-8 text-emerald-600"></i>
+          </div>
+          <h1 class="text-2xl font-bold text-stone-900"><span class="en">Admin Sign Up</span><span class="zh">管理员注册</span></h1>
+          <p class="text-stone-500 mt-1"><span class="en">Create an admin account for your organization</span><span class="zh">为您的组织创建管理员账号</span></p>
+        </div>
+
+        <form id="signupForm" onsubmit="handleSignup(event)" class="bg-white rounded-2xl border border-stone-200 p-8 shadow-sm">
+          <div class="mb-5">
+            <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Admin Code</span><span class="zh">管理员邀请码</span></label>
+            <input type="text" id="signupAdminCode" required
+              class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm"
+              placeholder="Enter your admin invitation code">
+          </div>
+          <div class="mb-5">
+            <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Username</span><span class="zh">用户名</span></label>
+            <input type="text" id="signupUsername" required
+              class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm"
+              placeholder="Choose a username">
+          </div>
+          <div class="mb-5">
+            <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Password</span><span class="zh">密码</span></label>
+            <input type="password" id="signupPassword" required
+              class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm"
+              placeholder="Choose a password">
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Server / Region</span><span class="zh">服务器 / 区域</span></label>
+            <select id="signupRegion"
+              class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm bg-white">
+              <option value="america">America</option>
+              <option value="china">China</option>
+            </select>
+          </div>
+          <div id="signupError" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm"></div>
+          <button type="submit" id="signupBtn"
+            class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-semibold transition-all shadow-sm text-sm">
+            <span class="en">Sign Up</span><span class="zh">注册</span>
+          </button>
+          <p class="text-center text-sm text-stone-500 mt-4">
+            <span class="en">Already have an account? <a href="#" onclick="showLogin(); return false;" class="text-emerald-600 hover:text-emerald-700 font-semibold">Sign in</a></span>
+            <span class="zh">已有账号？<a href="#" onclick="showLogin(); return false;" class="text-emerald-600 hover:text-emerald-700 font-semibold">登录</a></span>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===================== DASHBOARD VIEW ===================== -->
+    <div id="dashboardView" class="hidden">
+      <div class="max-w-7xl mx-auto px-6 py-8">
+
+        <!-- Dashboard Header -->
+        <div class="mb-8 fade-in">
+          <h1 class="text-2xl font-bold text-stone-900"><span class="en">Organization Dashboard</span><span class="zh">组织管理后台</span></h1>
+          <p class="text-stone-500 mt-1"><span class="en">Monitor your cohort's exercise progress and engagement</span><span class="zh">监控您团队的运动进展和参与情况</span></p>
+        </div>
+
+        <!-- Step 1: Referral Code Lookup -->
+        <div class="bg-white rounded-2xl border border-stone-200 p-6 mb-6 fade-in">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="bg-emerald-100 w-8 h-8 rounded-lg flex items-center justify-center">
+              <span class="text-emerald-700 font-bold text-sm">1</span>
+            </div>
+            <h2 class="text-lg font-bold text-stone-900"><span class="en">Look Up Referral Codes</span><span class="zh">查询推荐码</span></h2>
+          </div>
+          <p class="text-stone-500 text-sm mb-4"><span class="en">Enter the referral codes you distributed to employees to check their signup status.</span><span class="zh">输入您分发给员工的推荐码以查看注册状态。</span></p>
+
+          <form onsubmit="handleLookupCodes(event)" class="flex flex-col sm:flex-row gap-3">
+            <input type="text" id="referralCodesInput" required
+              class="flex-1 px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm"
+              placeholder="Enter codes separated by commas (e.g. ABC123, ABC124, ABC125)">
+            <button type="submit" id="lookupBtn"
+              class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-sm text-sm whitespace-nowrap">
+              <span class="en">Look Up</span><span class="zh">查询</span>
+            </button>
+          </form>
+          <div id="lookupError" class="hidden mt-3 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm"></div>
+        </div>
+
+        <!-- Step 2: Fetch Training Data -->
+        <div class="bg-white rounded-2xl border border-stone-200 p-6 mb-6 fade-in">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="bg-emerald-100 w-8 h-8 rounded-lg flex items-center justify-center">
+              <span class="text-emerald-700 font-bold text-sm">2</span>
+            </div>
+            <h2 class="text-lg font-bold text-stone-900"><span class="en">Training Data</span><span class="zh">训练数据</span></h2>
+          </div>
+          <p class="text-stone-500 text-sm mb-4"><span class="en">Retrieve all issued referral codes and their training data, or load demo data for testing.</span><span class="zh">获取所有已发放的推荐码及训练数据，或加载演示数据进行测试。</span></p>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button onclick="handleFetchTrainingData()" id="fetchTrainingBtn"
+              class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-sm text-sm whitespace-nowrap">
+              <span class="en">Fetch Training Data</span><span class="zh">获取训练数据</span>
+            </button>
+            <button onclick="handleFetchDemoData()" id="fetchDemoBtn"
+              class="bg-stone-100 hover:bg-stone-200 text-stone-700 px-6 py-3 rounded-xl font-semibold transition-all text-sm whitespace-nowrap border border-stone-200">
+              <span class="en">Fetch Demo Data</span><span class="zh">加载演示数据</span>
+            </button>
+          </div>
+          <div id="fetchProgress" class="hidden mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 text-sm"></div>
+          <div id="fetchError" class="hidden mt-3 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm"></div>
+        </div>
+
+        <!-- Results Section (hidden until lookup) -->
+        <div id="resultsSection" class="hidden fade-in">
+
+          <!-- Loading state -->
+          <div id="resultsLoading" class="hidden bg-white rounded-2xl border border-stone-200 p-8 mb-6 text-center">
+            <p class="text-stone-400"><span class="en">Loading training data...</span><span class="zh">正在加载训练数据...</span></p>
+          </div>
+
+          <!-- Error state -->
+          <div id="resultsError" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm"></div>
+
+          <!-- Tab Navigation -->
+          <div id="resultsTabs" class="hidden flex gap-1 mb-4 bg-stone-100 rounded-xl p-1 w-fit">
+            <button onclick="switchTab('summary')" id="tabSummary"
+              class="px-5 py-2 rounded-lg text-sm font-semibold transition-all bg-white text-stone-900 shadow-sm">
+              <span class="en">Summary</span><span class="zh">概要</span>
+            </button>
+            <button onclick="switchTab('userlist')" id="tabUserList"
+              class="px-5 py-2 rounded-lg text-sm font-semibold transition-all text-stone-500 hover:text-stone-700">
+              <span class="en">User List</span><span class="zh">用户列表</span>
+            </button>
+          </div>
+
+          <!-- Week Navigator (shared by both tabs) -->
+          <div id="weekNavigator" class="hidden flex items-center justify-between bg-white rounded-xl border border-stone-200 p-3 mb-4">
+            <button onclick="changeWeek(-1)" id="prevWeekBtn"
+              class="p-2 rounded-lg hover:bg-stone-100 text-stone-500 hover:text-stone-700 transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+              <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            </button>
+            <div class="text-center">
+              <p class="text-sm font-bold text-stone-900" id="weekLabel">Week of Sept 1, 2026</p>
+              <p class="text-xs text-stone-400" id="weekRange">Mon Sep 1 — Sun Sep 7</p>
+            </div>
+            <button onclick="changeWeek(1)" id="nextWeekBtn"
+              class="p-2 rounded-lg hover:bg-stone-100 text-stone-500 hover:text-stone-700 transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+              <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <!-- Summary Tab -->
+          <div id="summaryView" class="hidden">
+            <div class="bg-white rounded-2xl border border-stone-200 p-6">
+              <h2 class="text-lg font-bold text-stone-900 mb-1"><span class="en">Training Performance Overview</span><span class="zh">训练表现概览</span></h2>
+              <p class="text-stone-500 text-sm mb-6"><span class="en">Users grouped by weekly MET-minutes, colored by compliance</span><span class="zh">按每周MET-分钟分组的用户，按合规率着色</span></p>
+
+              <!-- Legend (display mode) -->
+              <div id="legendDisplay" class="flex items-center gap-6 mb-6 text-sm">
+                <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-orange-400 inline-block"></span> <span class="text-stone-600" id="legendOrangeLabel">&lt; 15% Compliance</span></div>
+                <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-amber-400 inline-block"></span> <span class="text-stone-600" id="legendYellowLabel">15–40% Compliance</span></div>
+                <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-emerald-500 inline-block"></span> <span class="text-stone-600" id="legendGreenLabel">&ge; 40% Compliance</span></div>
+                <button onclick="openComplianceEditor()" class="ml-auto text-stone-400 hover:text-emerald-600 transition-colors" title="Edit thresholds">
+                  <i data-lucide="pencil" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <!-- Legend (edit mode) -->
+              <div id="legendEditor" class="hidden mb-6 bg-stone-50 rounded-xl border border-stone-200 p-4">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="sliders-horizontal" class="w-4 h-4 text-stone-500"></i>
+                    <span class="text-sm font-semibold text-stone-700"><span class="en">Compliance Thresholds</span><span class="zh">合规阈值</span></span>
+                  </div>
+                  <button onclick="saveComplianceThresholds()"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-lg font-semibold text-sm transition-all">
+                    <span class="en">Save</span><span class="zh">保存</span>
+                  </button>
+                </div>
+                <!-- Slider track -->
+                <div class="relative mt-2 mb-6 select-none" id="sliderContainer">
+                  <div class="h-8 rounded-full overflow-hidden flex" id="sliderTrack">
+                    <div id="sliderOrange" class="bg-orange-400 h-full transition-none"></div>
+                    <div id="sliderYellow" class="bg-amber-400 h-full transition-none"></div>
+                    <div id="sliderGreen" class="bg-emerald-500 h-full transition-none"></div>
+                  </div>
+                  <!-- Thumb: low -->
+                  <div id="thumbLow" class="absolute top-1/2 -translate-y-1/2 w-5 h-10 bg-white rounded-md border-2 border-stone-400 shadow cursor-grab active:cursor-grabbing flex items-center justify-center hover:border-stone-600 z-10"
+                    style="left:15%">
+                    <span class="w-0.5 h-4 bg-stone-300 rounded-full"></span>
+                  </div>
+                  <!-- Thumb: high -->
+                  <div id="thumbHigh" class="absolute top-1/2 -translate-y-1/2 w-5 h-10 bg-white rounded-md border-2 border-stone-400 shadow cursor-grab active:cursor-grabbing flex items-center justify-center hover:border-stone-600 z-10"
+                    style="left:40%">
+                    <span class="w-0.5 h-4 bg-stone-300 rounded-full"></span>
+                  </div>
+                </div>
+                <!-- Labels below slider -->
+                <div class="flex justify-between text-xs font-semibold">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded bg-orange-400 inline-block"></span>
+                    <span class="text-stone-600" id="editorOrangeLabel">&lt; 15%</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded bg-amber-400 inline-block"></span>
+                    <span class="text-stone-600" id="editorYellowLabel">15–40%</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span>
+                    <span class="text-stone-600" id="editorGreenLabel">&ge; 40%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chart -->
+              <div id="summaryChart" class="flex items-end gap-8 justify-center h-64 border-b border-l border-stone-200 relative px-8 pb-0">
+                <div class="absolute -left-2 top-1/2 -translate-y-1/2 -rotate-90 text-xs text-stone-400 font-semibold whitespace-nowrap"><span class="en">Number of Users</span><span class="zh">用户数量</span></div>
+              </div>
+              <div id="summaryChartLabels" class="flex gap-8 justify-center px-8 mt-2"></div>
+
+              <!-- No data message -->
+              <div id="summaryNoData" class="hidden text-center py-8 text-stone-400 text-sm"><span class="en">No training data for this week.</span><span class="zh">本周无训练数据。</span></div>
+
+              <!-- Summary stats -->
+              <div id="summaryStats" class="grid sm:grid-cols-3 gap-4 mt-6"></div>
+
+              <!-- MET Category Info Panel -->
+              <div id="metInfoPanel" class="hidden mt-4 bg-emerald-50 border border-emerald-200 rounded-xl p-5">
+                <h3 id="metInfoTitle" class="text-sm font-bold text-emerald-800 mb-1"></h3>
+                <p id="metInfoSubtitle" class="text-xs text-emerald-600 mb-2 italic"></p>
+                <p id="metInfoBody" class="text-sm text-stone-700 leading-relaxed"></p>
+              </div>
+            </div>
+
+            <!-- Assessment Overview (moved from separate tab) -->
+            <div class="bg-white rounded-2xl border border-stone-200 p-6 mt-4">
+              <h2 class="text-lg font-bold text-stone-900 mb-1"><span class="en">Assessment Overview</span><span class="zh">评估概览</span></h2>
+              <p class="text-stone-500 text-sm mb-4"><span class="en">User health metric distributions by month</span><span class="zh">按月份查看用户健康指标分布</span></p>
+
+              <!-- Assessment Metric Tabs -->
+              <div class="flex gap-1 mb-4 bg-stone-100 rounded-xl p-1 w-fit">
+                <button onclick="switchAssessmentMetric('bmi')" id="metricBMI"
+                  class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all bg-white text-stone-900 shadow-sm">
+                  <span class="en">BMI</span><span class="zh">BMI</span>
+                </button>
+                <button onclick="switchAssessmentMetric('balance')" id="metricBalance"
+                  class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all text-stone-500 hover:text-stone-700">
+                  <span class="en">Balance Level</span><span class="zh">平衡水平</span>
+                </button>
+                <button onclick="switchAssessmentMetric('fitness')" id="metricFitness"
+                  class="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all text-stone-500 hover:text-stone-700">
+                  <span class="en">Fitness Level</span><span class="zh">健康水平</span>
+                </button>
+              </div>
+
+              <!-- Month Navigator -->
+              <div class="flex items-center justify-between bg-stone-50 rounded-xl border border-stone-200 p-3 mb-6">
+                <button onclick="changeAssessmentMonth(-1)" id="prevMonthBtn"
+                  class="p-2 rounded-lg hover:bg-stone-200 text-stone-500 hover:text-stone-700 transition-colors">
+                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <p class="text-sm font-bold text-stone-900" id="assessmentMonthLabel">September 2026</p>
+                <button onclick="changeAssessmentMonth(1)" id="nextMonthBtn"
+                  class="p-2 rounded-lg hover:bg-stone-200 text-stone-500 hover:text-stone-700 transition-colors">
+                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+              </div>
+
+              <!-- Pie Chart + Legend -->
+              <div class="flex flex-col md:flex-row items-center gap-8">
+                <div id="assessmentPieContainer" class="w-52 h-52 rounded-full flex-shrink-0" style="background: conic-gradient(#d1d5db 0deg 360deg);"></div>
+                <div id="assessmentLegend" class="flex-1 w-full"></div>
+              </div>
+
+              <p id="assessmentNoData" class="hidden text-stone-400 text-sm text-center py-8"><span class="en">No assessment data available for this month.</span><span class="zh">本月没有评估数据。</span></p>
+            </div>
+          </div>
+
+          <!-- User List Tab -->
+          <div id="userListView" class="hidden">
+            <div class="bg-white rounded-2xl border border-stone-200 p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h2 class="text-lg font-bold text-stone-900"><span class="en">User List</span><span class="zh">用户列表</span></h2>
+                  <p class="text-stone-500 text-sm"><span class="en">Training data by referral code</span><span class="zh">按推荐码查看训练数据</span></p>
+                </div>
+                <button onclick="toggleActions()" id="toggleActionsBtn"
+                  class="inline-flex items-center gap-1.5 text-stone-400 hover:text-stone-600 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border border-stone-200 hover:border-stone-300"
+                  title="Show actions">
+                  <i data-lucide="shield" class="w-4 h-4"></i>
+                  <span class="en">Actions</span><span class="zh">操作</span>
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm min-w-[1050px]">
+                  <thead>
+                    <tr class="border-b border-stone-200">
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Referral Code</span><span class="zh">推荐码</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Type</span><span class="zh">类型</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Duration</span><span class="zh">时长</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Status</span><span class="zh">状态</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Created</span><span class="zh">创建日期</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Weekly MET-Min</span><span class="zh">每周MET-分钟</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Avg MET</span><span class="zh">平均MET</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Compliance</span><span class="zh">合规率</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Weekly Goal</span><span class="zh">每周目标</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold"><span class="en">Subscription Expires</span><span class="zh">订阅到期</span></th>
+                      <th class="py-3 px-4 text-stone-500 font-semibold hidden" id="actionsHeader"><span class="en">Actions</span><span class="zh">操作</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="userListBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Generate Referral Codes Button -->
+        <div class="mt-6 fade-in">
+          <button onclick="toggleGeneratePanel()" id="generateToggleBtn"
+            class="text-stone-500 hover:text-stone-700 text-sm font-medium transition-colors flex items-center gap-1.5">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span class="en">Generate New Referral Codes</span><span class="zh">生成新推荐码</span>
+          </button>
+        </div>
+
+        <!-- Generate Referral Codes Panel (hidden by default) -->
+        <div id="generatePanel" class="hidden mt-3 fade-in">
+          <div class="bg-white rounded-2xl border border-stone-200 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-lg font-bold text-stone-900"><span class="en">Generate Referral Codes</span><span class="zh">生成推荐码</span></h2>
+              <button onclick="toggleGeneratePanel()" class="text-stone-400 hover:text-stone-600 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+              </button>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 mb-4">
+              <div class="flex-1">
+                <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Type of Code</span><span class="zh">码类型</span></label>
+                <select id="codeType"
+                  class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm bg-white">
+                  <option value="family">Family Account</option>
+                  <option value="individual">Individual Account</option>
+                </select>
+              </div>
+              <div class="flex-1">
+                <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Duration</span><span class="zh">时长</span></label>
+                <select id="codeDuration"
+                  class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm bg-white">
+                  <option value="7">7 Days</option>
+                  <option value="365">365 Days (1 Year)</option>
+                </select>
+              </div>
+              <div class="w-full sm:w-40">
+                <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Number of Codes</span><span class="zh">码数量</span></label>
+                <input type="number" id="codeCount" min="1" max="100" value="5"
+                  class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm text-center">
+              </div>
+              <div class="flex items-end">
+                <button onclick="handleGetCodes()" id="getCodesBtn"
+                  class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-sm text-sm whitespace-nowrap">
+                  <span class="en">Get Codes</span><span class="zh">获取码</span>
+                </button>
+              </div>
+            </div>
+            <div id="generatedCodesResult" class="hidden"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Deactivate Confirmation Modal -->
+    <div id="deactivateModal" class="hidden fixed inset-0 z-[60] flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/50" onclick="closeDeactivateModal()"></div>
+      <div class="relative bg-white rounded-2xl border border-stone-200 p-8 shadow-xl w-full max-w-md mx-4 fade-in">
+        <div class="text-center mb-6">
+          <div class="bg-red-100 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="alert-triangle" class="w-7 h-7 text-red-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-stone-900"><span class="en">Deactivate Referral Code</span><span class="zh">停用推荐码</span></h3>
+        </div>
+        <p class="text-sm text-stone-600 mb-2"><span class="en">You are about to deactivate:</span><span class="zh">您即将停用：</span></p>
+        <div class="bg-stone-50 rounded-xl p-3 mb-4 border border-stone-200">
+          <p class="text-sm"><span class="text-stone-500"><span class="en">Code:</span><span class="zh">推荐码：</span></span> <span class="font-mono font-bold text-stone-800" id="deactivateCodeDisplay"></span></p>
+          <p class="text-sm mt-1"><span class="text-stone-500"><span class="en">User ID:</span><span class="zh">用户ID：</span></span> <span class="font-mono text-stone-700" id="deactivateUserDisplay"></span></p>
+        </div>
+        <div class="bg-red-50 border border-red-200 rounded-xl p-3 mb-4 text-red-700 text-sm">
+          <span class="en"><strong>Warning:</strong> This will immediately deactivate the referral code. If a user is currently using this code, their subscription will be revoked. This action cannot be undone.</span>
+          <span class="zh"><strong>警告：</strong>此操作将立即停用该推荐码。如果有用户正在使用此码，其订阅将被撤销。此操作无法撤消。</span>
+        </div>
+        <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Type the referral code to confirm:</span><span class="zh">请输入推荐码以确认：</span></label>
+        <input type="text" id="deactivateConfirmInput"
+          class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-sm font-mono mb-4"
+          placeholder="Enter referral code" oninput="checkDeactivateConfirm()">
+        <div id="deactivateError" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm"></div>
+        <div class="flex gap-3">
+          <button onclick="closeDeactivateModal()"
+            class="flex-1 bg-stone-100 hover:bg-stone-200 text-stone-700 py-3 rounded-xl font-semibold transition-all text-sm border border-stone-200"><span class="en">Cancel</span><span class="zh">取消</span></button>
+          <button id="deactivateConfirmBtn" onclick="confirmDeactivate()" disabled
+            class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-semibold transition-all text-sm disabled:opacity-40 disabled:cursor-not-allowed"><span class="en">Deactivate</span><span class="zh">停用</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 py-6 text-center text-stone-500 text-sm mt-auto">
+      <p>© 2026 Ginkgo Active. All rights reserved.</p>
+    </footer>
+
+    <script>
+    const REGIONS = {
+      america: { label: 'America', loginBaseUrl: 'https://api-beta-login.ginkgo.health' },
+      china:   { label: 'China',   loginBaseUrl: 'https://8lt24tr5f7.execute-api.cn-north-1.amazonaws.com.cn' },
+    };
+    let selectedRegion = 'america';
+    function getApiBase() { return REGIONS[selectedRegion].loginBaseUrl; }
+
+    function currentLang() {
+      return document.body.classList.contains('lang-zh') ? 'zh' : 'en';
+    }
+    function t(en, zh) {
+      return currentLang() === 'zh' ? zh : en;
+    }
+
+    function toggleLanguage() {
+      const body = document.body;
+      if (body.classList.contains('lang-en')) {
+        body.classList.remove('lang-en');
+        body.classList.add('lang-zh');
+        localStorage.setItem('ginkgo-lang', 'zh');
+      } else {
+        body.classList.remove('lang-zh');
+        body.classList.add('lang-en');
+        localStorage.setItem('ginkgo-lang', 'en');
+      }
+      reRenderDynamicContent();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      let defaultLang = 'en';
+      const savedLang = localStorage.getItem('ginkgo-lang');
+      if (savedLang) {
+        defaultLang = savedLang;
+      } else {
+        const systemLang = navigator.language || navigator.userLanguage || '';
+        if (systemLang.toLowerCase().startsWith('zh')) defaultLang = 'zh';
+      }
+      document.body.classList.remove('lang-en', 'lang-zh');
+      document.body.classList.add('lang-' + defaultLang);
+    });
+
+    function reRenderDynamicContent() {
+      if (currentTab === 'summary') { renderSummaryChart(); renderAssessmentPie(); }
+      else if (currentTab === 'userlist') renderUserList();
+      if (typeof updateWeekNavigator === 'function' && sortedWeekKeys) updateWeekNavigator();
+      if (typeof updateLegendLabels === 'function') updateLegendLabels();
+    }
+
+    const DOTNET_EPOCH_OFFSET = 621355968000000000;
+
+    function ticksToDate(ticks) {
+      if (!ticks || ticks <= 0) return null;
+      const ms = (ticks - DOTNET_EPOCH_OFFSET) / 10000;
+      return new Date(ms);
+    }
+
+    function parseDate(val) {
+      if (!val) return null;
+      if (typeof val === 'string') return new Date(val);
+      if (typeof val === 'number') return ticksToDate(val);
+      return null;
+    }
+
+    function formatDate(val) {
+      const d = parseDate(val);
+      return d && !isNaN(d) ? d.toLocaleDateString() : '—';
+    }
+
+    let authState = {
+      loginServiceAccessToken: null,
+      appServiceAccessToken: null,
+      adminUserId: null,
+    };
+
+    let referralCodeData = [];
+
+    // ── Login ──
+    async function handleLogin(e) {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const errorEl = document.getElementById('loginError');
+      errorEl.classList.add('hidden');
+      btn.textContent = 'Signing in...';
+      btn.disabled = true;
+
+      const userName = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      selectedRegion = document.getElementById('loginRegion').value;
+
+      try {
+        const res = await fetch(`${getApiBase()}/adminAuth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userName, password }),
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || `Login failed (${res.status})`);
+        }
+
+        const data = await res.json();
+        authState.loginServiceAccessToken = data.loginServiceAccessToken;
+        authState.appServiceAccessToken = data.appServiceAccessToken;
+        authState.adminUserId = data.adminUserId;
+        authState.region = selectedRegion;
+
+        showDashboard();
+      } catch (err) {
+        errorEl.textContent = err.message || 'Unable to sign in. Please check your credentials.';
+        errorEl.classList.remove('hidden');
+      } finally {
+        btn.textContent = 'Sign In';
+        btn.disabled = false;
+      }
+    }
+
+    // ── Logout ──
+    function handleLogout() {
+      authState = { loginServiceAccessToken: null, appServiceAccessToken: null, adminUserId: null };
+      referralCodeData = [];
+      calendarWeeks = {};
+      sortedWeekKeys = [];
+      currentWeekIndex = 0;
+      allAssessmentSnapshots = [];
+      selectedRegion = 'america';
+      document.getElementById('dashboardView').classList.add('hidden');
+      document.getElementById('signupView').classList.add('hidden');
+      document.getElementById('loginView').classList.remove('hidden');
+      document.getElementById('logoutBtn').classList.add('hidden');
+      document.getElementById('resultsSection').classList.add('hidden');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginRegion').value = 'america';
+    }
+
+    function showDashboard() {
+      document.getElementById('loginView').classList.add('hidden');
+      document.getElementById('signupView').classList.add('hidden');
+      document.getElementById('dashboardView').classList.remove('hidden');
+      document.getElementById('logoutBtn').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function showSignup() {
+      document.getElementById('loginView').classList.add('hidden');
+      document.getElementById('signupView').classList.remove('hidden');
+      document.getElementById('signupError').classList.add('hidden');
+      lucide.createIcons();
+    }
+
+    function showLogin() {
+      document.getElementById('signupView').classList.add('hidden');
+      document.getElementById('loginView').classList.remove('hidden');
+      document.getElementById('loginError').classList.add('hidden');
+      lucide.createIcons();
+    }
+
+    async function handleSignup(e) {
+      e.preventDefault();
+      const btn = document.getElementById('signupBtn');
+      const errorEl = document.getElementById('signupError');
+      errorEl.classList.add('hidden');
+      btn.textContent = 'Signing up...';
+      btn.disabled = true;
+
+      const adminCode = document.getElementById('signupAdminCode').value.trim();
+      const userName = document.getElementById('signupUsername').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      selectedRegion = document.getElementById('signupRegion').value;
+
+      try {
+        const res = await fetch(`${getApiBase()}/adminAuth/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userName, password, adminCode }),
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || `Signup failed (${res.status})`);
+        }
+
+        const data = await res.json();
+        authState.loginServiceAccessToken = data.loginServiceAccessToken;
+        authState.appServiceAccessToken = data.appServiceAccessToken;
+        authState.adminUserId = data.adminUserId;
+        authState.region = selectedRegion;
+
+        showDashboard();
+      } catch (err) {
+        errorEl.textContent = err.message || 'Unable to sign up.';
+        errorEl.classList.remove('hidden');
+      } finally {
+        btn.textContent = 'Sign Up';
+        btn.disabled = false;
+      }
+    }
+
+    // ── Calendar Week Helpers ──
+    function getMonday(date) {
+      const d = new Date(date);
+      const day = d.getDay();
+      const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+      d.setDate(diff);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }
+
+    function mondayKey(date) {
+      const m = getMonday(date);
+      return m.toISOString().slice(0, 10);
+    }
+
+    function formatWeekLabel(mondayStr) {
+      const m = new Date(mondayStr + 'T00:00:00');
+      const s = new Date(m); s.setDate(s.getDate() + 6);
+      const locale = currentLang() === 'zh' ? 'zh-CN' : undefined;
+      const opts = { month: 'short', day: 'numeric' };
+      const label = currentLang() === 'zh'
+        ? `${m.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })} 周`
+        : `Week of ${m.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}`;
+      return {
+        label,
+        range: `${t('Mon', '周一')} ${m.toLocaleDateString(locale, opts)} — ${t('Sun', '周日')} ${s.toLocaleDateString(locale, opts)}`,
+      };
+    }
+
+    // ── Data State ──
+    let codeInfoMap = {};
+    let calendarWeeks = {};
+    let sortedWeekKeys = [];
+    let currentWeekIndex = 0;
+    let currentTab = 'summary';
+    let allAssessmentSnapshots = [];
+
+    // ── Compliance Thresholds ──
+    let complianceThresholds = { low: 15, high: 40 };
+    let selectedCategory = null;
+
+    let sliderLow = 15;
+    let sliderHigh = 40;
+    let draggingThumb = null;
+
+    function openComplianceEditor() {
+      sliderLow = complianceThresholds.low;
+      sliderHigh = complianceThresholds.high;
+      updateSliderUI();
+      document.getElementById('legendDisplay').classList.add('hidden');
+      document.getElementById('legendEditor').classList.remove('hidden');
+      lucide.createIcons();
+      initSliderDrag();
+    }
+
+    function updateSliderUI() {
+      const thumbLow = document.getElementById('thumbLow');
+      const thumbHigh = document.getElementById('thumbHigh');
+      const orangeBar = document.getElementById('sliderOrange');
+      const yellowBar = document.getElementById('sliderYellow');
+      const greenBar = document.getElementById('sliderGreen');
+
+      thumbLow.style.left = `calc(${sliderLow}% - 10px)`;
+      thumbHigh.style.left = `calc(${sliderHigh}% - 10px)`;
+      orangeBar.style.width = `${sliderLow}%`;
+      yellowBar.style.width = `${sliderHigh - sliderLow}%`;
+      greenBar.style.width = `${100 - sliderHigh}%`;
+
+      document.getElementById('editorOrangeLabel').innerHTML = `&lt; ${sliderLow}%`;
+      document.getElementById('editorYellowLabel').textContent = `${sliderLow}–${sliderHigh}%`;
+      document.getElementById('editorGreenLabel').innerHTML = `≥ ${sliderHigh}%`;
+    }
+
+    function initSliderDrag() {
+      const container = document.getElementById('sliderContainer');
+      const thumbLow = document.getElementById('thumbLow');
+      const thumbHigh = document.getElementById('thumbHigh');
+
+      function pctFromEvent(e) {
+        const rect = container.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        return Math.round(Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)));
+      }
+
+      function onMove(e) {
+        if (!draggingThumb) return;
+        e.preventDefault();
+        const pct = pctFromEvent(e);
+        if (draggingThumb === 'low') {
+          sliderLow = Math.min(pct, sliderHigh - 1);
+          sliderLow = Math.max(0, sliderLow);
+        } else {
+          sliderHigh = Math.max(pct, sliderLow + 1);
+          sliderHigh = Math.min(100, sliderHigh);
+        }
+        updateSliderUI();
+      }
+
+      function onUp() {
+        draggingThumb = null;
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        document.removeEventListener('touchmove', onMove);
+        document.removeEventListener('touchend', onUp);
+      }
+
+      function startDrag(which) {
+        return function(e) {
+          e.preventDefault();
+          draggingThumb = which;
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', onUp);
+          document.addEventListener('touchmove', onMove, { passive: false });
+          document.addEventListener('touchend', onUp);
+        };
+      }
+
+      thumbLow.onmousedown = startDrag('low');
+      thumbLow.ontouchstart = startDrag('low');
+      thumbHigh.onmousedown = startDrag('high');
+      thumbHigh.ontouchstart = startDrag('high');
+    }
+
+    function saveComplianceThresholds() {
+      complianceThresholds = { low: sliderLow, high: sliderHigh };
+      updateLegendLabels();
+      document.getElementById('legendEditor').classList.add('hidden');
+      document.getElementById('legendDisplay').classList.remove('hidden');
+      renderSummaryChart();
+    }
+
+    function updateLegendLabels() {
+      document.getElementById('legendGreenLabel').innerHTML = `&ge; ${complianceThresholds.high}% ${t('Compliance', '合规率')}`;
+      document.getElementById('legendYellowLabel').textContent = `${complianceThresholds.low}–${complianceThresholds.high}% ${t('Compliance', '合规率')}`;
+      document.getElementById('legendOrangeLabel').innerHTML = `&lt; ${complianceThresholds.low}% ${t('Compliance', '合规率')}`;
+    }
+
+    // ── Look Up Referral Codes ──
+    async function handleLookupCodes(e) {
+      e.preventDefault();
+      const input = document.getElementById('referralCodesInput').value;
+      const codes = input.split(',').map(c => c.trim()).filter(Boolean);
+      if (codes.length === 0) return;
+
+      const btn = document.getElementById('lookupBtn');
+      const errorEl = document.getElementById('lookupError');
+      const resultsSection = document.getElementById('resultsSection');
+      const resultsLoading = document.getElementById('resultsLoading');
+      const resultsError = document.getElementById('resultsError');
+      const resultsTabs = document.getElementById('resultsTabs');
+      const weekNav = document.getElementById('weekNavigator');
+
+      errorEl.classList.add('hidden');
+      resultsError.classList.add('hidden');
+      resultsTabs.classList.add('hidden');
+      weekNav.classList.add('hidden');
+      document.getElementById('summaryView').classList.add('hidden');
+      document.getElementById('userListView').classList.add('hidden');
+
+      resultsSection.classList.remove('hidden');
+      resultsLoading.classList.remove('hidden');
+      btn.textContent = 'Looking up...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${getApiBase()}/admin/GetReferralCodeInfo`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authState.loginServiceAccessToken}`,
+          },
+          body: JSON.stringify({ referralCodes: codes }),
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || `Request failed (${res.status})`);
+        }
+
+        const json = await res.json();
+        referralCodeData = json.items || json;
+
+        codeInfoMap = {};
+        referralCodeData.forEach(c => {
+          codeInfoMap[c.userId || c.referralCode] = c;
+        });
+
+        const activeUsers = referralCodeData.filter(d => d.userId);
+        let trainingMap = {};
+
+        if (activeUsers.length > 0) {
+          const byServer = {};
+          activeUsers.forEach(u => {
+            if (!byServer[u.serverUrl]) byServer[u.serverUrl] = [];
+            byServer[u.serverUrl].push(u.userId);
+          });
+
+          for (const [serverUrl, userIds] of Object.entries(byServer)) {
+            try {
+              const tRes = await fetch(`${serverUrl}/admin/getUsersTrainingData`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${authState.appServiceAccessToken}`,
+                },
+                body: JSON.stringify({ userIds }),
+              });
+
+              if (tRes.ok) {
+                const tJson = await tRes.json();
+                const users = tJson.usersTrainingData || tJson;
+                users.forEach(u => { trainingMap[u.id] = u; });
+              }
+            } catch (trainingErr) {
+              console.warn('Could not fetch training data (CORS may be blocked):', trainingErr.message);
+            }
+          }
+        }
+
+        buildCalendarWeeks(referralCodeData, trainingMap);
+
+        resultsLoading.classList.add('hidden');
+        resultsTabs.classList.remove('hidden');
+        weekNav.classList.remove('hidden');
+        lucide.createIcons();
+        switchTab('summary');
+      } catch (err) {
+        resultsLoading.classList.add('hidden');
+        resultsError.textContent = err.message || 'Failed to look up referral codes.';
+        resultsError.classList.remove('hidden');
+      } finally {
+        btn.textContent = 'Look Up';
+        btn.disabled = false;
+      }
+    }
+
+    // ── Fetch Training Data (real API) ──
+    async function handleFetchTrainingData() {
+      const btn = document.getElementById('fetchTrainingBtn');
+      const demoBtn = document.getElementById('fetchDemoBtn');
+      const progressEl = document.getElementById('fetchProgress');
+      const errorEl = document.getElementById('fetchError');
+      const resultsSection = document.getElementById('resultsSection');
+      const resultsLoading = document.getElementById('resultsLoading');
+      const resultsError = document.getElementById('resultsError');
+      const resultsTabs = document.getElementById('resultsTabs');
+      const weekNav = document.getElementById('weekNavigator');
+
+      errorEl.classList.add('hidden');
+      progressEl.classList.remove('hidden');
+      resultsError.classList.add('hidden');
+      resultsTabs.classList.add('hidden');
+      weekNav.classList.add('hidden');
+      document.getElementById('summaryView').classList.add('hidden');
+      document.getElementById('userListView').classList.add('hidden');
+
+      btn.textContent = 'Fetching...';
+      btn.disabled = true;
+      demoBtn.disabled = true;
+
+      try {
+        progressEl.textContent = 'Step 1/3: Retrieving issued referral codes...';
+
+        const durations = [7, 365];
+        const endpoints = [
+          { path: '/admin/getIssuedFamilyReferralCodes', label: 'Family' },
+          { path: '/admin/getIssuedIndividualReferralCodes', label: 'Individual' },
+        ];
+
+        const codeMeta = {};
+        for (const ep of endpoints) {
+          for (const dur of durations) {
+            try {
+              const res = await fetch(`${getApiBase()}${ep.path}?duration=${dur}`, {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${authState.loginServiceAccessToken}` },
+              });
+              if (res.ok) {
+                const data = await res.json();
+                const codes = Array.isArray(data) ? data : (data.referralCodes || []);
+                codes.forEach(c => {
+                  if (!codeMeta[c]) codeMeta[c] = { codeType: ep.label, codeDuration: dur };
+                });
+              }
+            } catch (e) {
+              console.warn(`Could not fetch ${ep.label} ${dur}-day codes:`, e.message);
+            }
+          }
+        }
+
+        const uniqueCodes = Object.keys(codeMeta);
+        if (uniqueCodes.length === 0) {
+          throw new Error('No issued referral codes found for your account.');
+        }
+        progressEl.textContent = `Step 2/3: Looking up ${uniqueCodes.length} referral code(s)...`;
+
+        const batchSize = 50;
+        let allCodeInfo = [];
+        for (let i = 0; i < uniqueCodes.length; i += batchSize) {
+          const batch = uniqueCodes.slice(i, i + batchSize);
+          const res = await fetch(`${getApiBase()}/admin/GetReferralCodeInfo`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${authState.loginServiceAccessToken}`,
+            },
+            body: JSON.stringify({ referralCodes: batch }),
+          });
+          if (!res.ok) {
+            const text = await res.text();
+            throw new Error(text || `GetReferralCodeInfo failed (${res.status})`);
+          }
+          const json = await res.json();
+          const items = json.items || json;
+          allCodeInfo = allCodeInfo.concat(items);
+        }
+
+        referralCodeData = allCodeInfo.map(c => ({
+          ...c,
+          codeType: codeMeta[c.referralCode]?.codeType || null,
+          codeDuration: codeMeta[c.referralCode]?.codeDuration || null,
+        }));
+        codeInfoMap = {};
+        referralCodeData.forEach(c => {
+          codeInfoMap[c.userId || c.referralCode] = c;
+        });
+
+        const activeUsers = referralCodeData.filter(d => d.userId);
+        let trainingMap = {};
+
+        if (activeUsers.length > 0) {
+          progressEl.textContent = `Step 3/3: Fetching training data for ${activeUsers.length} active user(s)...`;
+
+          const byServer = {};
+          activeUsers.forEach(u => {
+            if (!byServer[u.serverUrl]) byServer[u.serverUrl] = [];
+            byServer[u.serverUrl].push(u.userId);
+          });
+
+          for (const [serverUrl, userIds] of Object.entries(byServer)) {
+            for (let i = 0; i < userIds.length; i += 50) {
+              const batch = userIds.slice(i, i + 50);
+              try {
+                const tRes = await fetch(`${serverUrl}/admin/getUsersTrainingData`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authState.appServiceAccessToken}`,
+                  },
+                  body: JSON.stringify({ userIds: batch }),
+                });
+                if (tRes.ok) {
+                  const tJson = await tRes.json();
+                  const users = tJson.usersTrainingData || tJson;
+                  users.forEach(u => { trainingMap[u.id] = u; });
+                }
+              } catch (trainingErr) {
+                console.warn('Could not fetch training data:', trainingErr.message);
+              }
+            }
+          }
+        } else {
+          progressEl.textContent = 'Step 3/3: No active users found, skipping training data...';
+        }
+
+        buildCalendarWeeks(referralCodeData, trainingMap);
+
+        progressEl.classList.add('hidden');
+        resultsSection.classList.remove('hidden');
+        resultsTabs.classList.remove('hidden');
+        weekNav.classList.remove('hidden');
+        lucide.createIcons();
+        switchTab('summary');
+      } catch (err) {
+        progressEl.classList.add('hidden');
+        errorEl.textContent = err.message || 'Failed to fetch training data.';
+        errorEl.classList.remove('hidden');
+      } finally {
+        btn.textContent = 'Fetch Training Data';
+        btn.disabled = false;
+        demoBtn.disabled = false;
+      }
+    }
+
+    // ── Fetch Demo Data ──
+    function handleFetchDemoData() {
+      const btn = document.getElementById('fetchDemoBtn');
+      const fetchBtn = document.getElementById('fetchTrainingBtn');
+      const errorEl = document.getElementById('fetchError');
+      const progressEl = document.getElementById('fetchProgress');
+      const resultsSection = document.getElementById('resultsSection');
+      const resultsLoading = document.getElementById('resultsLoading');
+      const resultsError = document.getElementById('resultsError');
+      const resultsTabs = document.getElementById('resultsTabs');
+      const weekNav = document.getElementById('weekNavigator');
+
+      errorEl.classList.add('hidden');
+      progressEl.classList.add('hidden');
+      resultsError.classList.add('hidden');
+      resultsTabs.classList.add('hidden');
+      weekNav.classList.add('hidden');
+      document.getElementById('summaryView').classList.add('hidden');
+      document.getElementById('userListView').classList.add('hidden');
+
+      resultsSection.classList.remove('hidden');
+      resultsLoading.classList.remove('hidden');
+      btn.textContent = 'Loading...';
+      btn.disabled = true;
+      fetchBtn.disabled = true;
+
+      setTimeout(() => {
+        const { codes: demoCodes, training: demoTraining } = generateDemoData();
+        buildCalendarWeeks(demoCodes, demoTraining);
+
+        resultsLoading.classList.add('hidden');
+        resultsTabs.classList.remove('hidden');
+        weekNav.classList.remove('hidden');
+        lucide.createIcons();
+        switchTab('summary');
+        btn.textContent = 'Fetch Demo Data';
+        btn.disabled = false;
+        fetchBtn.disabled = false;
+      }, 1200);
+    }
+
+    function generateDemoData() {
+      function dateToTicks(d) { return (d.getTime() * 10000) + DOTNET_EPOCH_OFFSET; }
+      function randBetween(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+      const now = new Date();
+      const names = [
+        'K7XM2R', 'P3NW8L', 'D9FQ5V', 'T2HJ6Y', 'A8CK4Z',
+        'M5BG7X', 'R1LS9W', 'F6VN3Q', 'J4YP8D', 'W2XT7K',
+        'H9MR5C', 'N3GA6B', 'Q8DL2F', 'E5WK9T', 'S7JP4N',
+        'G1VH8R', 'B6TM3L', 'U4XC7W',
+      ];
+
+      const mondays = [];
+      const m = getMonday(now);
+      for (let i = 5; i >= 0; i--) {
+        const d = new Date(m);
+        d.setDate(d.getDate() - (i * 7));
+        mondays.push(d);
+      }
+
+      const codes = [];
+      const training = {};
+
+      names.forEach((name, idx) => {
+        const isActive = idx < 15;
+        const userId = isActive ? `demo-user-${idx}` : null;
+        const createdDate = new Date(mondays[0]);
+        createdDate.setDate(createdDate.getDate() - randBetween(7, 60));
+        const expDate = new Date(createdDate);
+        expDate.setFullYear(expDate.getFullYear() + 1);
+
+        codes.push({
+          referralCode: name,
+          userId: userId,
+          serverUrl: isActive ? 'https://api-beta.ginkgo.health' : null,
+          createdAt: dateToTicks(createdDate),
+          subscriptionExpirationDate: dateToTicks(expDate),
+        });
+
+        if (isActive) {
+          const startWeek = randBetween(0, 2);
+          const weeklyMETs = [];
+          const weeklyCompliances = [];
+          const baseGoal = [120, 150, 180, 200][randBetween(0, 3)];
+          let baseMET = randBetween(200, 600);
+
+          for (let w = startWeek; w < mondays.length; w++) {
+            const weekStart = new Date(mondays[w]);
+            weekStart.setDate(weekStart.getDate() + randBetween(0, 3));
+
+            baseMET = Math.max(100, baseMET + randBetween(-100, 150));
+            const metVal = baseMET + randBetween(-50, 50);
+            const avgMET = 3.0 + Math.random() * 5.0;
+
+            weeklyMETs.push({
+              weekStartDate: dateToTicks(weekStart),
+              metabolicEquivalentOfTaskResult: {
+                prescriptionWeeklyMETMinutes: Math.round(metVal * 100) / 100,
+                prescriptionAverageMETValue: Math.round(avgMET * 100) / 100,
+              },
+            });
+
+            const completedMin = randBetween(0, baseGoal + 40);
+            const compliance = Math.min(100, Math.round((completedMin / baseGoal) * 100));
+
+            weeklyCompliances.push({
+              weekStartDate: dateToTicks(weekStart),
+              weeklyGoal: baseGoal,
+              compliancePercentage: compliance,
+            });
+          }
+
+          const assessmentSnapshots = [];
+          const snapshotCount = randBetween(2, 6);
+          for (let s = 0; s < snapshotCount; s++) {
+            const snapDate = new Date(mondays[0]);
+            snapDate.setDate(snapDate.getDate() + randBetween(-60, 60));
+            assessmentSnapshots.push({
+              createAt: dateToTicks(snapDate),
+              bmi: (17 + Math.random() * 25).toFixed(1) * 1,
+              balanceLevel: randBetween(0, 100),
+              fitnessLevel: randBetween(1, 5),
+            });
+          }
+
+          training[userId] = { id: userId, weeklyMETs, weeklyCompliances, assessmentSnapshots };
+        }
+      });
+
+      return { codes, training };
+    }
+
+    function buildCalendarWeeks(codes, trainingMap) {
+      calendarWeeks = {};
+      allAssessmentSnapshots = [];
+
+      Object.values(trainingMap).forEach(u => {
+        const snaps = u.assessmentSnapshots || [];
+        snaps.forEach(s => {
+          const d = parseDate(s.createAt);
+          if (!d || isNaN(d)) return;
+          allAssessmentSnapshots.push({ userId: u.id, date: d, bmi: s.bmi, balanceLevel: s.balanceLevel, fitnessLevel: s.fitnessLevel });
+        });
+      });
+
+      codes.forEach(code => {
+        const training = code.userId ? trainingMap[code.userId] : null;
+        const mets = training ? (training.weeklyMETs || []) : [];
+        const comps = training ? (training.weeklyCompliances || []) : [];
+
+        const metByWeek = {};
+        mets.forEach(m => {
+          const d = parseDate(m.weekStartDate);
+          if (!d || isNaN(d)) return;
+          const key = mondayKey(d);
+          metByWeek[key] = m.metabolicEquivalentOfTaskResult;
+        });
+
+        const compByWeek = {};
+        comps.forEach(c => {
+          const d = parseDate(c.weekStartDate);
+          if (!d || isNaN(d)) return;
+          const key = mondayKey(d);
+          compByWeek[key] = c;
+        });
+
+        const allKeys = new Set([...Object.keys(metByWeek), ...Object.keys(compByWeek)]);
+
+        allKeys.forEach(key => {
+          if (!calendarWeeks[key]) calendarWeeks[key] = [];
+          const met = metByWeek[key] || null;
+          const comp = compByWeek[key] || null;
+          calendarWeeks[key].push({
+            referralCode: code.referralCode,
+            userId: code.userId,
+            createdAt: code.createdAt,
+            subscriptionExpirationDate: code.subscriptionExpirationDate,
+            codeType: code.codeType || null,
+            codeDuration: code.codeDuration || null,
+            weeklyMETMinutes: met ? met.prescriptionWeeklyMETMinutes : null,
+            avgMETValue: met ? met.prescriptionAverageMETValue : null,
+            compliancePercentage: comp ? comp.compliancePercentage : null,
+            weeklyGoal: comp ? comp.weeklyGoal : null,
+          });
+        });
+
+        if (allKeys.size === 0) {
+          const placeholderKey = '__no_data__';
+          if (!calendarWeeks[placeholderKey]) calendarWeeks[placeholderKey] = [];
+          calendarWeeks[placeholderKey].push({
+            referralCode: code.referralCode,
+            userId: code.userId || null,
+            createdAt: code.createdAt,
+            subscriptionExpirationDate: code.subscriptionExpirationDate,
+            codeType: code.codeType || null,
+            codeDuration: code.codeDuration || null,
+            weeklyMETMinutes: null,
+            avgMETValue: null,
+            compliancePercentage: null,
+            weeklyGoal: null,
+          });
+        }
+      });
+
+      sortedWeekKeys = Object.keys(calendarWeeks)
+        .filter(k => k !== '__no_data__')
+        .sort();
+
+      currentWeekIndex = sortedWeekKeys.length - 1;
+      updateWeekNavigator();
+    }
+
+    function getDataForCurrentWeek() {
+      const noDataEntries = calendarWeeks['__no_data__'] || [];
+      if (sortedWeekKeys.length === 0) return noDataEntries;
+      const key = sortedWeekKeys[currentWeekIndex];
+      const weekData = calendarWeeks[key] || [];
+      return [...weekData, ...noDataEntries];
+    }
+
+    function updateWeekNavigator() {
+      if (sortedWeekKeys.length === 0) {
+        document.getElementById('weekLabel').textContent = t('No training data', '无训练数据');
+        document.getElementById('weekRange').textContent = '';
+        document.getElementById('prevWeekBtn').disabled = true;
+        document.getElementById('nextWeekBtn').disabled = true;
+        return;
+      }
+
+      const key = sortedWeekKeys[currentWeekIndex];
+      const { label, range } = formatWeekLabel(key);
+      document.getElementById('weekLabel').textContent = label;
+      document.getElementById('weekRange').textContent = range;
+      document.getElementById('prevWeekBtn').disabled = currentWeekIndex <= 0;
+      document.getElementById('nextWeekBtn').disabled = currentWeekIndex >= sortedWeekKeys.length - 1;
+    }
+
+    function changeWeek(delta) {
+      const newIndex = currentWeekIndex + delta;
+      if (newIndex < 0 || newIndex >= sortedWeekKeys.length) return;
+      currentWeekIndex = newIndex;
+      updateWeekNavigator();
+      if (currentTab === 'summary') renderSummaryChart();
+      else renderUserList();
+    }
+
+    // ── Tab Switching ──
+    function switchTab(tab) {
+      currentTab = tab;
+      const tabs = {
+        summary: document.getElementById('tabSummary'),
+        userlist: document.getElementById('tabUserList'),
+      };
+      const views = {
+        summary: document.getElementById('summaryView'),
+        userlist: document.getElementById('userListView'),
+      };
+
+      const activeClass = 'bg-white text-stone-900 shadow-sm';
+      const inactiveClass = 'text-stone-500 hover:text-stone-700';
+
+      Object.entries(tabs).forEach(([key, btn]) => {
+        btn.className = `px-5 py-2 rounded-lg text-sm font-semibold transition-all ${key === tab ? activeClass : inactiveClass}`;
+      });
+      Object.entries(views).forEach(([key, view]) => {
+        view.classList.toggle('hidden', key !== tab);
+      });
+
+      if (tab === 'summary') {
+        renderSummaryChart();
+        renderAssessmentPie();
+      } else if (tab === 'userlist') renderUserList();
+    }
+
+    // ── Category helpers ──
+    const MET_CATEGORIES = [
+      {
+        label: () => t('Getting Active', '开始活跃'),
+        filter: d => d.weeklyMETMinutes !== null && d.weeklyMETMinutes < 500,
+        subtitle: () => t('User achieved a prescription averaging <500 MET-mins per week', '用户每周处方平均少于500 MET-分钟'),
+        body: () => t(
+          'As the person works towards the goal of 500 MET-mins per week, they will experience the steepest increase in preventive effect during this increase from 0 to 500 MET-min per week. It is important to maintain safety during this stage as their body adjusts to new movements.',
+          '当用户朝着每周500 MET-分钟的目标努力时，在从0增加到500 MET-分钟/周的过程中，预防效果将获得最大幅度的提升。在此阶段保持安全非常重要，因为身体正在适应新的运动方式。'
+        ),
+      },
+      {
+        label: () => t('Enhancing Health', '增进健康'),
+        filter: d => d.weeklyMETMinutes !== null && d.weeklyMETMinutes >= 500 && d.weeklyMETMinutes < 1000,
+        subtitle: () => t('User achieved a prescription averaging 500–1000 MET-mins per week', '用户每周处方平均500–1000 MET-分钟'),
+        body: () => t(
+          'A person who achieves at least 500 MET-min/week will experience the optimal level of preventive effect, with benefits including better fat percentage, lower BMI, lower glucose, and improvements to their cardiorespiratory fitness.',
+          '达到每周至少500 MET-分钟的人将获得最佳预防效果，包括更好的脂肪比例、更低的BMI、更低的血糖水平以及心肺功能的改善。'
+        ),
+      },
+      {
+        label: () => t('Enhancing Performance', '提升表现'),
+        filter: d => d.weeklyMETMinutes !== null && d.weeklyMETMinutes >= 1000,
+        subtitle: () => t('User achieved a prescription averaging >1000 MET-mins per week', '用户每周处方平均超过1000 MET-分钟'),
+        body: () => t(
+          'A person who achieves over 1000 MET-min per week will experience additional cardiorespiratory fitness benefits as well as all the benefits from meeting the 500 MET-min goal. Though the increase in preventive effect plateaus after 500 MET-minutes, more exercise is always beneficial as long as dosage is carefully monitored to avoid overexercise risks.',
+          '达到每周超过1000 MET-分钟的人将获得额外的心肺功能益处，以及达到500 MET-分钟目标所带来的所有好处。虽然预防效果在500 MET-分钟后趋于平稳，但只要仔细监控运动量以避免过度运动的风险，更多的运动总是有益的。'
+        ),
+      },
+    ];
+
+    function computeBuckets(weekKey) {
+      const noDataEntries = calendarWeeks['__no_data__'] || [];
+      const weekData = weekKey ? (calendarWeeks[weekKey] || []) : [];
+      const all = [...weekData, ...noDataEntries];
+      const activeData = all.filter(d => d.userId);
+      const { low, high } = complianceThresholds;
+      return MET_CATEGORIES.map(cat => {
+        const users = activeData.filter(cat.filter);
+        return {
+          label: cat.label(),
+          green: users.filter(d => d.compliancePercentage !== null && d.compliancePercentage >= high).length,
+          yellow: users.filter(d => d.compliancePercentage !== null && d.compliancePercentage >= low && d.compliancePercentage < high).length,
+          orange: users.filter(d => d.compliancePercentage !== null && d.compliancePercentage < low).length,
+          noCompliance: users.filter(d => d.compliancePercentage === null).length,
+        };
+      });
+    }
+
+    function selectCategory(index) {
+      selectedCategory = selectedCategory === index ? null : index;
+      renderSummaryChart();
+    }
+
+    function pctChange(current, previous) {
+      if (previous === 0 && current === 0) return null;
+      if (previous === 0) return 100;
+      return Math.round(((current - previous) / previous) * 100);
+    }
+
+    function changeIndicator(pct, goodDirection) {
+      if (pct === null) return '<span class="text-stone-400 text-xs">—</span>';
+      const isGood = goodDirection === 'up' ? pct >= 0 : goodDirection === 'down' ? pct <= 0 : false;
+      const color = isGood ? 'text-emerald-600' : 'text-stone-800';
+      if (pct > 0) return `<span class="${color} text-xs font-semibold">▲ ${pct}%</span>`;
+      if (pct < 0) return `<span class="${color} text-xs font-semibold">▼ ${Math.abs(pct)}%</span>`;
+      return `<span class="${color} text-xs font-semibold">— 0%</span>`;
+    }
+
+    // ── Summary Chart ──
+    let chartRenderedWeek = null;
+    function renderSummaryChart() {
+      const chart = document.getElementById('summaryChart');
+      const labels = document.getElementById('summaryChartLabels');
+      const stats = document.getElementById('summaryStats');
+      const noData = document.getElementById('summaryNoData');
+
+      const weekData = getDataForCurrentWeek();
+      const activeData = weekData.filter(d => d.userId);
+
+      if (activeData.length === 0) {
+        chart.innerHTML = '';
+        labels.innerHTML = '';
+        noData.classList.remove('hidden');
+        stats.innerHTML = '';
+        return;
+      }
+      noData.classList.add('hidden');
+
+      const currentKey = sortedWeekKeys[currentWeekIndex];
+      const buckets = computeBuckets(currentKey);
+      const prevKey = currentWeekIndex > 0 ? sortedWeekKeys[currentWeekIndex - 1] : null;
+      const prevBuckets = prevKey ? computeBuckets(prevKey) : null;
+
+      const maxTotal = Math.max(...buckets.map(b => b.green + b.yellow + b.orange + b.noCompliance), 1);
+      const animate = chartRenderedWeek !== currentKey;
+      chartRenderedWeek = currentKey;
+
+      chart.innerHTML = `
+        <div class="absolute -left-2 top-1/2 -translate-y-1/2 -rotate-90 text-xs text-stone-400 font-semibold whitespace-nowrap">${t('Number of Users', '用户数量')}</div>
+        ${buckets.map((b, i) => {
+          const total = b.green + b.yellow + b.orange + b.noCompliance;
+          const pct = (total / maxTotal) * 100;
+          const greenPct = total > 0 ? (b.green / total) * 100 : 0;
+          const yellowPct = total > 0 ? (b.yellow / total) * 100 : 0;
+          const orangePct = total > 0 ? (b.orange / total) * 100 : 0;
+          const grayPct = total > 0 ? (b.noCompliance / total) * 100 : 0;
+          const isSelected = selectedCategory === i;
+          const dimmed = selectedCategory !== null && !isSelected;
+          return `
+            <div class="flex-1 flex flex-col items-center gap-1 h-full justify-end max-w-[160px] cursor-pointer transition-opacity ${dimmed ? 'opacity-35' : ''}" onclick="selectCategory(${i})">
+              <span class="text-sm font-bold text-stone-700">${total}</span>
+              <div class="w-full rounded-t-lg overflow-hidden ${animate ? 'bar-animate' : ''} flex flex-col-reverse ${isSelected ? 'ring-2 ring-emerald-500 ring-offset-2' : ''}" style="height:${Math.max(pct, 3)}%">
+                ${b.orange > 0 ? `<div class="bg-orange-400 w-full" style="height:${orangePct}%"></div>` : ''}
+                ${b.yellow > 0 ? `<div class="bg-amber-400 w-full" style="height:${yellowPct}%"></div>` : ''}
+                ${b.green > 0 ? `<div class="bg-emerald-500 w-full" style="height:${greenPct}%"></div>` : ''}
+                ${b.noCompliance > 0 ? `<div class="bg-stone-200 w-full" style="height:${grayPct}%"></div>` : ''}
+              </div>
+            </div>`;
+        }).join('')}
+      `;
+
+      labels.innerHTML = buckets.map((b, i) => {
+        const isSelected = selectedCategory === i;
+        const dimmed = selectedCategory !== null && !isSelected;
+        return `
+          <div class="flex-1 text-center max-w-[160px] cursor-pointer transition-opacity ${dimmed ? 'opacity-35' : ''}" onclick="selectCategory(${i})">
+            <span class="text-xs font-semibold ${isSelected ? 'text-emerald-700' : 'text-stone-500'}">${b.label}</span>
+          </div>`;
+      }).join('');
+
+      stats.className = selectedCategory !== null
+        ? 'grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6'
+        : 'grid sm:grid-cols-3 gap-4 mt-6';
+
+      if (selectedCategory !== null) {
+        const b = buckets[selectedCategory];
+        const total = b.green + b.yellow + b.orange + b.noCompliance;
+        const pb = prevBuckets ? prevBuckets[selectedCategory] : null;
+        const prevTotal = pb ? pb.green + pb.yellow + pb.orange + pb.noCompliance : 0;
+
+        const greenPctChg = prevBuckets ? pctChange(b.green, pb.green) : null;
+        const yellowPctChg = prevBuckets ? pctChange(b.yellow, pb.yellow) : null;
+        const orangePctChg = prevBuckets ? pctChange(b.orange, pb.orange) : null;
+        const greenNumColor = prevBuckets && greenPctChg !== null && greenPctChg >= 0 ? 'text-emerald-600' : 'text-stone-800';
+        const yellowNumColor = prevBuckets && yellowPctChg !== null && yellowPctChg <= 0 ? 'text-emerald-600' : 'text-stone-800';
+        const orangeNumColor = prevBuckets && orangePctChg !== null && orangePctChg <= 0 ? 'text-emerald-600' : 'text-stone-800';
+
+        stats.innerHTML = `
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-100">
+            <p class="text-xs text-stone-500 font-semibold uppercase tracking-wide mb-1">${b.label}</p>
+            <p class="text-3xl font-bold text-stone-800">${total}</p>
+            <div class="mt-1">${prevBuckets ? changeIndicator(pctChange(total, prevTotal)) : `<span class="text-stone-400 text-xs">${t('No prior week', '无前一周数据')}</span>`}</div>
+          </div>
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-100">
+            <p class="text-xs text-stone-500 font-semibold uppercase tracking-wide mb-1">
+              <span class="inline-block w-2 h-2 bg-emerald-500 rounded-full mr-1"></span>${t('Green', '绿色')} (≥ ${complianceThresholds.high}%)
+            </p>
+            <p class="text-3xl font-bold ${greenNumColor}">${b.green}</p>
+            <div class="mt-1">${prevBuckets ? changeIndicator(greenPctChg, 'up') : `<span class="text-stone-400 text-xs">${t('No prior week', '无前一周数据')}</span>`}</div>
+          </div>
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-100">
+            <p class="text-xs text-stone-500 font-semibold uppercase tracking-wide mb-1">
+              <span class="inline-block w-2 h-2 bg-amber-400 rounded-full mr-1"></span>${t('Yellow', '黄色')} (${complianceThresholds.low}–${complianceThresholds.high}%)
+            </p>
+            <p class="text-3xl font-bold ${yellowNumColor}">${b.yellow}</p>
+            <div class="mt-1">${prevBuckets ? changeIndicator(yellowPctChg, 'down') : `<span class="text-stone-400 text-xs">${t('No prior week', '无前一周数据')}</span>`}</div>
+          </div>
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-100">
+            <p class="text-xs text-stone-500 font-semibold uppercase tracking-wide mb-1">
+              <span class="inline-block w-2 h-2 bg-orange-400 rounded-full mr-1"></span>${t('Orange', '橙色')} (< ${complianceThresholds.low}%)
+            </p>
+            <p class="text-3xl font-bold ${orangeNumColor}">${b.orange}</p>
+            <div class="mt-1">${prevBuckets ? changeIndicator(orangePctChg, 'down') : `<span class="text-stone-400 text-xs">${t('No prior week', '无前一周数据')}</span>`}</div>
+          </div>
+        `;
+      } else {
+        const unusedCodes = weekData.filter(d => !d.userId).length;
+        const withCompliance = activeData.filter(d => d.compliancePercentage !== null);
+        const avgCompVal = withCompliance.length > 0
+          ? Math.round(withCompliance.reduce((s, d) => s + d.compliancePercentage, 0) / withCompliance.length)
+          : 0;
+
+        stats.innerHTML = `
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-100">
+            <p class="text-xs text-stone-500 font-semibold uppercase tracking-wide mb-1">${t('Users This Week', '本周用户')}</p>
+            <p class="text-3xl font-bold text-emerald-600">${activeData.length}</p>
+            <p class="text-xs text-stone-400 mt-1">${unusedCodes} ${t('unused code(s)', '个未使用码')}</p>
+          </div>
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-100">
+            <p class="text-xs text-stone-500 font-semibold uppercase tracking-wide mb-1">${t('Avg Compliance', '平均合规率')}</p>
+            <p class="text-3xl font-bold ${avgCompVal >= complianceThresholds.high ? 'text-emerald-600' : avgCompVal >= complianceThresholds.low ? 'text-amber-600' : 'text-red-500'}">${avgCompVal}%</p>
+            <p class="text-xs text-stone-400 mt-1">${t('This week', '本周')}</p>
+          </div>
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-100">
+            <p class="text-xs text-stone-500 font-semibold uppercase tracking-wide mb-1">${t('Weeks Available', '可用周数')}</p>
+            <p class="text-3xl font-bold text-stone-700">${sortedWeekKeys.length}</p>
+            <p class="text-xs text-stone-400 mt-1">${currentWeekIndex + 1} ${t('of', '/')} ${sortedWeekKeys.length}</p>
+          </div>
+        `;
+      }
+
+      const infoPanel = document.getElementById('metInfoPanel');
+      if (selectedCategory !== null) {
+        const catInfo = MET_CATEGORIES[selectedCategory];
+        document.getElementById('metInfoTitle').textContent = catInfo.label();
+        document.getElementById('metInfoSubtitle').textContent = catInfo.subtitle();
+        document.getElementById('metInfoBody').textContent = catInfo.body();
+        infoPanel.classList.remove('hidden');
+      } else {
+        infoPanel.classList.add('hidden');
+      }
+    }
+
+    // ── Actions Column Toggle ──
+    let actionsExpanded = false;
+    function toggleActions() {
+      actionsExpanded = !actionsExpanded;
+      document.getElementById('actionsHeader').classList.toggle('hidden', !actionsExpanded);
+      const btn = document.getElementById('toggleActionsBtn');
+      if (actionsExpanded) {
+        btn.classList.remove('text-stone-400', 'border-stone-200');
+        btn.classList.add('text-red-600', 'border-red-200', 'bg-red-50');
+      } else {
+        btn.classList.remove('text-red-600', 'border-red-200', 'bg-red-50');
+        btn.classList.add('text-stone-400', 'border-stone-200');
+      }
+      renderUserList();
+    }
+
+    // ── User List Table ──
+    function renderUserList() {
+      const tbody = document.getElementById('userListBody');
+      const weekData = getDataForCurrentWeek();
+
+      tbody.innerHTML = weekData.map(item => {
+        const isActive = !!item.userId;
+        const compColor = item.compliancePercentage !== null
+          ? (item.compliancePercentage >= complianceThresholds.high ? 'text-emerald-700 bg-emerald-50' : item.compliancePercentage >= complianceThresholds.low ? 'text-amber-700 bg-amber-50' : 'text-orange-700 bg-orange-50')
+          : '';
+
+        const typeLabel = item.codeType || '—';
+        const durationLabel = item.codeDuration ? `${item.codeDuration}d` : '—';
+
+        return `
+          <tr class="border-b border-stone-50 hover:bg-stone-50 transition-colors">
+            <td class="py-3 px-4 font-mono font-semibold text-stone-800">${escapeHtml(item.referralCode)}</td>
+            <td class="py-3 px-4 text-stone-600 text-xs">${escapeHtml(typeLabel)}</td>
+            <td class="py-3 px-4 text-stone-600 text-xs">${escapeHtml(durationLabel)}</td>
+            <td class="py-3 px-4">
+              ${isActive
+                ? `<span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full text-xs font-semibold"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> ${t('Active', '活跃')}</span>`
+                : `<span class="inline-flex items-center gap-1 text-stone-500 bg-stone-100 px-2.5 py-1 rounded-full text-xs font-semibold">${t('Unused', '未使用')}</span>`}
+            </td>
+            <td class="py-3 px-4 text-stone-600 text-xs">${formatDate(item.createdAt)}</td>
+            <td class="py-3 px-4 font-semibold text-stone-800">${item.weeklyMETMinutes !== null ? item.weeklyMETMinutes.toFixed(0) : '—'}</td>
+            <td class="py-3 px-4 text-stone-600">${item.avgMETValue !== null ? item.avgMETValue.toFixed(1) : '—'}</td>
+            <td class="py-3 px-4">
+              ${item.compliancePercentage !== null
+                ? `<span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${compColor}">${item.compliancePercentage}%</span>`
+                : '<span class="text-stone-400">—</span>'}
+            </td>
+            <td class="py-3 px-4 text-stone-600">${item.weeklyGoal !== null ? item.weeklyGoal + ' min' : '—'}</td>
+            <td class="py-3 px-4 text-stone-600 text-xs">${formatDate(item.subscriptionExpirationDate)}</td>
+            ${actionsExpanded ? `<td class="py-3 px-4">
+              ${isActive
+                ? `<button onclick="openDeactivateModal('${escapeHtml(item.referralCode)}', '${escapeHtml(item.userId)}')"
+                    class="text-red-500 hover:text-red-700 hover:bg-red-50 p-1.5 rounded-lg transition-all" title="${t('Deactivate', '停用')}">
+                    <i data-lucide="ban" class="w-4 h-4"></i>
+                  </button>`
+                : ''}
+            </td>` : ''}
+          </tr>`;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    // ── Deactivate Referral Code ──
+    let deactivateTarget = { code: '', userId: '' };
+
+    function openDeactivateModal(code, userId) {
+      deactivateTarget = { code, userId };
+      document.getElementById('deactivateCodeDisplay').textContent = code;
+      document.getElementById('deactivateUserDisplay').textContent = userId;
+      document.getElementById('deactivateConfirmInput').value = '';
+      document.getElementById('deactivateConfirmBtn').disabled = true;
+      document.getElementById('deactivateError').classList.add('hidden');
+      document.getElementById('deactivateModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeDeactivateModal() {
+      document.getElementById('deactivateModal').classList.add('hidden');
+      deactivateTarget = { code: '', userId: '' };
+    }
+
+    function checkDeactivateConfirm() {
+      const input = document.getElementById('deactivateConfirmInput').value.trim();
+      document.getElementById('deactivateConfirmBtn').disabled = input !== deactivateTarget.code;
+    }
+
+    async function confirmDeactivate() {
+      const btn = document.getElementById('deactivateConfirmBtn');
+      const errEl = document.getElementById('deactivateError');
+      btn.disabled = true;
+      btn.textContent = 'Deactivating...';
+      errEl.classList.add('hidden');
+
+      try {
+        const res = await fetch(`${getApiBase()}/admin/deactivateReferralCode/${encodeURIComponent(deactivateTarget.code)}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authState.loginServiceAccessToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || `Request failed (${res.status})`);
+        }
+
+        closeDeactivateModal();
+        await fetchTrainingData();
+      } catch (err) {
+        errEl.textContent = err.message;
+        errEl.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Deactivate';
+      }
+    }
+
+    // ── Assessment Snapshots ──
+    let currentAssessmentMetric = 'bmi';
+    let assessmentMonth = new Date();
+    assessmentMonth.setDate(1);
+
+    function getAssessmentColors() {
+      if (currentAssessmentMetric === 'fitness') return ['#f97316', '#eab308', '#22c55e', '#16a34a', '#15803d'];
+      if (currentAssessmentMetric === 'balance') return ['#f97316', '#eab308', '#22c55e', '#15803d'];
+      return ['#4ade80', '#15803d', '#eab308', '#f59e0b', '#f97316', '#ea580c'];
+    }
+
+    const BMI_CATEGORIES = [
+      { label: 'Underweight', range: '< 18.5', test: v => v < 18.5 },
+      { label: 'Normal', range: '18.5 – 24.9', test: v => v >= 18.5 && v < 25 },
+      { label: 'Overweight', range: '25 – 29.9', test: v => v >= 25 && v < 30 },
+      { label: 'Obesity I', range: '30 – 34.9', test: v => v >= 30 && v < 35 },
+      { label: 'Obesity II', range: '35 – 39.9', test: v => v >= 35 && v < 40 },
+      { label: 'Obesity III', range: '≥ 40', test: v => v >= 40 },
+    ];
+
+    const BALANCE_CATEGORIES = [
+      { label: '0 – 25%', range: '0 – 25', test: v => v >= 0 && v < 25 },
+      { label: '25 – 50%', range: '25 – 50', test: v => v >= 25 && v < 50 },
+      { label: '50 – 75%', range: '50 – 75', test: v => v >= 50 && v < 75 },
+      { label: '75 – 100%', range: '75 – 100', test: v => v >= 75 && v <= 100 },
+    ];
+
+    const FITNESS_CATEGORIES = [
+      { label: 'Level 1', range: '1', test: v => v === 1 },
+      { label: 'Level 2', range: '2', test: v => v === 2 },
+      { label: 'Level 3', range: '3', test: v => v === 3 },
+      { label: 'Level 4', range: '4', test: v => v === 4 },
+      { label: 'Level 5', range: '5', test: v => v === 5 },
+    ];
+
+    function getAssessmentCategories() {
+      if (currentAssessmentMetric === 'bmi') return BMI_CATEGORIES;
+      if (currentAssessmentMetric === 'balance') return BALANCE_CATEGORIES;
+      return FITNESS_CATEGORIES;
+    }
+
+    function getAssessmentValue(snap) {
+      if (currentAssessmentMetric === 'bmi') return snap.bmi;
+      if (currentAssessmentMetric === 'balance') return snap.balanceLevel;
+      return snap.fitnessLevel;
+    }
+
+    function switchAssessmentMetric(metric) {
+      currentAssessmentMetric = metric;
+      const activeClass = 'bg-white text-stone-900 shadow-sm';
+      const inactiveClass = 'text-stone-500 hover:text-stone-700';
+      const metricIds = { bmi: 'metricBMI', balance: 'metricBalance', fitness: 'metricFitness' };
+      ['bmi', 'balance', 'fitness'].forEach(m => {
+        const btn = document.getElementById(metricIds[m]);
+        btn.className = `px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${m === metric ? activeClass : inactiveClass}`;
+      });
+      renderAssessmentPie();
+    }
+
+    function changeAssessmentMonth(delta) {
+      assessmentMonth.setMonth(assessmentMonth.getMonth() + delta);
+      renderAssessmentPie();
+    }
+
+    function getLatestSnapshotsForMonth(year, month) {
+      const byUser = {};
+      allAssessmentSnapshots.forEach(snap => {
+        if (snap.date.getFullYear() === year && snap.date.getMonth() === month) {
+          if (!byUser[snap.userId] || snap.date > byUser[snap.userId].date) {
+            byUser[snap.userId] = snap;
+          }
+        }
+      });
+      return Object.values(byUser);
+    }
+
+    function renderAssessmentPie() {
+      const year = assessmentMonth.getFullYear();
+      const month = assessmentMonth.getMonth();
+      const monthNamesEn = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const monthLabel = currentLang() === 'zh' ? `${year}年${month + 1}月` : `${monthNamesEn[month]} ${year}`;
+      document.getElementById('assessmentMonthLabel').textContent = monthLabel;
+
+      const snaps = getLatestSnapshotsForMonth(year, month);
+      const noDataEl = document.getElementById('assessmentNoData');
+      const pieEl = document.getElementById('assessmentPieContainer');
+      const legendEl = document.getElementById('assessmentLegend');
+
+      if (snaps.length === 0) {
+        noDataEl.classList.remove('hidden');
+        pieEl.style.background = 'conic-gradient(#d1d5db 0deg 360deg)';
+        legendEl.innerHTML = '';
+        return;
+      }
+      noDataEl.classList.add('hidden');
+
+      const categories = getAssessmentCategories();
+      const colors = getAssessmentColors();
+      const counts = categories.map(cat => snaps.filter(s => cat.test(getAssessmentValue(s))).length);
+      const total = snaps.length;
+
+      let gradientParts = [];
+      let currentDeg = 0;
+      counts.forEach((count, i) => {
+        if (count === 0) return;
+        const deg = (count / total) * 360;
+        gradientParts.push(`${colors[i % colors.length]} ${currentDeg}deg ${currentDeg + deg}deg`);
+        currentDeg += deg;
+      });
+
+      if (gradientParts.length === 0) gradientParts.push('#d1d5db 0deg 360deg');
+      pieEl.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+
+      legendEl.innerHTML = categories.map((cat, i) => {
+        const count = counts[i];
+        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+        return `
+          <div class="flex items-center justify-between py-2 ${i < categories.length - 1 ? 'border-b border-stone-100' : ''}">
+            <div class="flex items-center gap-3">
+              <span class="w-4 h-4 rounded-full flex-shrink-0" style="background: ${colors[i]}"></span>
+              <div>
+                <span class="text-sm font-semibold text-stone-800">${cat.label}</span>
+                <span class="text-xs text-stone-400 ml-1">(${cat.range})</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-sm font-bold text-stone-900">${count}</span>
+              <span class="text-xs text-stone-400 ml-1">${pct}%</span>
+            </div>
+          </div>`;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    // ── Generate Referral Codes ──
+    function toggleGeneratePanel() {
+      const panel = document.getElementById('generatePanel');
+      panel.classList.toggle('hidden');
+      lucide.createIcons();
+    }
+
+    async function handleGetCodes() {
+      const type = document.getElementById('codeType').value;
+      const count = parseInt(document.getElementById('codeCount').value) || 1;
+      const duration = parseInt(document.getElementById('codeDuration').value) || 7;
+      const btn = document.getElementById('getCodesBtn');
+      const resultEl = document.getElementById('generatedCodesResult');
+
+      const endpoint = type === 'family'
+        ? '/admin/getFamilyReferralCodes'
+        : '/admin/getIndividualReferralCodes';
+
+      btn.textContent = 'Generating...';
+      btn.disabled = true;
+      resultEl.classList.remove('hidden');
+      resultEl.innerHTML = '<p class="text-stone-400 text-sm">Requesting codes...</p>';
+
+      try {
+        const res = await fetch(`${getApiBase()}${endpoint}?count=${count}&duration=${duration}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${authState.loginServiceAccessToken}`,
+          },
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || `Request failed (${res.status})`);
+        }
+
+        const data = await res.json();
+        const codes = data.referralCodes || (Array.isArray(data) ? data : [data]);
+        const typeLabel = type === 'family' ? 'Family' : 'Individual';
+        const durationLabel = duration === 365 ? '365 Days' : '7 Days';
+
+        resultEl.innerHTML = `
+          <div class="bg-stone-50 rounded-xl p-4 border border-stone-200">
+            <div class="flex items-center justify-between mb-3">
+              <p class="text-sm font-semibold text-stone-700">${codes.length} ${typeLabel} code(s) generated — ${durationLabel}</p>
+              <button onclick="downloadCodesCSV()" class="text-emerald-600 hover:text-emerald-800 text-xs font-semibold flex items-center gap-1 transition-colors">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                Download Excel (.csv)
+              </button>
+            </div>
+            <div class="max-h-48 overflow-y-auto">
+              <table class="w-full text-sm">
+                <thead><tr class="border-b border-stone-200">
+                  <th class="py-2 px-3 text-left text-stone-500 font-semibold text-xs">#</th>
+                  <th class="py-2 px-3 text-left text-stone-500 font-semibold text-xs">Referral Code</th>
+                  <th class="py-2 px-3 text-left text-stone-500 font-semibold text-xs">Type</th>
+                  <th class="py-2 px-3 text-left text-stone-500 font-semibold text-xs">Duration</th>
+                </tr></thead>
+                <tbody>
+                  ${codes.map((c, i) => `
+                    <tr class="border-b border-stone-100">
+                      <td class="py-2 px-3 text-stone-400 text-xs">${i + 1}</td>
+                      <td class="py-2 px-3 font-mono font-semibold text-stone-800">${escapeHtml(typeof c === 'string' ? c : JSON.stringify(c))}</td>
+                      <td class="py-2 px-3 text-stone-500 text-xs">${typeLabel}</td>
+                      <td class="py-2 px-3 text-stone-500 text-xs">${durationLabel}</td>
+                    </tr>`).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>`;
+
+        window._lastGeneratedCodes = codes;
+        window._lastGeneratedType = typeLabel;
+        window._lastGeneratedDuration = durationLabel;
+        lucide.createIcons();
+      } catch (err) {
+        resultEl.innerHTML = `<p class="text-red-600 text-sm p-3">${escapeHtml(err.message)}</p>`;
+      } finally {
+        btn.textContent = 'Get Codes';
+        btn.disabled = false;
+      }
+    }
+
+    function downloadCodesCSV() {
+      const codes = window._lastGeneratedCodes;
+      const type = window._lastGeneratedType;
+      const duration = window._lastGeneratedDuration || '7 Days';
+      if (!codes || codes.length === 0) return;
+
+      const rows = [['#', 'Referral Code', 'Type', 'Duration']];
+      codes.forEach((c, i) => {
+        rows.push([i + 1, typeof c === 'string' ? c : JSON.stringify(c), type, duration]);
+      });
+
+      const csv = rows.map(r => r.join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ginkgo_referral_codes_${type.toLowerCase()}_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // Init icons
+    lucide.createIcons();
+    </script>
+</body>
+</html>
