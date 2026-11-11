@@ -450,8 +450,7 @@
                 <label class="block text-sm font-semibold text-stone-700 mb-1.5"><span class="en">Duration</span><span class="zh">时长</span></label>
                 <select id="codeDuration"
                   class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all text-sm bg-white">
-                  <option value="7">7 Days</option>
-                  <option value="365">365 Days (1 Year)</option>
+                  <!-- Options filled per server by renderDurationOptions() -->
                 </select>
               </div>
               <div class="w-full sm:w-40">
@@ -513,11 +512,21 @@
 
     <script>
     const REGIONS = {
-      america: { label: 'America', loginBaseUrl: 'https://api-beta-login.ginkgo.health' },
-      china:   { label: 'China',   loginBaseUrl: 'https://8lt24tr5f7.execute-api.cn-north-1.amazonaws.com.cn' },
+      america: { label: 'America', loginBaseUrl: 'https://api-beta-login.ginkgo.health', durations: [7, 365] },
+      china:   { label: 'China',   loginBaseUrl: 'https://8lt24tr5f7.execute-api.cn-north-1.amazonaws.com.cn', durations: [14, 365] },
     };
     let selectedRegion = 'america';
     function getApiBase() { return REGIONS[selectedRegion].loginBaseUrl; }
+    function getDurations() { return REGIONS[selectedRegion].durations; }
+    function durationLabel(days) { return days === 365 ? '365 Days (1 Year)' : `${days} Days`; }
+
+    // Referral-code durations differ by server (America: 7/365, China: 14/365).
+    function renderDurationOptions() {
+      const sel = document.getElementById('codeDuration');
+      sel.innerHTML = getDurations()
+        .map(d => `<option value="${d}">${durationLabel(d)}</option>`)
+        .join('');
+    }
 
     function currentLang() {
       return document.body.classList.contains('lang-zh') ? 'zh' : 'en';
@@ -653,6 +662,7 @@
       document.getElementById('signupView').classList.add('hidden');
       document.getElementById('dashboardView').classList.remove('hidden');
       document.getElementById('logoutBtn').classList.remove('hidden');
+      renderDurationOptions();
       lucide.createIcons();
     }
 
@@ -974,7 +984,7 @@
       try {
         progressEl.textContent = 'Step 1/3: Retrieving issued referral codes...';
 
-        const durations = [7, 365];
+        const durations = getDurations();
         const endpoints = [
           { path: '/admin/getIssuedFamilyReferralCodes', label: 'Family' },
           { path: '/admin/getIssuedIndividualReferralCodes', label: 'Individual' },
@@ -1846,7 +1856,7 @@
     async function handleGetCodes() {
       const type = document.getElementById('codeType').value;
       const count = parseInt(document.getElementById('codeCount').value) || 1;
-      const duration = parseInt(document.getElementById('codeDuration').value) || 7;
+      const duration = parseInt(document.getElementById('codeDuration').value) || getDurations()[0];
       const btn = document.getElementById('getCodesBtn');
       const resultEl = document.getElementById('generatedCodesResult');
 
@@ -1875,7 +1885,7 @@
         const data = await res.json();
         const codes = data.referralCodes || (Array.isArray(data) ? data : [data]);
         const typeLabel = type === 'family' ? 'Family' : 'Individual';
-        const durationLabel = duration === 365 ? '365 Days' : '7 Days';
+        const durationLabel = `${duration} Days`;
 
         resultEl.innerHTML = `
           <div class="bg-stone-50 rounded-xl p-4 border border-stone-200">
@@ -1922,7 +1932,7 @@
     function downloadCodesCSV() {
       const codes = window._lastGeneratedCodes;
       const type = window._lastGeneratedType;
-      const duration = window._lastGeneratedDuration || '7 Days';
+      const duration = window._lastGeneratedDuration || `${getDurations()[0]} Days`;
       if (!codes || codes.length === 0) return;
 
       const rows = [['#', 'Referral Code', 'Type', 'Duration']];
